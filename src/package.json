@@ -1,0 +1,22 @@
+{
+    "name": "nodejs_mvc_app",
+    "version": "1.0.0",
+    "description": "Node.js on Docker",
+    "author": "First Last <first.last@example.com>",
+    "main": "app.js",
+    "scripts": {
+        "start": "node app.js | pino-pretty > logs/app.log",
+        "devel": "nodemon app.js | pino-pretty"
+    },
+    "dependencies": {
+        "dotenv": "^16.0.0",
+        "express": "^4.16.1",
+        "express-session": "^1.17.2",
+        "mongoose": "^6.2.9",
+        "nodemon": "^2.0.15",
+        "nunjucks": "^3.2.3",
+        "pino-http": "^6.6.0",
+        "pino-pretty": "^7.6.0",
+        "serve-favicon": "^2.5.0"
+    }
+}

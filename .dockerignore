@@ -1,0 +1,5 @@
+.git
+src/logs
+src/node_modules
+src/.env
+src/.gitignore

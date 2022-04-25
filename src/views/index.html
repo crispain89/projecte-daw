@@ -1,0 +1,16 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+<p>Number of visits: {{ counter }}</p>
+
+<p><a href="https://nodejs.org/">Node.js</a> app using following packages:</p>
+<ul>
+  {% for package,version in packages %}
+  <li><a href="https://www.npmjs.com/package/{{ package }}">{{ package }}</a></li>
+  {% endfor %}
+</ul>
+
+<p>Routing (web and api) and MVC pattern inspired by <a href="https://laravel.com/">Laravel framework</a>.</p> 
+<p><a href="https://www.mongodb.com/">MongoDB</a> NoSQL database.</p>
+
+{% endblock %}
