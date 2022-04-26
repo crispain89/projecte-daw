@@ -5,18 +5,26 @@
     "author": "First Last <first.last@example.com>",
     "main": "app.js",
     "scripts": {
-        "start": "node app.js | pino-pretty > logs/app.log",
-        "devel": "nodemon app.js | pino-pretty"
+        "start": "nodemon app.js",
+        "devel": "nodemon app.js | pino-pretty",
+        "test": "jest --watch"
+    },
+    "jest":{
+        "testEnvironment":"node"
     },
     "dependencies": {
+        "cors": "^2.8.5",
         "dotenv": "^16.0.0",
         "express": "^4.16.1",
         "express-session": "^1.17.2",
-        "mongoose": "^6.2.9",
+        "jest": "^28.0.1",
+        "mysql": "^2.18.1",
+        "mysql2": "^2.3.3",
         "nodemon": "^2.0.15",
-        "nunjucks": "^3.2.3",
         "pino-http": "^6.6.0",
         "pino-pretty": "^7.6.0",
-        "serve-favicon": "^2.5.0"
+        "sequelize": "^6.19.0",
+        "serve-favicon": "^2.5.0",
+        "supertest": "^6.2.2"
     }
 }

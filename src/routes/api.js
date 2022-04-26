@@ -16,7 +16,7 @@ router.apiResource = function(resource,controller) {
 }
 
 // CRUD products
-const VisitCtrl = require('../controllers/visit.js')
-router.apiResource('visits', VisitCtrl)
+const UsuarioCtrl = require('../controllers/usuario.js')
+router.apiResource('usuarios', UsuarioCtrl)
 
 module.exports = router
