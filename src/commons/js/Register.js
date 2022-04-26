@@ -48,7 +48,7 @@ export function Register() {
           <Row className="mb-3">
             <Form.Group
               as={Col}
-              md="4"
+              md="1"
               controlId="validationFormik101"
               className="position-relative"
             >
@@ -64,7 +64,7 @@ export function Register() {
             </Form.Group>
             <Form.Group
               as={Col}
-              md="4"
+              md="2"
               controlId="validationFormik102"
               className="position-relative"
             >
@@ -79,7 +79,7 @@ export function Register() {
 
               <Form.Control.Feedback tooltip>Correcto</Form.Control.Feedback>
             </Form.Group>
-            <Form.Group as={Col} md="4" controlId="validationFormikUsername2">
+            <Form.Group as={Col} md="1" controlId="validationFormikUsername2">
               <Form.Label>Usuario</Form.Label>
               <InputGroup hasValidation>
                 <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
@@ -101,7 +101,7 @@ export function Register() {
           <Row className="mb-3">
             <Form.Group
               as={Col}
-              md="6"
+              md="1"
               controlId="validationFormik103"
               className="position-relative"
             >
@@ -121,7 +121,7 @@ export function Register() {
             </Form.Group>
             <Form.Group
               as={Col}
-              md="3"
+              md="1"
               controlId="validationFormik104"
               className="position-relative"
             >
@@ -138,9 +138,10 @@ export function Register() {
                 {errors.state}
               </Form.Control.Feedback>
             </Form.Group>
+            
             <Form.Group
               as={Col}
-              md="3"
+              md="1"
               controlId="validationFormik105"
               className="position-relative"
             >
@@ -159,7 +160,7 @@ export function Register() {
               </Form.Control.Feedback>
             </Form.Group>
           </Row>
-          <Form.Group className="position-relative mb-3">
+          <Form.Group className="position-relative mb-1">
             <Form.Label>Archivo</Form.Label>
             <Form.Control
               type="file"
