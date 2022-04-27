@@ -10,13 +10,17 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     },
     email: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      validate:{
+        isEmail: true
+      }
     },
     fecha_nacimiento: {
-      type: Sequelize.STRING
+      type: Sequelize.DATEONLY
     },
     dni: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      unique: true
     },
     rol_id: {
       type: Sequelize.INTEGER

@@ -15,22 +15,13 @@ exports.index = async (req, res) => {
   }
 };
 exports.store = async (req, res) => {
-  console.log(req.body)
-  const mockData = {
-    nombre:"prueba",
-    apellidos:"pruebaApellido",
-    contraseña:"prueba",
-    email:"prueba@gmail.com",
-    fecha_nacimiento:"26/2/4",
-    dni:"14124C",
-    rol_id:1,
-    avatar_id:1
-  }
-  const newUser = req.body || mockData
   try {
-    const usuario = await Usuario.create(newUser);
-    res.send(usuario);
+    const usuario = Usuario.build(req.body);
+    /* probar en poner MockData.JSON */
+    usuario.save();
+    res.send(usuario)
   } catch (error) {
+    console.log("error",error)
     res.sendStatus(500).send({
       message:
         error.message || "No se ha podido crear el usuario, revisa los datos introducidos"
