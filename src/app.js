@@ -4,6 +4,10 @@ const cors = require("cors");
 
 const app = express();
 
+const cookieSession = require("cookie-session");
+
+const { verifySignUp } = require("./middlewares");
+const controller = require("./controllers/auth");
 var corsOptions = {
   origin: "http://localhost:8081"
 };
@@ -18,12 +22,31 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to cram application." });
 });
 
+//Set up cookie
+app.use(
+  cookieSession({
+    name: "cram-session",
+    // keys: ['key1', 'key2'], 
+    secret: process.env.SECRET_COOKIE, // should use as secret environment variable
+    httpOnly: true
+  })
+);
+
 // App routes - API
 const api = require('./routes/api')
 app.use('/api', api)
 app.use('/api', express.urlencoded({extended: false}))
 app.use('/api', express.json())
 
+app.post(
+  "/api/auth/register",
+  [
+    verifySignUp.checkDuplicateUsernameOrEmail,
+  ],
+  controller.signup
+);
+app.post("/api/auth/login", controller.signin);
+app.post("/api/auth/signout", controller.signout);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

@@ -5,6 +5,7 @@ var router = express.Router()
 //Import controllers
 const UsuarioCtrl = require('../controllers/usuario.js')
 const RolCtrl = require('../controllers/rol.js')
+const AuthCtrl = require('../controllers/auth.js')
 
 // Emulate Laravel apiResource method
 router.apiResource = function(resource,controller) {
@@ -17,6 +18,10 @@ router.apiResource = function(resource,controller) {
     router.put(uriRUD, controller.update || ErrorCtrl.error404)
     router.delete(uriRUD, controller.destroy || ErrorCtrl.error404)    
 }
+
+//Auth
+router.post('auth/login',AuthCtrl.signin)
+router.post('auth/register',AuthCtrl.signup)
 
 // CRUD products
 router.apiResource('usuarios', UsuarioCtrl)

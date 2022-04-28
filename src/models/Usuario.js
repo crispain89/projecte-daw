@@ -26,7 +26,7 @@ module.exports = (sequelize, Sequelize) => {
     dni: {
       type: Sequelize.STRING,
       unique: true,
-      allowNull: false,
+      allowNull: true,
     },
     rol_id: {
       type: Sequelize.INTEGER,
