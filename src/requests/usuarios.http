@@ -3,8 +3,8 @@ content-type: application/json;charset=UTF-8
 
 
 {
-    "nombre":"prueba",
-    "apellidos":"pruebaApellido",
+    "nombre":"cristina",
+    "apellidos":"aran",
     "contraseña":"prueba",
     "email":"prueba@gmail.com",
     "fecha_nacimiento":"1942/04/02",

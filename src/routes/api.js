@@ -2,6 +2,9 @@
 
 const express = require('express')
 var router = express.Router()
+//Import controllers
+const UsuarioCtrl = require('../controllers/usuario.js')
+const RolCtrl = require('../controllers/rol.js')
 
 // Emulate Laravel apiResource method
 router.apiResource = function(resource,controller) {
@@ -16,7 +19,7 @@ router.apiResource = function(resource,controller) {
 }
 
 // CRUD products
-const UsuarioCtrl = require('../controllers/usuario.js')
 router.apiResource('usuarios', UsuarioCtrl)
+router.apiResource('roles', RolCtrl)
 
 module.exports = router
