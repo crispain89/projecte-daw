@@ -2,7 +2,8 @@ module.exports = (sequelize, Sequelize) => {
   const Rol = sequelize.define("roles", {
     id:{
       type: Sequelize.INTEGER,
-      primaryKey: true
+      primaryKey: true,
+      autincrement:true
     },
     nombre: {
       type: Sequelize.STRING,
