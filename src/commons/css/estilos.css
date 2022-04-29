@@ -1,4 +1,4 @@
-*+*{
+/* *+*{
     margin:0;
     box-sizing: border-box;
 }
@@ -9,8 +9,8 @@
 
 body{
     display:flex;
-}
-.bienvenido{
+} */
+/* .bienvenido{
 font-size:2.5rem;
 display:flex;
 align-items: center;
@@ -18,10 +18,9 @@ justify-content: center;
 margin-bottom: 60px;
 margin-top: 40px;
 color: #0275d8;
-}
-.container{
+} */
+/* .container{
     width:100%;
-  
     margin:0 auto;
     display: flex;
     justify-content: center;
@@ -33,7 +32,7 @@ color: #0275d8;
     display:flex;
     justify-content:center;
 
-}
+} */
 .botones__login{
     margin:10px;
     
@@ -44,5 +43,9 @@ color: #0275d8;
     align-items: center;
     justify-content: center;
     color: #0275d8;
+
+}
+.containe__footer{
+    display: flex;
 
 }
