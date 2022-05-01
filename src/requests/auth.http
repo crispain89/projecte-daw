@@ -2,8 +2,25 @@ POST http://localhost:8080/api/auth/login HTTP/1.1
 content-type: application/json;charset=UTF-8
 
 
-{"nombre":"gonzalo","contraseña":"gonzalo1234"}
+{"nombre":"marc","contraseña":"marc1234"}
 
+###
+POST http://localhost:8080/api/auth/logout HTTP/1.1
+content-type: application/json;charset=UTF-8
+
+
+###
+POST http://localhost:8080/api/auth/register HTTP/1.1
+content-type: application/json;charset=UTF-8
+
+{
+    "nombre":"cris",
+    "contraseña":"cris1234",
+    "rep_contraseña":"cris1234",
+    "email":"marcportero01@gmail.com",
+    "rol_id":1,
+    "avatar_id":1
+}
 ###
 //GET /roles
 GET http://localhost:8080/api/roles HTTP/1.1

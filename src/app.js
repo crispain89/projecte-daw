@@ -46,7 +46,7 @@ app.post(
   auth.signup
 );
 app.post("/api/auth/login", auth.signin);
-app.post("/api/auth/signout", auth.signout);
+app.post("/api/auth/logout", auth.signout);
 
 app.get('/confirmation/:email/:token',auth.confirmEmail)
 app.get('/resend/:email/:token',auth.resendLink)
