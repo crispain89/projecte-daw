@@ -19,8 +19,9 @@ export function Login({setMostrar, ver}) {
 
 
 
+
+
   return (
-   
         <Form className="justify-content-center ">
             <h3 className="componente__titulo" >Login</h3>
             <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -52,8 +53,7 @@ export function Login({setMostrar, ver}) {
             <Button className="botones__login" onClick={()=>setMostrar(!ver)} variant="primary">
                 Registrate
             </Button>
-        </Form>
-            
+        </Form>      
   )
 }
 
