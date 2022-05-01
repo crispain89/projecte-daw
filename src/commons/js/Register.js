@@ -34,6 +34,8 @@ export function Register({setMostrar,ver}) {
         validationSchema={schema}
         onSubmit={console.log}
         initialValues={{
+
+
           firstName: 'Otto',
           lastName: 'Barrous',
           username: '',
@@ -47,8 +49,7 @@ export function Register({setMostrar,ver}) {
           phone:'',
           file: null,
           terms: false,
-        }}
-      >
+        }}>
         {({
           handleSubmit,
           handleChange,
@@ -98,7 +99,7 @@ export function Register({setMostrar,ver}) {
               {/* EMAIL */}
             <Row >
               <Form.Group as={Col} controlId="validationFormikUsername2">
-                <Form.Label>email</Form.Label>
+                <Form.Label required >email </Form.Label>
                 <InputGroup hasValidation>
     
                   <Form.Control

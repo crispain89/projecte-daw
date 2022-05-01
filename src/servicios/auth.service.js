@@ -1,16 +1,18 @@
-import httpConfig from "../commons/js/httpConfig";
+import httpC from "../commons/js/httpConfig";
 
 
-class AuthService{
-    signup(data){
-        return http.post("/auth/register", data);
+export default class AuthService{
+
+    static signup(data){
+        return httpC.post("/auth/register", data);
     }
-    signin(data){
-        return http.post("/auth/login", data);
+    static async signin(data){
+        console.log(httpC)
+        console.log("data",data)
+        return await httpC.post("/auth/login", data);
     }
-    signout(){
-
+    static signout(){
         /* tien que enrutar el logout */
-        return http.get("/auth/logout")
+        return httpC.post("/auth/logout")
     }
 }

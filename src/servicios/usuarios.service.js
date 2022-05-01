@@ -1,4 +1,4 @@
-import httpConfig from "../commons/js/httpConfig";
+import http from "../commons/js/httpConfig";
 
 
 class UsuariosService{
