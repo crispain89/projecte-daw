@@ -9,6 +9,8 @@ import logo from './logo.svg';
 import {Login} from './commons/js/Login'
 import {Register} from './commons/js/Register'
 import {Button, Row, Col, Modal} from 'react-bootstrap'
+import {Routes, Route, Link} from 'react-router-dom'
+
 
 
 mapboxgl.accessToken = "pk.eyJ1IjoiY2lzcGFpbjg5IiwiYSI6ImNsMmo4ZmxtbjBjem0zY3MzNG41em80MDkifQ.n3GnK0soJwz763xqSPVdoQ";
@@ -57,6 +59,10 @@ useEffect(() => {
       </div>
       }
 
+
+
+      {/* /////////////////////////////////////////////////////////////////////// */}
+        {/* Si estas Autenticado aqui vendrán las páginas que se puedan acceder */}
         <Modal show={showModal} backdrop="static" fullscreen >
           <Modal.Header>
           <Modal.Title>Nuestra Ubicaciónn</Modal.Title>
