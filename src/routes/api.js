@@ -20,7 +20,7 @@ router.apiResource = function(resource,controller) {
 }
 
 //Auth
-router.post('auth/login',AuthCtrl.signin)
+//router.post('auth/login',AuthCtrl.signin)
 router.post('auth/register',AuthCtrl.signup)
 
 // CRUD products

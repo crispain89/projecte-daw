@@ -77,7 +77,7 @@ exports.signin = async (req, res) => {
   try {
     const usuario = await User.findOne({
       where: {
-        nombre: req.body.nombre,
+        email: req.body.email,
       },
     });
     if (!usuario) {
