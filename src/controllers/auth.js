@@ -54,14 +54,14 @@ exports.signup = async (req, res) => {
         // usuario has rol = 1
         rol = 1;
     }
-    const passwordIsValid = req.body.contraseña===req.body.rep_contraseña
+    const passwordIsValid = req.body.password===req.body.rep_password
     if( !passwordIsValid ){
       throw new Error("Passwords are not the same")
     }
     const usuario = await User.create({
         nombre: req.body.nombre,
         email: req.body.email,
-        contraseña: bcrypt.hashSync(req.body.contraseña, 8),
+        password: bcrypt.hashSync(req.body.password, 8),
         avatar_id: 1,
         rol_id: rol,
         token_activado:0
@@ -84,8 +84,8 @@ exports.signin = async (req, res) => {
       return res.status(404).send({ message: "User Not found." });
     }
     const passwordIsValid = bcrypt.compareSync(
-      req.body.contraseña,
-      usuario.contraseña
+      req.body.password,
+      usuario.password
     );
     if (!passwordIsValid) {
       return res.status(401).send({

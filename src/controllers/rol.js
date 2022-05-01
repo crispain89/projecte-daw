@@ -63,7 +63,7 @@ exports.destroy = async (req, res) => {
   const mockData = {
     nombre:"prueba2",
     apellidos:"pruebaApellido2",
-    contraseña:"prueba2",
+    password:"prueba2",
   }
   try {
     const id = req.params.id;
