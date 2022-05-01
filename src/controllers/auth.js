@@ -30,8 +30,7 @@ async function sendVerificationMail(req,res,usuario,token){
   };
   smtpTransport.sendMail(mailOptions, function (err) {
     if (err) { 
-      throw new Error(err)
-      //return res.status(500).send({msg:'Technical Issue!, Please click on resend for verify your Email.'});
+      return res.status(500).send({msg:'Technical Issue!, Please click on resend for verify your Email.'});
     }
     return res.status(200).send('A verification email has been sent to ' + usuario.email + '. It will be expire after one day. If you not get verification Email click on resend token.');
   });
@@ -56,18 +55,23 @@ exports.signup = async (req, res) => {
     }
     const passwordIsValid = req.body.password===req.body.rep_password
     if( !passwordIsValid ){
-      throw new Error("Passwords are not the same")
+      res.status(403).send({message: "Passwords are not the same"})
     }
     const usuario = await User.create({
         nombre: req.body.nombre,
+        apellidos: req.body.apellidos ?? null,
+        localidad: req.body.localidad ?? null,
+        fecha_nacimiento: req.body.fecha_nacimiento ?? null,
+        dni: req.body.dni ?? null,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 8),
         avatar_id: 1,
         rol_id: rol,
         token_activado:0
     });
+    if ( !usuario ) throw new Error("No se ha podido crear el usuario")
     let tokenObject = await generateToken(usuario)
-    await sendVerificationMail(req,usuario,tokenObject)
+    await sendVerificationMail(req,res,usuario,tokenObject)
     if (usuario) res.send({ message: "User registered successfully!" });
   } catch (error) {
     res.status(500).send({ message: error.message });
@@ -108,6 +112,13 @@ exports.signin = async (req, res) => {
       id: usuario.id,
       nombre: usuario.nombre,
       email: usuario.email,
+      rol: usuario.rol,
+      apellidos: usuario.apellidos ?? null,
+      localidad: usuario.localidad ?? null,
+      fecha_nacimiento: usuario.fecha_nacimiento ?? null,
+      dni: usuario.dni ?? null,
+      avatar_id: usuario.avatar_id ?? null,
+      token_activado: usuario.token_activado ?? null
       //roles: authorities,
     });
   } catch (error) {

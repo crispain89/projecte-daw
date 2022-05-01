@@ -3,17 +3,6 @@ const db = require("../models");
 const Usuario = db.usuario;
 checkDuplicateUsernameOrEmail = async (req, res, next) => {
   try {
-    // Username
-    let usuario = await Usuario.findOne({
-      where: {
-        nombre: req.body.nombre
-      }
-    });
-    if (usuario) {
-      return res.status(400).send({
-        message: "Failed! Username is already in use!"
-      });
-    }
     // Email
     usuario = await Usuario.findOne({
       where: {
