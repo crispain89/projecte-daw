@@ -1,22 +1,21 @@
-import React, { useState ,useRef,useEffect } from 'react';
+import React, { useState ,useRef,useEffect , createContext,useContext} from 'react';
 import './commons/css/estilosGrid.css'
 import './App.css';
 import mapboxgl from 'mapbox-gl';
 /* import 'mapbox-gl/dist/mapbox-gl.css'; */
 import PiePagina from './commons/js/PiePagina'
-import {Modale} from './commons/js/Modal'
-import logo from './logo.svg';
 import {Login} from './commons/js/Login'
 import {Register} from './commons/js/Register'
-import {Button, Row, Col, Modal} from 'react-bootstrap'
-import {Routes, Route, Link} from 'react-router-dom'
+import {Button, Modal} from 'react-bootstrap'
+import {BrowserRouter as Router, Route, Routes ,Link} from 'react-router-dom'
+import { UserContext } from './UserContext';
 
 
 
 mapboxgl.accessToken = "pk.eyJ1IjoiY2lzcGFpbjg5IiwiYSI6ImNsMmo4ZmxtbjBjem0zY3MzNG41em80MDkifQ.n3GnK0soJwz763xqSPVdoQ";
 function App() {
 
-const  [mostrar , setMostrar] = useState (false);
+const [user, setUser]=useState({id:null, email:null})
 const [showModal, setShowModal] = useState (false);
 
 const mapContainer = useRef(null);
@@ -44,53 +43,54 @@ useEffect(() => {
 
 
   return (
-    <div className="container__principal">
-      <header>
-        <h1 className="bienvenido">Bienvenidos a Cram</h1>
-      </header>
-      
-      { mostrar ?
-      <div className="container">
-       <Register setMostrar={setMostrar} ver={mostrar}/> 
-       </div>
-       :
-      <div className="container__login">
-        <Login setMostrar={setMostrar} ver={mostrar}/>
-      </div>
-      }
+    <Router>
+      <UserContext.Provider value={{user, setUser}}>
+      <div className="container__principal">
+        <header>
+          <h1 className="bienvenido">Bienvenidos a Cram</h1>
+        </header>
+        <Routes>
+          <Route path='/register' element={<Register/>}/>
+          <Route path='/' element={<Login/>}/>
+          {/* Ruta del Login */}
+          <Route path='/login' element={<Login/>}/>
+          
+        </Routes>
+        
 
 
 
-      {/* /////////////////////////////////////////////////////////////////////// */}
-        {/* Si estas Autenticado aqui vendrán las páginas que se puedan acceder */}
+        {/* /////////////////////////////////////////////////////////////////////// */}
+          {/* Si estas Autenticado aqui vendrán las páginas que se puedan acceder */}
         <Modal show={showModal} backdrop="static" fullscreen >
-          <Modal.Header>
-          <Modal.Title>Nuestra Ubicaciónn</Modal.Title>
-          </Modal.Header>
+            <Modal.Header>
+            <Modal.Title>Nuestra Ubicaciónn</Modal.Title>
+            </Modal.Header>
 
-          <Modal.Body>
-            <div className="fullwidth">
-              <div ref={mapContainer} className="map__container" />
-            </div>
-          </Modal.Body>
+            <Modal.Body>
+              <div className="fullwidth">
+                <div ref={mapContainer} className="map__container" />
+              </div>
+            </Modal.Body>
 
-          <Modal.Footer>
-          <Button variant="secondary" onClick={()=>handleToggleModal()}>Cerrar</Button>
+            <Modal.Footer>
+            <Button variant="secondary" onClick={()=>handleToggleModal()}>Cerrar</Button>
 
-          </Modal.Footer>
-      </Modal>
+            </Modal.Footer>
+        </Modal>
 
 
-      {/* <Modale container={mapContainer} accio={handleToggleModal}/> */}
+        {/* <Modale container={mapContainer} accio={handleToggleModal}/> */}
 
-      <PiePagina accio={handleToggleModal}/>
-     {/*  {mostrar ? <Button variant='outline-primary' onClick={()=>setMostrar(false)} name='Login'>Login</Button> 
-      : 
-      <Button className='boton__auxiliar' variant='outline-primary' onClick={()=>setMostrar(true)} name='Registrate'>Registrate</Button>} */}
-     
+        <PiePagina accio={handleToggleModal}/>
+        {/*  {mostrar ? <Button variant='outline-primary' onClick={()=>setMostrar(false)} name='Login'>Login</Button> 
+        : 
+        <Button className='boton__auxiliar' variant='outline-primary' onClick={()=>setMostrar(true)} name='Registrate'>Registrate</Button>} */}
       
-    </div>
-   
+        
+      </div>
+      </UserContext.Provider>
+    </Router>
   )
 }
 

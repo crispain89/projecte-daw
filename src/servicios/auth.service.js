@@ -4,6 +4,7 @@ import httpC from "../commons/js/httpConfig";
 export default class AuthService{
 
     static signup(data){
+        console.log(data)
         return httpC.post("/auth/register", data);
     }
     static async signin(data){

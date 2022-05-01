@@ -1,8 +1,10 @@
-import React , {useState, useEffect}from 'react'
+import React , {useState, useEffect, useContext}from 'react'
+import '../css/estilosGrid.css'
 import {Form, Button} from 'react-bootstrap'
-import * as yup from "yup"
-import {Formik} from 'formik'
 import AuthService from '../../servicios/auth.service'
+import { useNavigate } from 'react-router-dom'
+import { UserContext } from '../../UserContext'
+
 
 /* hacer la conexion a la API */
 /* hacer useState para guardar los datos del usuario */
@@ -11,25 +13,50 @@ import AuthService from '../../servicios/auth.service'
 
 /* VALIDACION DEL LOGIN */
 
-export function Login({setMostrar, ver}) {
+export function Login() {
+    let navigate = useNavigate();
+    const {user, setUser}= useContext(UserContext)
+
+    const HandleRedirect=()=>{
+        navigate("/register",{replace:true})
+    }
 
 /* Estado para el usuario */
 
 
-const [form , setForm]= useState({ email:"", contraseña:""})
+const [form , setForm]= useState({ email:"", password:""})
 
 useEffect(()=>{
-    console.log(form);
-},[form])
+    console.log(user);
+    if(user.id!==null){
+        navigate("/register", {replace:true})
+    }
+
+},[])
 
 
-const handleSubmit=(e)=>{
+const handleSubmit= async(e)=>{
     e.preventDefault();
-    AuthService.signin(form)
+    let login=null;
+    try{
+    login = await AuthService.signin(form)
+    console.log(login)
+    if(login.status===200){
+        console.log("ok", login.status)
+        const {email,id}=login.data
+        setUser({email, id})
+        navigate("/register", {replace:true})
+        
+        /* pasarle al Context el usuario  */
+    }
+    }catch(e){
+        console.log(e)
+    }
 }
 
   return (
-        <Form className="justify-content-center " onSubmit={handleSubmit}>
+      <div className="container__login">
+        <Form className="justify-content-center "  onSubmit={handleSubmit}>
             <h3 className="componente__titulo" >Login</h3>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Dirección de email</Form.Label>
@@ -46,7 +73,7 @@ const handleSubmit=(e)=>{
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Contaseña</Form.Label>
-                <Form.Control type="password" placeholder="contraseña" onChange={(e)=>setForm({...form, contraseña:e.target.value})}/>
+                <Form.Control type="password" placeholder="password" onChange={(e)=>setForm({...form, password:e.target.value})}/>
                 <Form.Text className="text-muted">
                 Mínimo 8 caracteres, una letra Mayúscula y un número
                 </Form.Text>
@@ -57,10 +84,11 @@ const handleSubmit=(e)=>{
             <Button className="botones__login" variant="primary" type="submit">
                 Login
             </Button>
-            <Button className="botones__login" onClick={()=>setMostrar(!ver)} variant="primary">
+            <Button className="botones__login" onClick={()=>HandleRedirect()} variant="primary">
                 Registrate
             </Button>
-        </Form>      
+        </Form>  
+        </div>    
   )
 }
 

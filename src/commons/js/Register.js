@@ -1,55 +1,76 @@
-import React from 'react'
-import Feedback from 'react-bootstrap/Feedback'
+import React,{useState, useContext} from 'react'
+
+import '../css/estilosGrid.css'
 import * as yup from "yup"
 import {Form, Button, Row, Col, InputGroup} from 'react-bootstrap'
 import { Formik } from 'formik';
 import YupPassword from 'yup-password'
+import AuthService from '../../servicios/auth.service'
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../UserContext';
 YupPassword(yup)
 
 
 /* no son integers son NUMBER */
 const schema = yup.object().shape({
-  firstName: yup.string(20).required(),
-  lastName: yup.string(50).required(),
+  nombre: yup.string(20).required(),
+  apellidos: yup.string(50).required(),
   email: yup.string().email().max(255).required(),
-  passwordP: yup.string().password().required('Tienes que poner una contraseña'),
+  password: yup.string().password().required('Tienes que poner una contraseña'),
 
 /* Que conincida la doble contraseña */
-  passwordConfirmation: yup.string().password().oneOf([yup.ref('passwordP'),null],'Las contaseñas tiene que coincidir.'),
+  rep_password: yup.string().password().oneOf([yup.ref('password'),null],'Las contaseñas tiene que coincidir.'),
   dni:yup.string().matches(/^(\d{8})([-]?)()[A-Z]{1}$/),
-  city: yup.string(15),
-  state: yup.string(15),
-  cp: yup.string(5),
-  phone: yup.number(9),
+  pablacion: yup.string(15),
+  provincia: yup.string(15),
+  codigo_postal: yup.string(5),
+  telefono: yup.number(9),
   file: yup.mixed(),
   terms: yup.bool().required().oneOf([true], 'tienes que aceptar los términos'),
 });
-export function Register({setMostrar,ver}) {
+export function Register() {
+  let navigate=useNavigate();
+  const user= useContext(UserContext)
+  const HandleRedirect=()=>{
+    /* cuando lo usamos le decimos donde nos queremos dirigir */
+    navigate("/login", {replace: true});
+
+  }
+  /* const [newForm, setNewForm] = useState(
+    {nombre: '', lastName:'', email:'',passwordP:'', passwordConfirmation:'',dni:'',city:'',state:'',phone:'',file:null, terms:false}) */
 
 
   return (
+  <div className='container'>
     <div class="row justify-content-center">
       <h3 className="componente__titulo" >Register</h3>
       <Formik
         validationSchema={schema}
-        onSubmit={console.log}
         initialValues={{
 
-
-          firstName: 'Otto',
-          lastName: 'Barrous',
-          username: '',
+          nombre: '',
+          apellidos: '',
           email:'',
-          passwordP: '',
-          passwordConfirmation:'',
+          password: '',
+          rep_password:'',
           dni:'',
-          city: '',
-          state: '',
-          cp:'',
-          phone:'',
+          poblacion: '',
+          provincia: '',
+          codigo_postal:'',
+          telefono:'',
           file: null,
           terms: false,
-        }}>
+        }}
+        onSubmit={async (values)=>{
+          console.log(values)
+          let registro=null;
+          try{
+            registro= await AuthService.signup(values)
+          }catch(e){
+            console.log(e)
+          }
+        }}
+        >
         {({
           handleSubmit,
           handleChange,
@@ -69,10 +90,10 @@ export function Register({setMostrar,ver}) {
                 <Form.Label>Nombre</Form.Label>
                 <Form.Control
                   type="text"
-                  name="firstName"
-                  value={values.firstName}
+                  name="nombre"
+                  value={values.nombre}
                   onChange={handleChange}
-                  isValid={touched.firstName && !errors.firstName}
+                  isValid={touched.nombre && !errors.nombre}
                 />
                 <Form.Control.Feedback tooltip>Correcto</Form.Control.Feedback>
               </Form.Group>
@@ -87,10 +108,10 @@ export function Register({setMostrar,ver}) {
                 <Form.Label>Apellidos</Form.Label>
                 <Form.Control
                   type="text"
-                  name="lastName"
-                  value={values.lastName}
+                  name="apellidos"
+                  value={values.apellidos}
                   onChange={handleChange}
-                  isValid={touched.lastName && !errors.lastName}
+                  isValid={touched.apellidos && !errors.apellidos}
                 />
 
                 <Form.Control.Feedback tooltip>Correcto</Form.Control.Feedback>
@@ -127,16 +148,16 @@ export function Register({setMostrar,ver}) {
                     type="password"
                     placeholder="Contraseña"
                     aria-describedby="inputGroupPrepend"
-                    name="passwordP"
-                    value={values.passwordP}
+                    name="password"
+                    value={values.password}
                     onChange={handleChange}
-                    isInvalid={!!errors.passwordP}
+                    isInvalid={!!errors.password}
                   />
                   <Form.Text className="text-muted">
                 
                   </Form.Text>
                   <Form.Control.Feedback type="invalid" tooltip>
-                    {errors.passwordP}
+                    {errors.password}
                   </Form.Control.Feedback>
                 </InputGroup>
               </Form.Group>
@@ -151,13 +172,13 @@ export function Register({setMostrar,ver}) {
                     type="password"
                     placeholder="Contraseña"
                     aria-describedby="inputGroupPrepend"
-                    name="passwordConfirmation"
-                    value={values.passwordConfirmation}
+                    name="rep_password"
+                    value={values.rep_password}
                     onChange={handleChange}
-                    isInvalid={!!errors.passwordConfirmation}
+                    isInvalid={!!errors.rep_password}
                   />
                   <Form.Control.Feedback type="invalid" tooltip>
-                    {errors.passwordConfirmation}
+                    {errors.rep_password}
                   </Form.Control.Feedback>
                 </InputGroup>
               </Form.Group>
@@ -194,14 +215,14 @@ export function Register({setMostrar,ver}) {
                 <Form.Control
                   type="text"
                   placeholder="Ciudad"
-                  name="city"
-                  value={values.city}
+                  name="poblacion"
+                  value={values.poblacion}
                   onChange={handleChange}
-                  isInvalid={!!errors.city}
+                  isInvalid={!!errors.poblacion}
                 />
 
                 <Form.Control.Feedback type="invalid" tooltip>
-                  {errors.city}
+                  {errors.poblacion}
                 </Form.Control.Feedback>
               </Form.Group>
             </Row>
@@ -215,14 +236,14 @@ export function Register({setMostrar,ver}) {
                 <Form.Control
                   type="text"
                   placeholder="611111111"
-                  name="phone"
-                  value={values.phone}
+                  name="telefono"
+                  value={values.telefono}
                   onChange={handleChange}
-                  isInvalid={!!errors.phone}
+                  isInvalid={!!errors.telefono}
                 />
 
                 <Form.Control.Feedback type="invalid" tooltip>
-                  {errors.phone}
+                  {errors.telefono}
                 </Form.Control.Feedback>
               </Form.Group>
             </Row>
@@ -239,13 +260,13 @@ export function Register({setMostrar,ver}) {
                 <Form.Control
                   type="text"
                   placeholder="Provincia"
-                  name="state"
-                  value={values.state}
+                  name="provincia"
+                  value={values.provincia}
                   onChange={handleChange}
-                  isInvalid={!!errors.state}
+                  isInvalid={!!errors.provincia}
                 />
                 <Form.Control.Feedback type="invalid" tooltip>
-                  {errors.state}
+                  {errors.provincia}
                 </Form.Control.Feedback>
               </Form.Group>
             </Row>
@@ -259,14 +280,14 @@ export function Register({setMostrar,ver}) {
                 <Form.Control
                   type="text"
                   placeholder="Código Postal"
-                  name="cp"
-                  value={values.cp}
+                  name="codigo_postal"
+                  value={values.codigo_postal}
                   onChange={handleChange}
-                  isInvalid={!!errors.cp}
+                  isInvalid={!!errors.codigo_postal}
                 />
 
                 <Form.Control.Feedback type="invalid" tooltip>
-                  {errors.cp}
+                  {errors.codigo_postal}
                 </Form.Control.Feedback>
               </Form.Group>
             </Row>
@@ -299,10 +320,11 @@ export function Register({setMostrar,ver}) {
               />
             </Form.Group>
             <Button className="botones__login" type="submit">Registrate</Button>
-            <Button className="botones__login" onClick={()=>setMostrar(!ver)} >Login</Button>
+            <Button className="botones__login" onClick={()=>HandleRedirect()} >Login</Button>
           </Form>
         )}
       </Formik>
     </div>
+  </div>
   );
 }
