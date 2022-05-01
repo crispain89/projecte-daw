@@ -40,6 +40,9 @@ module.exports = (sequelize, Sequelize) => {
     avatar_id: {
       type: Sequelize.INTEGER,
       allowNull: false,
+    },
+    token_activado:{
+      type: Sequelize.BOOLEAN,
     }
   },{
     timestamps: false

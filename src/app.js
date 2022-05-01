@@ -7,7 +7,7 @@ const app = express();
 const cookieSession = require("cookie-session");
 
 const { verifySignUp } = require("./middlewares");
-const controller = require("./controllers/auth");
+const auth = require("./controllers/auth");
 var corsOptions = {
   origin: "http://localhost:8081"
 };
@@ -43,10 +43,13 @@ app.post(
   [
     verifySignUp.checkDuplicateUsernameOrEmail,
   ],
-  controller.signup
+  auth.signup
 );
-app.post("/api/auth/login", controller.signin);
-app.post("/api/auth/signout", controller.signout);
+app.post("/api/auth/login", auth.signin);
+app.post("/api/auth/signout", auth.signout);
+
+app.get('/confirmation/:email/:token',auth.confirmEmail)
+app.get('/resend/:email/:token',auth.resendLink)
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
