@@ -12,28 +12,28 @@ const Op = db.Sequelize.Op;
 async function generateToken(usuario){
   // generate token and save
   var token = await Token.create({ token: crypto.randomBytes(16).toString('hex'), usuario_id: usuario.id, fecha_expiracion: Date.now() + 3600});
-  console.log(token)
+  console.log("token",token.token)
   if (!token){
     throw new Error("El token no se pudo crear correctamente...")
   }
   return token
 }
 
-function sendVerificationMail(req,usuario){
+async function sendVerificationMail(req,res,usuario,token){
   // Send email (use credintials of SendGrid)
-  let tokenObject = generateToken(usuario)
+  if ( !usuario ) throw new Error("QUe usuario ni que usuario")
   var mailOptions = { 
     from: 'macape@fp.insjoaquimmir.cat', 
     to: usuario.email, 
     subject: 'Account Verification Link',
-    text: 'Hello '+ req.body.nombre +',\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/confirmation\/' + usuario.email + '\/' + tokenObject.token + '\n\nThank You!\n' 
+    text: 'Hello '+ usuario.nombre +',\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/confirmation\/' + usuario.email + '\/' + token.token + '\n\nThank You!\n' 
   };
   smtpTransport.sendMail(mailOptions, function (err) {
     if (err) { 
       throw new Error(err)
       //return res.status(500).send({msg:'Technical Issue!, Please click on resend for verify your Email.'});
     }
-    //return res.status(200).send('A verification email has been sent to ' + usuario.email + '. It will be expire after one day. If you not get verification Email click on resend token.');
+    return res.status(200).send('A verification email has been sent to ' + usuario.email + '. It will be expire after one day. If you not get verification Email click on resend token.');
   });
 }
 
@@ -66,8 +66,8 @@ exports.signup = async (req, res) => {
         rol_id: rol,
         token_activado:0
     });
-    sendVerificationMail(req,usuario)
-    console.log("USUARIO",usuario)
+    let tokenObject = await generateToken(usuario)
+    await sendVerificationMail(req,usuario,tokenObject)
     if (usuario) res.send({ message: "User registered successfully!" });
   } catch (error) {
     res.status(500).send({ message: error.message });
@@ -124,3 +124,60 @@ exports.signout = async (req, res) => {
     this.next(err);
   }
 };
+exports.confirmEmail = async (req, res) => {
+    const token = await Token.findOne({ where: { token: req.params.token } })
+    // token is not found into database i.e. token may have expired 
+    if (!token) {
+        return res.status(400).send({ msg: 'Your verification link may have expired. Please click on resend for verify your Email.' });
+    }
+    // if token is found then check valid user 
+    else {
+        const user = await User.findByPk(token.usuario_id)
+        // not valid user
+        console.log("USER ",user)
+        if (!user) {
+            return res.status(401).send({ msg: 'We were unable to find a user for this verification. Please SignUp!' });
+        }
+        // user is already verified
+        else if (user.token_activado) {
+            return res.status(200).send('User has been already verified. Please Login');
+        }
+        // verify user
+        else {
+            // change isVerified to true
+            // destroy verification token ?
+            try{
+                //await token.destroy()
+                await user.update( 
+                    {token_activado:1}
+                )
+                return res.status(200).send('Your account has been successfully verified');
+            }
+            catch(e){
+                return res.status(500).send({ message: e.message });
+            }
+        }
+    }
+}
+
+exports.resendLink = async (req, res, next) => {
+    const user = await User.findOne({where: {email: req.params.email }})
+    // user is not found into database
+    if (!user){
+        return res.status(400).send({msg:'We were unable to find a user with that email. Make sure your Email is correct!'});
+    }
+    // user has been already verified
+    else if (user.token_activado){
+        return res.status(200).send('This account has been already verified. Please log in.');
+    } 
+    // send verification link
+    // generate token and save
+    try{
+        // Send email (use credintials of SendGrid)
+        let tokenObject = await generateToken(user)
+        await sendVerificationMail(req,res,user,tokenObject)
+    }
+    catch(e){
+        return res.status(500).send({msg:e.message});
+    }
+}
