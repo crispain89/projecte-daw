@@ -22,6 +22,7 @@ async function generateToken(usuario){
 async function sendVerificationMail(req,res,usuario,token){
   // Send email (use credintials of SendGrid)
   if ( !usuario ) throw new Error("QUe usuario ni que usuario")
+  console.log("TOKEN",token)
   var mailOptions = { 
     from: 'macape@fp.insjoaquimmir.cat', 
     to: usuario.email, 
@@ -67,7 +68,7 @@ exports.signup = async (req, res) => {
         token_activado:0
     });
     let tokenObject = await generateToken(usuario)
-    await sendVerificationMail(req,usuario,tokenObject)
+    await sendVerificationMail(req,res,usuario,tokenObject)
     if (usuario) res.send({ message: "User registered successfully!" });
   } catch (error) {
     res.status(500).send({ message: error.message });
