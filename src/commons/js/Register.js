@@ -321,6 +321,7 @@ export function Register() {
             </Form.Group>
             <Button className="botones__login" type="submit">Registrate</Button>
             <Button className="botones__login" onClick={()=>HandleRedirect()} >Login</Button>
+            
           </Form>
         )}
       </Formik>

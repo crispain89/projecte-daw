@@ -87,6 +87,7 @@ const handleSubmit= async(e)=>{
             <Button className="botones__login" onClick={()=>HandleRedirect()} variant="primary">
                 Registrate
             </Button>
+            <a className='style__forgot'><span>¿Has olvidado la contraseña?</span></a>
         </Form>  
         </div>    
   )
