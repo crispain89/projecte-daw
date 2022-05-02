@@ -8,7 +8,7 @@ exports.index = async (req, res) => {
     const usuarios = await Usuario.findAll();
     res.send(usuarios);
   } catch (error) {
-    res.sendStatus(500).send({
+    res.status(500).send({
       message:
         error.message || "No hemos podido listar los usuarios"
     });
@@ -22,7 +22,7 @@ exports.store = async (req, res) => {
     res.send(usuario)
   } catch (error) {
     console.log("error",error)
-    res.sendStatus(500).send({
+    res.status(500).send({
       message:
         error.message || "No se ha podido crear el usuario, revisa los datos introducidos"
     });
@@ -35,7 +35,7 @@ exports.show = async (req, res) => {
     const usuario = await Usuario.findByPk(id);
     res.send(usuario);
   } catch (error) {
-    res.sendStatus(404).send({
+    res.satus(404).send({
       message:
         error.message || "No hemos podido encontrar el usuario con el id seleccionado"
     });
@@ -49,9 +49,9 @@ exports.update = async (req, res) => {
       where : {id : id}
     });
     console.log("usuario",usuario)
-    res.send("El usuario se ha actualizado correctamente");
+   /*  res.send("El usuario se ha actualizado correctamente"); */
   } catch (error) {
-    res.sendStatus(500).send({
+    res.status(500).send({
       message:
         error.message || "No hemos podido encontrar el usuario con el id seleccionado"
     });
@@ -69,9 +69,11 @@ exports.destroy = async (req, res) => {
     const usuario = await Usuario.destroy({
       where : {id : id}
     });
-    res.send("El usuario se ha eliminado correctamente");
+    res.status(200).send({
+      message: "El usuario se ha eliminado correctamente"
+    });
   } catch (error) {
-    res.sendStatus(500).send({
+    res.status(500).send({
       message:
         error.message || "No hemos podido encontrar el usuario con el id seleccionado"
     });
