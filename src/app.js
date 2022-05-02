@@ -50,6 +50,7 @@ app.post("/api/auth/logout", auth.signout);
 
 app.get('/confirmation/:email/:token',auth.confirmEmail)
 app.get('/resend/:email/:token',auth.resendLink)
+app.post('/forgot',auth.forgotEmail)
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

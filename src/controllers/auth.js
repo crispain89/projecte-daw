@@ -19,22 +19,38 @@ async function generateToken(usuario){
   return token
 }
 
-async function sendVerificationMail(req,res,usuario,token){
+async function sendVerificationMail(req,res,usuario,token,type="account"){
   // Send email (use credintials of SendGrid)
   if ( !usuario ) throw new Error("QUe usuario ni que usuario")
   console.log("TOKEN",token)
-  var mailOptions = { 
-    from: 'macape@fp.insjoaquimmir.cat', 
-    to: usuario.email, 
-    subject: 'Account Verification Link',
-    text: 'Hello '+ usuario.nombre +',\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/confirmation\/' + usuario.email + '\/' + token.token + '\n\nThank You!\n' 
-  };
-  smtpTransport.sendMail(mailOptions, function (err) {
-    if (err) { 
-      return res.status(500).send({msg:'Technical Issue!, Please click on resend for verify your Email.'});
-    }
-    return res.status(200).send('A verification email has been sent to ' + usuario.email + '. It will be expire after one day. If you not get verification Email click on resend token.');
-  });
+  if ( type==="account" ){
+    var mailOptions = { 
+      from: 'cram.testing@gmail.com', 
+      to: usuario.email, 
+      subject: 'Account Verification Link',
+      text: 'Hello '+ usuario.nombre +',\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/confirmation\/' + usuario.email + '\/' + token.token + '\n\nThank You!\n' 
+    };
+    smtpTransport.sendMail(mailOptions, function (err) {
+      if (err) { 
+        return res.status(500).send({msg:'Technical Issue!, Please click on resend for verify your Email.'});
+      }
+      return res.status(200).send('A verification email has been sent to ' + usuario.email + '. It will be expire after one day. If you not get verification Email click on resend token.');
+    });
+  }
+  if ( type==="forgot" ){
+    var mailOptions = { 
+      from: 'cram.testing@gmail.com', 
+      to: usuario.email, 
+      subject: 'Password reset link',
+      text: 'Hello '+ usuario.nombre +',\n\n' + 'Please reset your password by clicking the link: \nhttp:\/\/' + req.headers.host + '\/forgot\/' + usuario.id + '\/' + token.token + '\n\nThank You!\n' 
+    };
+    smtpTransport.sendMail(mailOptions, function (err) {
+      if (err) { 
+        return res.status(500).send({msg:'Technical Issue!, Please click on resend for resetting your password.'});
+      }
+      return res.status(200).send('A password reset email has been sent to ' + usuario.email + '. It will be expire after one day. If you not get verification Email click on resend token.');
+    });
+  }
 }
 
 exports.signup = async (req, res) => {
@@ -135,6 +151,23 @@ exports.signout = async (req, res) => {
   } catch (err) {
     this.next(err);
   }
+};
+exports.forgotEmail = async (req, res) => {
+  try {
+    const user = await User.findOne({where:{ email: req.body.email }});
+    if (!user)
+        return res.status(400).send("user with given email doesn't exist");
+
+    let token = await Token.findOne({where:{ usuario_id: user.id }});
+    if (!token) {
+        token = await generateToken(user)
+    }
+    await sendVerificationMail(req,res,user,token,"forgot")
+
+  } catch (e) {
+    console.log(e);
+    return res.status(500).send({ message: e.message });
+}
 };
 exports.confirmEmail = async (req, res) => {
     const token = await Token.findOne({ where: { token: req.params.token } })
