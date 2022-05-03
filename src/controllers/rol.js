@@ -9,7 +9,7 @@ exports.index = async (req, res) => {
     console.log("roles",roles)
     res.send(roles);
   } catch (error) {
-    res.sendStatus(500).send({
+    res.status(500).send({
       message:
         error.message || "No hemos podido listar los roles"
     });
@@ -23,7 +23,7 @@ exports.store = async (req, res) => {
     res.send(rol)
   } catch (error) {
     console.log("error",error)
-    res.sendStatus(500).send({
+    res.status(500).send({
       message:
         error.message || "No se ha podido crear el rol, revisa los datos introducidos"
     });
@@ -36,7 +36,7 @@ exports.show = async (req, res) => {
     const rol = await Rol.findByPk(id);
     res.send(rol);
   } catch (error) {
-    res.sendStatus(404).send({
+    res.status(404).send({
       message:
         error.message || "No hemos podido encontrar el rol con el id seleccionado"
     });
@@ -52,7 +52,7 @@ exports.update = async (req, res) => {
     console.log("rol",rol)
     res.send("El rol se ha actualizado correctamente");
   } catch (error) {
-    res.sendStatus(404).send({
+    res.status(404).send({
       message:
         error.message || "No hemos podido encontrar el rol con el id seleccionado"
     });
@@ -72,7 +72,7 @@ exports.destroy = async (req, res) => {
     });
     res.send("El rol se ha eliminado correctamente");
   } catch (error) {
-    res.sendStatus(500).send({
+    res.status(500).send({
       message:
         error.message || "No hemos podido encontrar el rol con el id seleccionado"
     });

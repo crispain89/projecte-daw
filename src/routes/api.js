@@ -6,6 +6,10 @@ var router = express.Router()
 const UsuarioCtrl = require('../controllers/usuario.js')
 const RolCtrl = require('../controllers/rol.js')
 const AuthCtrl = require('../controllers/auth.js')
+const EventCtrl = require('../controllers/evento.js')
+const ComerCtrl = require('../controllers/comercio.js')
+const DescCtrl = require('../controllers/promocion.js')
+
 
 // Emulate Laravel apiResource method
 router.apiResource = function(resource,controller) {
@@ -26,5 +30,9 @@ router.post('auth/register',AuthCtrl.signup)
 // CRUD products
 router.apiResource('usuarios', UsuarioCtrl)
 router.apiResource('roles', RolCtrl)
+router.apiResource('eventos',EventCtrl)
+router.apiResource('comercios', ComerCtrl)
+router.apiResource('promociones', DescCtrl)
+
 
 module.exports = router
