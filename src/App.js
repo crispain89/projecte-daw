@@ -9,6 +9,9 @@ import {Register} from './commons/js/Register'
 import {Button, Modal} from 'react-bootstrap'
 import {BrowserRouter as Router, Route, Routes ,Link} from 'react-router-dom'
 import { UserContext } from './UserContext';
+import ForgotPassword from './commons/js/ForgotPassword';
+import EmailVerification from './commons/js/EmailVerification';
+import ResetPassword from './commons/js/ResetPassword';
 
 
 
@@ -54,6 +57,10 @@ useEffect(() => {
           <Route path='/' element={<Login/>}/>
           {/* Ruta del Login */}
           <Route path='/login' element={<Login/>}/>
+          <Route path='/forgot' element={<ForgotPassword/>}/>
+          <Route path='/forgot/email-verification' element={<EmailVerification/>}/>
+          <Route path='/forgot/email-verification/:email' element={<EmailVerification/>}/>
+          <Route path='/forgot/password-reset' element={<ResetPassword/>}/>
           
         </Routes>
         

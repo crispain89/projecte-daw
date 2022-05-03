@@ -16,4 +16,12 @@ export default class AuthService{
         /* tien que enrutar el logout */
         return httpC.post("/auth/logout")
     }
+    static forgotPassword(data){
+        /* tien que enrutar el logout */
+        return httpC.post("/forgot",data)
+    }
+    static resend(data){
+        /* tien que enrutar el logout */
+        return httpC.post(`/resend/${data.email}`)
+    }
 }
