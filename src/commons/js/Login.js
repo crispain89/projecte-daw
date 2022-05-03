@@ -2,7 +2,7 @@ import React , {useState, useEffect, useContext}from 'react'
 import '../css/estilosGrid.css'
 import {Form, Button} from 'react-bootstrap'
 import AuthService from '../../servicios/auth.service'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { UserContext } from '../../UserContext'
 
 
@@ -87,7 +87,7 @@ const handleSubmit= async(e)=>{
             <Button className="botones__login" onClick={()=>HandleRedirect()} variant="primary">
                 Registrate
             </Button>
-            <a className='style__forgot'><span>¿Has olvidado la contraseña?</span></a>
+            <Link to="/forgot" className='style__forgot'><span>¿Has olvidado la contraseña?</span></Link>
         </Form>  
         </div>    
   )

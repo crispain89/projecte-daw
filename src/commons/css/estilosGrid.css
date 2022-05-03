@@ -3,10 +3,12 @@
     box-sizing: border-box;
 }
 #root{
-    width: 99vw;
+    width: 100vw;
     height: 100vh;
+    overflow: hidden;
 }
 .container__principal{
+    min-height: 100%;
     display:grid;
     grid-template-areas:"header header header"
     "sidebar contenido sidebar-derecha"
