@@ -8,13 +8,22 @@ const RolCtrl = require('../controllers/rol.js')
 const AuthCtrl = require('../controllers/auth.js')
 const EventCtrl = require('../controllers/evento.js')
 const ComerCtrl = require('../controllers/comercio.js')
-const DescCtrl = require('../controllers/promocion.js')
+const PromoEventCtrl = require('../controllers/promocion.js')
 
 
 // Emulate Laravel apiResource method
 router.apiResource = function(resource,controller) {
-    let uriLC  = `/${resource}`
-    let uriRUD = `/${resource}/:id`
+    let uriRUD, uriLC;
+    let url = resource.split(".")
+
+    if(url.length === 1) {
+        uriLC  = `/${url[0]}`
+        uriRUD = `/${url[0]}/:id`
+    }
+    if(url.length === 2) {
+        uriLC =`/${url[0]}/:id/${url[1]}`
+        uriRUD =`/${url[0]}/:id/${url[1]}/:nid`
+    }
     const ErrorCtrl = require('../controllers/error')
     router.get(uriLC, controller.index || ErrorCtrl.error404)
     router.post(uriLC, controller.store || ErrorCtrl.error404)
@@ -32,7 +41,10 @@ router.apiResource('usuarios', UsuarioCtrl)
 router.apiResource('roles', RolCtrl)
 router.apiResource('eventos',EventCtrl)
 router.apiResource('comercios', ComerCtrl)
-router.apiResource('promociones', DescCtrl)
+router.apiResource('comercios.promociones', PromoEventCtrl)
+router.apiResource('eventos.promociones', PromoEventCtrl)
+
+
 
 
 module.exports = router

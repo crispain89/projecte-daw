@@ -1,6 +1,6 @@
 /* Modelo */
 module.exports=(sequelize, Sequelize)=>{
-    const Promocion = sequelize.define("promocion", {
+    const Promocion = sequelize.define("promociones", {
         id:{
             type:Sequelize.INTEGER,
             primaryKey:true,

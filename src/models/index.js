@@ -19,7 +19,7 @@ db.token = require("./Token.js")(sequelize, Sequelize);
 db.rol = require("./Rol.js")(sequelize, Sequelize);
 db.evento=require("./Evento.js")(sequelize, Sequelize);
 db.comercio=require("./Comercio.js")(sequelize, Sequelize);
-db.descuento=require("./Promocion.js")(sequelize, Sequelize);
+db.promocion=require("./Promocion.js")(sequelize, Sequelize);
 
 
 module.exports = db;
