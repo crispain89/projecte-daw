@@ -8,7 +8,7 @@ const RolCtrl = require('../controllers/rol.js')
 const AuthCtrl = require('../controllers/auth.js')
 const EventCtrl = require('../controllers/evento.js')
 const ComerCtrl = require('../controllers/comercio.js')
-const PromoEventCtrl = require('../controllers/promocion.js')
+const PromoComerCtrl = require('../controllers/promo_comercio.js')
 
 
 // Emulate Laravel apiResource method
@@ -41,8 +41,8 @@ router.apiResource('usuarios', UsuarioCtrl)
 router.apiResource('roles', RolCtrl)
 router.apiResource('eventos',EventCtrl)
 router.apiResource('comercios', ComerCtrl)
-router.apiResource('comercios.promociones', PromoEventCtrl)
-router.apiResource('eventos.promociones', PromoEventCtrl)
+router.apiResource('comercios.promociones', PromoComerCtrl)
+/* router.apiResource('eventos.promociones', PromoEventCtrl) */
 
 
 

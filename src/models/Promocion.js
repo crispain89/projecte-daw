@@ -32,7 +32,7 @@ module.exports=(sequelize, Sequelize)=>{
         },
         imagen_id:{
             type:Sequelize.INTEGER,
-            allowNull: false
+            allowNull: true
         }
     },{
         timestamps: false,
