@@ -1,6 +1,6 @@
 import React , {useState, useEffect, useContext}from 'react'
 import '../css/estilosGrid.css'
-import {Form, Button} from 'react-bootstrap'
+import {Form, Button, Modal} from 'react-bootstrap'
 import AuthService from '../../servicios/auth.service'
 import { useNavigate, Link } from 'react-router-dom'
 import { UserContext } from '../../UserContext'
@@ -14,45 +14,69 @@ import { UserContext } from '../../UserContext'
 /* VALIDACION DEL LOGIN */
 
 export function Login() {
+    const [show,setShow] = useState(false)
+    const [form , setForm]= useState({ email:"", password:""})
+
     let navigate = useNavigate();
     const {user, setUser}= useContext(UserContext)
+
+    const handleResend = async () => {
+        setShow(false)
+        try{
+            let resend = await AuthService.resend(form)
+            console.log(resend)
+            if(resend.status===200){
+                console.log("ok", resend.status)
+                /* pasarle al Context el usuario  */
+            }
+        }catch(e){
+            if ( e.response.status === 401 ){
+                
+            }
+            console.log(e)
+        }
+    }
+
+    const toggleShow = () => {
+        setShow(!show)
+    }
 
     const HandleRedirect=()=>{
         navigate("/register",{replace:true})
     }
 
-/* Estado para el usuario */
+    /* Estado para el usuario */
+
+    useEffect(()=>{
+        console.log(user);
+        if(user.id!==null){
+            navigate("/register", {replace:true})
+        }
+
+    },[])
 
 
-const [form , setForm]= useState({ email:"", password:""})
-
-useEffect(()=>{
-    console.log(user);
-    if(user.id!==null){
-        navigate("/register", {replace:true})
+    const handleSubmit= async(e)=>{
+        e.preventDefault();
+        let login=null;
+        try{
+        login = await AuthService.signin(form)
+        console.log(login)
+        if(login.status===200){
+            console.log("ok", login.status)
+            const {email,id}=login.data
+            setUser({email, id})
+            navigate("/register", {replace:true})
+            
+            /* pasarle al Context el usuario  */
+        }
+        }catch(e){
+            if ( e.response.status === 401 ){
+                setShow(true)
+            }
+            console.log(e)
+        }
     }
-
-},[])
-
-
-const handleSubmit= async(e)=>{
-    e.preventDefault();
-    let login=null;
-    try{
-    login = await AuthService.signin(form)
-    console.log(login)
-    if(login.status===200){
-        console.log("ok", login.status)
-        const {email,id}=login.data
-        setUser({email, id})
-        navigate("/register", {replace:true})
-        
-        /* pasarle al Context el usuario  */
-    }
-    }catch(e){
-        console.log(e)
-    }
-}
 
   return (
       <div className="container__login">
@@ -89,6 +113,20 @@ const handleSubmit= async(e)=>{
             </Button>
             <Link to="/forgot" className='style__forgot'><span>¿Has olvidado la contraseña?</span></Link>
         </Form>  
+        <Modal show={show} onHide={toggleShow}>
+            <Modal.Header closeButton>
+                <Modal.Title>Resend email</Modal.Title>
+            </Modal.Header>
+
+            <Modal.Body>
+                <p>Tu cuenta no ha sido verificado todavia, dale click a enviar para recibir un email de confirmacion</p>
+            </Modal.Body>
+
+            <Modal.Footer>
+                <Button onClick={toggleShow} variant="secondary">Cerrar</Button>
+                <Button onClick={handleResend} variant="primary">Enviar</Button>
+            </Modal.Footer>
+        </Modal>
         </div>    
   )
 }
