@@ -60,7 +60,7 @@ useEffect(() => {
           <Route path='/forgot' element={<ForgotPassword/>}/>
           <Route path='/forgot/email-verification' element={<EmailVerification/>}/>
           <Route path='/forgot/email-verification/:email' element={<EmailVerification/>}/>
-          <Route path='/forgot/password-reset' element={<ResetPassword/>}/>
+          <Route path='/forgot/reset/:id/:token' element={<ResetPassword/>}/>
           
         </Routes>
         

@@ -21,7 +21,7 @@ export default function EmailVerification() {
             data=location.state
         }
         console.log("DATA",data)
-        let res = await AuthService.resend(data)
+        let res = await AuthService.forgotPassword(data)
     }   
     const handleRedirect = async (e) => {
         e.preventDefault()

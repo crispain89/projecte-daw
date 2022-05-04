@@ -5,7 +5,6 @@
 #root{
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
 }
 .container__principal{
     min-height: 100%;
@@ -24,6 +23,8 @@ header{
 }
 .container__login{
     grid-area:contenido;
+    display:flex;
+    justify-content:center;
 }
 footer{
     grid-area:footer;
@@ -45,11 +46,6 @@ footer{
     display: flex;
     justify-content: center;
     align-items: center;
-}
-.container__login{
-    height:613px;
-    display:flex;
-    justify-content:center;
 }
 /* separacion de los botones */
 .botones__login{

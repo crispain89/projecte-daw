@@ -1,11 +1,13 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {Form, Button, Row, Col, InputGroup} from 'react-bootstrap'
 import { useNavigate } from 'react-router';
+import { useParams } from 'react-router-dom';
 import AuthService from '../../servicios/auth.service';
 import '../css/estilosGrid.css'
 import YupPassword from 'yup-password'
 import * as yup from "yup"
 import {Formik} from 'formik'
+const bcrypt = require("bcryptjs");
 
 
 const schema = yup.object().shape({
@@ -15,30 +17,31 @@ const schema = yup.object().shape({
     rep_password: yup.string().password().oneOf([yup.ref('password'),null],'Las contaseñas tiene que coincidir.'),
 })
 
-export default function ForgotPassword() {
-    const [form , setForm]= useState({ email:""})
-    let navigate = useNavigate()
-    const HandleSubmit= async(values)=>{
-        console.log("values",values)
-        try{
-            console.log("cositas")
-            let res = await AuthService.resetPassword(values)
-            console.log(res)
-            if(res.status===200){
-                //Todo correcto pasamos al siguiente paso (esperar a la validacion del correo)
-                console.log("ok", res.status)
-                navigate("/forgot/email-verification", {state:{email:form.email}})
-                
-                /* pasarle al Context el usuario  */
-            }
-        }catch(e){
-            if ( e.response.status === 400 ){
-                console.log("CAGASTE")
-                alert("CAGASTE, el email no existe")
-            }
-            console.log(e)
-        }
+export default function ResetPassword() {
+  const {id,token} = useParams()
+  let navigate = useNavigate()
+  const HandleSubmit= async(values)=>{
+    const {password} = values
+    let form = {id,token,password:bcrypt.hashSync(password, 8)}
+    console.log("form",form)
+    try{
+      let res = await AuthService.resetPassword(form)
+      console.log(res)
+      if(res.status===200){
+          //Todo correcto, volvemos al login
+          console.log("ok", res.status)
+          navigate("/login", {replace:true})
+          
+          /* pasarle al Context el usuario  */
+      }
+    }catch(e){
+      if ( e.response.status === 400 ){
+          console.log("CAGASTE")
+          alert("CAGASTE,no se ha podido actualizar la contraseña")
+      }
+      console.log(e)
     }
+  }
 
     return (
         <div className="container__login">
@@ -105,7 +108,7 @@ export default function ForgotPassword() {
                 </InputGroup>
               </Form.Group>
             </Row>
-            <Button className="botones__login" type="submit">Guardar</Button>
+            <Button disabled={!!errors.rep_password} className="botones__login" type="submit">Guardar</Button>
             
           </Form>
         )}

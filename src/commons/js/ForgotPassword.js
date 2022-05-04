@@ -16,7 +16,7 @@ export default function ForgotPassword() {
             if(res.status===200){
                 //Todo correcto pasamos al siguiente paso (esperar a la validacion del correo)
                 console.log("ok", res.status)
-                navigate("/forgot/email-verification", {replace:true})
+                navigate("/forgot/email-verification", {state:{email:form.email}})
                 
                 /* pasarle al Context el usuario  */
             }
