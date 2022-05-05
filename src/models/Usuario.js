@@ -1,4 +1,4 @@
-module.exports = (sequelize, Sequelize) => {
+const {sequelize, Sequelize}= require('./db')
   const Usuario = sequelize.define("usuario", {
     id:{
       type:Sequelize.INTEGER,
@@ -47,5 +47,4 @@ module.exports = (sequelize, Sequelize) => {
   },{
     timestamps: false
   });
-  return Usuario;
-};
+module.exports=Usuario

@@ -1,6 +1,6 @@
-const db = require("../../models");
 
-createByFk = (req, res, model, fk)=>{0
+
+createByFk = (req, res, model, fk)=>{
     try{
       console.log("PATH",req.path)
       console.log("QUERY",req.query)

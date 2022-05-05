@@ -1,23 +1,24 @@
 const { Op } = require("sequelize");
 const db = require("../../models");
 
-getIdByFk = async (req, res, model, modelId) => {
+getIdByFk = async (req, res, model, modelId, nestedId) => {
     
     try {
-        console.log("PATH", req.path)
+       /*  console.log("PATH", req.path)
         console.log("QUERY", req.query)
-        console.log("ROUTE", req.route)
-        const { id } = req.params;
+        console.log("ROUTE", req.route) */
+        const { id,nid } = req.params;
         let models;
 
         models = await model.findAll({
-            where: 
-                {
-                    [modelId]: id
-                }
-            
+            where: {
+                [Op.and]:
+                    [{
+                        [modelId]: id, [nestedId]: nid
+                    }]
+            }
         });
-        res.status(202).send({message: "se ha actualizado correctamente"})
+        res.send(models)
         console.log("models", models)
     } catch (error) {
         res.status(500).send({

@@ -1,5 +1,9 @@
 /* Modelo */
-module.exports=(sequelize, Sequelize)=>{
+const Evento = require("./Evento")
+const {sequelize, Sequelize}= require('./db')
+
+
+
     const Comercio = sequelize.define("comercio", {
         id:{
             type:Sequelize.INTEGER,
@@ -40,5 +44,7 @@ module.exports=(sequelize, Sequelize)=>{
     },{
         timestamps: false,
     });
-    return Comercio;
-};
+
+   // Comercio.hasMany(Evento, { through: 'Promociones', /* options */ });
+
+module.exports = Comercio;

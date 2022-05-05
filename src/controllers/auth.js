@@ -1,13 +1,11 @@
-const db = require("../models");
+const {Sequelize,sequelize} = require("../models/db");
+const {User,Token, Rol} = require("../models");
 const config = require("../config/auth");
 const smtpTransport = require("../config/mail")
 const jwt = require("jsonwebtoken");
 const crypto = require('crypto');
 const bcrypt = require("bcryptjs");
-const User = db.usuario;
-const Token = db.token;
-const Rol = db.rol;
-const Op = db.Sequelize.Op;
+const Op = Sequelize.Op;
 
 async function generateToken(usuario){
   // generate token and save

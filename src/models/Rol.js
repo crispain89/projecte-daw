@@ -1,4 +1,5 @@
-module.exports = (sequelize, Sequelize) => {
+const {sequelize, Sequelize}= require('./db')
+
   const Rol = sequelize.define("roles", {
     id:{
       type: Sequelize.INTEGER,
@@ -12,5 +13,4 @@ module.exports = (sequelize, Sequelize) => {
     timestamps: false,
     freezeTableName: true,
   });
-  return Rol;
-};
+  module.exports= Rol;

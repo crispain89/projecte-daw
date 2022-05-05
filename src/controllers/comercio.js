@@ -1,9 +1,26 @@
 
 /* Controlador */
-const db= require("../models");
-const Comercio = db.comercio;
-const Op= db.Sequelize.Op;
+const {Sequelize,sequelize} = require("../models/db");
+const {Comercio,Promocion} = require("../models");
 
+const Op= Sequelize.Op;
+exports.promos=async(req,res)=>{
+    try{
+        const promos = await Promocion.findAll({        
+            include:Comercio.findOne(4)
+        });
+        // Now the ship comes with it
+        console.log(promos);
+        res.send(promos);
+    }
+    catch(error){
+        res.status(500).send({
+            message: 
+                error.message || "No hemos podido listar los comercios"
+        });
+    }
+    
+}
 exports.index=async ( req, res)=>{
     try{
         const comercios = await Comercio.findAll();
