@@ -4,6 +4,42 @@ const {User} = require("../models");
 const Op = Sequelize.Op;
 // Create and Save a new User
 // Retrieve all Usuarios from the database.
+exports.inscripcion=async (req,res)=>{
+  try{
+    models= await User.getInscripciones(req);
+    res.send(models)
+  }catch(error){
+    res.status(500).send({
+      message:
+        error.message || "No hemos podido listar los usuarios"
+    });
+
+  }
+}
+exports.promocionIs=async function(req, res){
+  try{
+    models= await User.getPromociones(req);
+    res.send(models)
+  }catch(error){
+    res.status(500).send({
+      message:
+        error.message || "No hemos podido listar los usuarios"
+    });
+
+  }
+}
+exports.promociones=async(req,res)=>{
+  try{
+    models= await User.getPromociones(req);
+    res.send(models)
+  }catch(error){
+    res.status(500).send({
+      message:
+        error.message || "No hemos podido listar los usuarios"
+    });
+
+  }
+}
 exports.index = async (req, res) => {
   try {
     const usuarios = await User.findAll();

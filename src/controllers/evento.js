@@ -1,6 +1,6 @@
 /* Controlador */
 const {Sequelize,sequelize} = require("../models/db");
-const {User,Token, Rol} = require("../models");
+const {Evento} = require("../models");
 const Op= Sequelize.Op;
 
 exports.index=async ( req, res)=>{

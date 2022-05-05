@@ -1,6 +1,5 @@
 /* Modelo */
 const {sequelize, Sequelize}= require('./db')
-
 const Evento = sequelize.define("evento", {
     
     id:{
@@ -33,5 +32,5 @@ const Evento = sequelize.define("evento", {
         timestamps: false,
         
     });
-module.exports=Evento;
+module.exports = Evento;
    

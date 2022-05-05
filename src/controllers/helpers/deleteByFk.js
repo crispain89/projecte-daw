@@ -14,7 +14,7 @@ deleteByFk = async (req, res, model, modelId, nestedId) => {
             where: {
                 [Op.and]:
                     [{
-                        [nestedId]: id, [modelId]: nid
+                        [nestedId]: nid, [modelId]: id
                     }]
             }
         });

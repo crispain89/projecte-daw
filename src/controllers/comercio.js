@@ -7,7 +7,7 @@ const Op= Sequelize.Op;
 exports.promos=async(req,res)=>{
     try{
         const promos = await Promocion.findAll({        
-            include:Comercio.findOne(4)
+            include:Comercio.findOne(req.params.id)
         });
         // Now the ship comes with it
         console.log(promos);

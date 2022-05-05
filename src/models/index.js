@@ -4,5 +4,6 @@ module.exports = {
   Rol: require("./Rol.js"),
   Evento: require("./Evento.js"),
   Comercio: require("./Comercio.js"),
-  Promocion: require("./Promocion.js")
+  Promocion: require("./Promocion.js"),
+  Extra: require("./extra.js")
 }

@@ -11,6 +11,7 @@ const ComerCtrl = require('../controllers/comercio.js')
 const PromoComerCtrl = require('../controllers/promo_comercio.js')
 const PromoEventCtrl= require('../controllers/promo_evento.js')
 const EventComerCtrl=require('../controllers/evento_comercio.js')
+/* const InscripUserCtrl= require('../controllers/inscripciones_usuarios.js') */
 
 
 // Emulate Laravel apiResource method
@@ -47,6 +48,8 @@ router.apiResource('comercios.promociones', PromoComerCtrl)
 router.apiResource('eventos.promociones', PromoEventCtrl)
 router.apiResource('comercios.eventos',EventComerCtrl)
 router.get('comercios/:id/eventos', ComerCtrl.promos)
+router.get('/usuarios/:id/eventos',UsuarioCtrl.inscripcion)
+router.get('/usuarios/:id/promociones',UsuarioCtrl.promociones)
 
 
 

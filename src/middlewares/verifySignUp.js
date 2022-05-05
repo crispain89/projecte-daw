@@ -1,10 +1,9 @@
-const db = require("../models");
+const {User} = require("../models");
 //const ROLES = db.rol;
-const Usuario = db.usuario;
 checkDuplicateUsernameOrEmail = async (req, res, next) => {
   try {
     // Email
-    usuario = await Usuario.findOne({
+    usuario = await User.findOne({
       where: {
         email: req.body.email
       }
@@ -17,7 +16,7 @@ checkDuplicateUsernameOrEmail = async (req, res, next) => {
     next();
   } catch (error) {
     return res.status(500).send({
-      message: "Unable to validate Username!"
+      message: error
     });
   }
 };

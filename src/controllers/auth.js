@@ -56,13 +56,8 @@ exports.signup = async (req, res) => {
   try {
     let rol;
     if (req.body.rol) {
-        rol = await Rol.findOne({
-        where: {
-            nombre: {
-            [Op.eq]: req.body.rol,
-            },
-        },
-        });
+        rol = await Rol.findByName(req.body.rol);
+        console.log(rol)
         rol = req.body.rol
     } else {
         // usuario has rol = 1
