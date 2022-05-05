@@ -40,7 +40,7 @@ async function sendVerificationMail(req,res,usuario,token,type="account"){
       from: 'cram.testing@gmail.com', 
       to: usuario.email, 
       subject: 'Password reset link',
-      text: 'Hello '+ usuario.nombre +',\n\n' + 'Please reset your password by clicking the link: \nhttp:\/\/' + req.headers.host + '\/forgot\/' + usuario.id + '\/' + token.token + '\n\nThank You!\n' 
+      text: 'Hello '+ usuario.nombre +',\n\n' + 'Please reset your password by clicking the link: \nhttp:\/\/' + "localhost:3000" +  '\/forgot' + '\/' + 'reset\/' + usuario.id + '\/' + token.token + '\n\nThank You!\n' 
     };
     smtpTransport.sendMail(mailOptions, function (err) {
       if (err) { 
@@ -107,7 +107,7 @@ exports.signin = async (req, res) => {
       usuario.password
     );
     if (!passwordIsValid) {
-      return res.status(401).send({
+      return res.status(403).send({
         message: "Invalid Password!",
       });
     }
@@ -165,7 +165,34 @@ exports.forgotEmail = async (req, res) => {
   } catch (e) {
     console.log(e);
     return res.status(500).send({ message: e.message });
-}
+  }
+};
+exports.resetPassword = async (req, res) => {
+  try {
+    const {id,token,password} = req.body
+    const user = await User.findByPk(id);
+    if (!user){
+      return res.status(400).send("User with the selected id doesn't exist");
+    }
+    console.log("TOKEN",token)
+
+    let tokenToFind = await Token.findOne({where:{ token: token, usuario_id: id }});
+    console.log("TOKEN",tokenToFind.token)
+    if (!tokenToFind) {
+      return res.status(400).send("The token is invalid");
+    }
+    if(user.password === password){
+      return res.status(400).send("The password cannot be the same");
+    }
+    //Habria que controlar que viniese una contraseña encriptada, por defecto en el frontend, esta encriptada
+    //let newPassword = bcrypt.hashSync(password, 8)
+
+    await user.update({password:password})
+    return res.status(200).send({message: "User password updated correctly"})
+  } catch (e) {
+    console.log(e);
+    return res.status(500).send({ message: e.message });
+  }
 };
 exports.confirmEmail = async (req, res) => {
     const token = await Token.findOne({ where: { token: req.params.token } })
