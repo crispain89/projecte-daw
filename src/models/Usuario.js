@@ -65,6 +65,25 @@ Usuario.getInscripciones= async function(req){
   
 }
 Usuario.getPromociones= async function(req){
+  const {id, nid}=req.params.id;
+  const query=`SELECT e.nombre, p.fecha_inicio,p.fecha_expiracion,p.token,p.descripcion
+  FROM (( usuarios as u
+  INNER JOIN inscripciones as i ON i.id_usuario= u.id
+  INNER JOIN eventos as e ON e.id=i.id_evento
+  INNER JOIN promociones as p ON p.evento_id=e.id))
+  WHERE u.id=${id}`
+
+  const result = await sequelize.query(query, 
+    { 
+      model: Usuario, mapToModel: true,
+      nest: true,
+      raw: true,
+      type: sequelize.QueryTypes.SELECT 
+    })
+    console.log("RESULT",result)
+  return result;
+}
+Usuario.getPromocionesById= async function(req){
   const id=req.params.id;
   const query=`SELECT e.nombre, p.fecha_inicio,p.fecha_expiracion,p.token,p.descripcion
   FROM (( usuarios as u
