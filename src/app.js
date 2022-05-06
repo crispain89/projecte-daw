@@ -6,7 +6,7 @@ const app = express();
 
 const cookieSession = require("cookie-session");
 
-const { verifySignUp } = require("./middlewares");
+const { verifySignUp, authJwt } = require("./middlewares");
 const auth = require("./controllers/auth");
 var corsOptions = {
   origin: "http://localhost:3000"
@@ -22,6 +22,7 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to cram application." });
 });
 
+
 //Set up cookie
 app.use(
   cookieSession({
@@ -30,13 +31,16 @@ app.use(
     secret: process.env.SECRET_COOKIE, // should use as secret environment variable
     httpOnly: true
   })
-);
-
-// App routes - API
-const api = require('./routes/api')
+  );
+  
+  // App routes - API
+  const api = require('./routes/api')
 app.use('/api', api)
 app.use('/api', express.urlencoded({extended: false}))
 app.use('/api', express.json())
+
+//Verify authJWT
+app.get("/api/checkAuth",authJwt.verifyToken)
 
 app.post(
   "/api/auth/register",

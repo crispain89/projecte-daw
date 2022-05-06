@@ -3,20 +3,27 @@ const config = require("../config/auth.js");
 const db = require("../models");
 const User = db.usuario;
 verifyToken = (req, res, next) => {
-  let token = req.session.token;
+  let token = req.headers["x-access-token"]
+  console.log(req.headers)
   if (!token) {
     return res.status(403).send({
+      auth:false,
       message: "No token provided!",
     });
   }
   jwt.verify(token, config.secret, (err, decoded) => {
     if (err) {
       return res.status(401).send({
+        auth: false,
         message: "Unauthorized!",
       });
     }
     req.userId = decoded.id;
-    next();
+    return res.status(200).send({
+      auth: true,
+      message: "Authorized!",
+    })
+    //next();
   });
 };
 /* isAdmin = async (req, res, next) => {

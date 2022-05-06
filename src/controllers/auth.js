@@ -53,6 +53,7 @@ async function sendVerificationMail(req,res,usuario,token,type="account"){
   }
 }
 
+
 exports.signup = async (req, res) => {
   // Save User to Database
   try {
@@ -96,13 +97,16 @@ exports.signup = async (req, res) => {
 };
 exports.signin = async (req, res) => {
   try {
+    /* if ( req.session.user ){
+      return res.send({auth: true, user: req.session.user})
+    } */
     const usuario = await User.findOne({
       where: {
         email: req.body.email,
       },
     });
     if (!usuario) {
-      return res.status(404).send({ message: "User Not found." });
+      return res.status(404).send({ auth: false, message: "User Not found." });
     }
     const passwordIsValid = bcrypt.compareSync(
       req.body.password,
@@ -110,36 +114,49 @@ exports.signin = async (req, res) => {
     );
     if (!passwordIsValid) {
       return res.status(403).send({
+        auth: false,
         message: "Invalid Password!",
       });
     }
     if (!usuario.token_activado){
-      return res.status(401).send({message:'Your Email has not been verified. Please click on resend'});
+      return res.status(401).send({auth: false,message:'Your Email has not been verified. Please click on resend'});
     } 
     const token = jwt.sign({ id: usuario.id }, config.secret, {
       expiresIn: 86400, // 24 hours
     });
+    let usuarioData = {
+      id: usuario.id,
+      nombre: usuario.nombre,
+      email: usuario.email,
+      rol: usuario.rol,
+      token:token,
+      token_activado: usuario.token_activado ?? null
+    }
+    req.session.user = usuarioData;
     /*let authorities = [];
     const roles = await usuario.getRoles();
     for (let i = 0; i < roles.length; i++) {
       authorities.push("ROLE_" + roles[i].name.toUpperCase());
     } */
-    req.session.token = token;
     return res.status(200).send({
-      id: usuario.id,
-      nombre: usuario.nombre,
-      email: usuario.email,
-      rol: usuario.rol,
-      apellidos: usuario.apellidos ?? null,
-      localidad: usuario.localidad ?? null,
-      fecha_nacimiento: usuario.fecha_nacimiento ?? null,
-      dni: usuario.dni ?? null,
-      avatar_id: usuario.avatar_id ?? null,
-      token_activado: usuario.token_activado ?? null
+      data:{
+        id: usuario.id,
+        nombre: usuario.nombre,
+        email: usuario.email,
+        rol: usuario.rol,
+        apellidos: usuario.apellidos ?? null,
+        localidad: usuario.localidad ?? null,
+        fecha_nacimiento: usuario.fecha_nacimiento ?? null,
+        dni: usuario.dni ?? null,
+        avatar_id: usuario.avatar_id ?? null,
+        token_activado: usuario.token_activado ?? null
+      },
+      auth: true,
+      token:token,
       //roles: authorities,
     });
   } catch (error) {
-    return res.status(500).send({ message: error.message });
+    return res.status(500).send({ auth: false, message: error.message });
   }
 };
 exports.signout = async (req, res) => {
