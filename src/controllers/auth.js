@@ -1,13 +1,11 @@
-const db = require("../models");
+const {Sequelize,sequelize} = require("../models/db");
+const {User,Token, Rol} = require("../models");
 const config = require("../config/auth");
 const smtpTransport = require("../config/mail")
 const jwt = require("jsonwebtoken");
 const crypto = require('crypto');
 const bcrypt = require("bcryptjs");
-const User = db.usuario;
-const Token = db.token;
-const Rol = db.rol;
-const Op = db.Sequelize.Op;
+const Op = Sequelize.Op;
 
 async function generateToken(usuario){
   // generate token and save
@@ -59,13 +57,8 @@ exports.signup = async (req, res) => {
   try {
     let rol;
     if (req.body.rol) {
-        rol = await Rol.findOne({
-        where: {
-            nombre: {
-            [Op.eq]: req.body.rol,
-            },
-        },
-        });
+        rol = await Rol.findByName(req.body.rol);
+        console.log(rol)
         rol = req.body.rol
     } else {
         // usuario has rol = 1

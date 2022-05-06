@@ -14,7 +14,7 @@ updateByFk = async (req, res, model, modelId, nestedId) => {
             where: {
                 [Op.and]:
                     [{
-                        [nestedId]: id, [modelId]: nid
+                        [modelId]: id, [nestedId]: nid 
                     }]
             }
         });

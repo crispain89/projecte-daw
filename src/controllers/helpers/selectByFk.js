@@ -1,4 +1,4 @@
-const db = require("../../models");
+//const db = require("../../models");
 //const ROLES = db.rol;
 selectByFk = async (req, res, model, fk) => {
   try{
@@ -19,6 +19,7 @@ selectByFk = async (req, res, model, fk) => {
     });
   }
 }
+
 
 
 

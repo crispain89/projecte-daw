@@ -1,7 +1,7 @@
 /* Controlador */
-const db= require("../models");
-const Evento = db.evento;
-const Op= db.Sequelize.Op;
+const {Sequelize,sequelize} = require("../models/db");
+const {Evento} = require("../models");
+const Op= Sequelize.Op;
 
 exports.index=async ( req, res)=>{
     try{

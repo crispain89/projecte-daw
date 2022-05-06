@@ -1,11 +1,48 @@
-const db = require("../models");
-const Usuario = db.usuario;
-const Op = db.Sequelize.Op;
-// Create and Save a new Usuario
+const {Sequelize,sequelize} = require("../models/db");
+const {User} = require("../models");
+
+const Op = Sequelize.Op;
+// Create and Save a new User
 // Retrieve all Usuarios from the database.
+exports.inscripcion=async (req,res)=>{
+  try{
+    models= await User.getInscripciones(req);
+    res.send(models)
+  }catch(error){
+    res.status(500).send({
+      message:
+        error.message || "No hemos podido listar los usuarios"
+    });
+
+  }
+}
+exports.promocionIs=async function(req, res){
+  try{
+    models= await User.getPromociones(req);
+    res.send(models)
+  }catch(error){
+    res.status(500).send({
+      message:
+        error.message || "No hemos podido listar los usuarios"
+    });
+
+  }
+}
+exports.promociones=async(req,res)=>{
+  try{
+    models= await User.getPromociones(req);
+    res.send(models)
+  }catch(error){
+    res.status(500).send({
+      message:
+        error.message || "No hemos podido listar los usuarios"
+    });
+
+  }
+}
 exports.index = async (req, res) => {
   try {
-    const usuarios = await Usuario.findAll();
+    const usuarios = await User.findAll();
     res.send(usuarios);
   } catch (error) {
     res.status(500).send({
@@ -16,7 +53,7 @@ exports.index = async (req, res) => {
 };
 exports.store = async (req, res) => {
   try {
-    const usuario = Usuario.build(req.body);
+    const usuario = User.build(req.body);
     /* probar en poner MockData.JSON */
     usuario.save();
     res.send(usuario)
@@ -28,11 +65,11 @@ exports.store = async (req, res) => {
     });
   }
 };
-// Find a single Usuario with an id
+// Find a single User with an id
 exports.show = async (req, res) => {
   try {
     const id = req.params.id;
-    const usuario = await Usuario.findByPk(id);
+    const usuario = await User.findByPk(id);
     res.send(usuario);
   } catch (error) {
     res.satus(404).send({
@@ -41,11 +78,11 @@ exports.show = async (req, res) => {
     });
   }
 };
-// Update a Usuario by the id in the request
+// Update a User by the id in the request
 exports.update = async (req, res) => {
   try {
     const id = req.params.id;
-    const usuario = await Usuario.update(req.body,{
+    const usuario = await User.update(req.body,{
       where : {id : id}
     });
     console.log("usuario",usuario)
@@ -57,7 +94,7 @@ exports.update = async (req, res) => {
     });
   }
 };
-// Delete a Usuario with the specified id in the request
+// Delete a User with the specified id in the request
 exports.destroy = async (req, res) => {
   const mockData = {
     nombre:"prueba2",
@@ -66,7 +103,7 @@ exports.destroy = async (req, res) => {
   }
   try {
     const id = req.params.id;
-    const usuario = await Usuario.destroy({
+    const usuario = await User.destroy({
       where : {id : id}
     });
     res.status(200).send({
