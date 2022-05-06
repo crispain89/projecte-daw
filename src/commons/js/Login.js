@@ -3,7 +3,7 @@ import '../css/estilosGrid.css'
 import {Form, Button, Modal} from 'react-bootstrap'
 import AuthService from '../../servicios/auth.service'
 import { useNavigate, Link } from 'react-router-dom'
-import { UserContext } from '../../UserContext'
+import { AuthContext } from './AuthContext'
 
 
 /* hacer la conexion a la API */
@@ -18,7 +18,7 @@ export function Login() {
     const [form , setForm]= useState({ email:"", password:""})
 
     let navigate = useNavigate();
-    const {user, setUser}= useContext(UserContext)
+    const {user, setUser, isAuthenticated, login}= useContext(AuthContext)
 
     const handleResend = async () => {
         setShow(false)
@@ -48,27 +48,24 @@ export function Login() {
     /* Estado para el usuario */
 
     useEffect(()=>{
-        console.log(user);
-        if(user.id!==null){
-            navigate("/register", {replace:true})
+        console.log("auth",isAuthenticated);
+        if(isAuthenticated){
+            navigate("/user", {replace:true})
         }
-
-    },[])
+    })
 
 
     const handleSubmit= async(e)=>{
         e.preventDefault();
-        let login=null;
+        let signin=null;
         try{
-        login = await AuthService.signin(form)
-        console.log(login)
-        if(login.status===200){
-            console.log("ok", login.status)
-            const {email,id}=login.data
-            setUser({email, id})
-            navigate("/register", {replace:true})
-            
-            /* pasarle al Context el usuario  */
+        signin = await AuthService.signin(form)
+        console.log(signin)
+        if(signin.status===200){
+            console.log("ok", signin.data)
+            const {email,id, nombre}=signin.data
+            setUser({email, id, nombre})
+            login()
         }
         }catch(e){
             if ( e.response.status === 401 ){
@@ -108,7 +105,7 @@ export function Login() {
             <Button className="botones__login" variant="primary" type="submit">
                 Login
             </Button>
-            <Button className="botones__login" onClick={()=>HandleRedirect()} variant="primary">
+            <Button className="botones__login" onClick={()=>HandleRedirect()} variant="secondary">
                 Registrate
             </Button>
             <Link to="/forgot" className='style__forgot'><span>¿Has olvidado la contraseña?</span></Link>

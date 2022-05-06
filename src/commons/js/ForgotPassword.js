@@ -7,6 +7,10 @@ import '../css/estilosGrid.css'
 export default function ForgotPassword() {
     const [form , setForm]= useState({ email:""})
     let navigate = useNavigate()
+    const handleRedirect = () => {
+        navigate("/login",{replace:true})
+    }
+
     const handleSubmit= async(e)=>{
         e.preventDefault()
         try{
@@ -48,6 +52,9 @@ export default function ForgotPassword() {
               </Form.Group>
               <Button className="botones__login" type="submit" variant="primary">
                   Enviar email
+              </Button>
+              <Button onClick={handleRedirect} className="botones__login" type="button" variant="secondary">
+                  Volver atrás
               </Button>
           </Form>  
           </div>    

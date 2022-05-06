@@ -2,7 +2,7 @@ import React from 'react'
 import { FaFacebook, FaInstagram,FaMapMarkedAlt,FaMailBulk } from 'react-icons/fa';
 
 
-export default function PiePagina({accio}) {
+export default function Footer({accio}) {
   return (
     <footer>
         <div className='contact'>

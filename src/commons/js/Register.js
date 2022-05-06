@@ -7,7 +7,6 @@ import { Formik } from 'formik';
 import YupPassword from 'yup-password'
 import AuthService from '../../servicios/auth.service'
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../../UserContext';
 YupPassword(yup)
 
 
@@ -30,7 +29,6 @@ const schema = yup.object().shape({
 });
 export function Register() {
   let navigate=useNavigate();
-  const user= useContext(UserContext)
   const HandleRedirect=()=>{
     /* cuando lo usamos le decimos donde nos queremos dirigir */
     navigate("/login", {replace: true});
@@ -58,6 +56,7 @@ export function Register() {
           provincia: '',
           codigo_postal:'',
           telefono:'',
+          fecha_nacimiento:'',
           file: null,
           terms: false,
         }}
@@ -204,7 +203,26 @@ export function Register() {
                 </Form.Control.Feedback>
               </Form.Group>
             </Row>
-            
+            <Row >
+              {/* FECHA NACIMIENTO */}
+              <Form.Group
+                as={Col}
+                controlId="validationFormik103"  
+              >
+                <Form.Label>Fecha nacimiento</Form.Label>
+                <Form.Control
+                  type="date"
+                  name="fecha_nacimiento"
+                  value={values.fecha_nacimiento}
+                  onChange={handleChange}
+                  isInvalid={!!errors.fecha_nacimiento}
+                />
+
+                <Form.Control.Feedback type="invalid" tooltip>
+                  {errors.fecha_nacimiento}
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Row>
             <Row >
               {/* POBLACION */}
               <Form.Group
@@ -319,8 +337,8 @@ export function Register() {
                 feedbackTooltip
               />
             </Form.Group>
-            <Button className="botones__login" type="submit">Registrate</Button>
-            <Button className="botones__login" onClick={()=>HandleRedirect()} >Login</Button>
+            <Button className="botones__login" variant="primary" type="submit">Registrate</Button>
+            <Button className="botones__login" variant="secondary" onClick={()=>HandleRedirect()} >Login</Button>
             
           </Form>
         )}
