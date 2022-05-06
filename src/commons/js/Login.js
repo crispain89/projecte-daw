@@ -18,7 +18,7 @@ export function Login() {
     const [form , setForm]= useState({ email:"", password:""})
 
     let navigate = useNavigate();
-    const {user, setUser, isAuthenticated, login}= useContext(AuthContext)
+    const {user, setUser, isAuthenticated, login, setAuthStatus}= useContext(AuthContext)
 
     const handleResend = async () => {
         setShow(false)
@@ -48,24 +48,36 @@ export function Login() {
     /* Estado para el usuario */
 
     useEffect(()=>{
-        console.log("auth",isAuthenticated);
-        if(isAuthenticated){
-            navigate("/user", {replace:true})
+        async function checkAuth(){
+            let isAuth = await setAuthStatus()
+            console.log("ISAUTH",isAuth)
+            if(isAuth){
+                navigate("/user", {replace:true})
+            }
+            //NORMAL:
+            //Si esta autenticado, se mantiene en la misma localizacion
+            //Si no lo esta, redirige al login
+
+            //Si se llama en el login:
+            //Si esta autenticado, redirige al user
+            //Si no lo esta, no redirige a ningun sitio
         }
-    })
+        checkAuth()
+    },[])
 
 
     const handleSubmit= async(e)=>{
         e.preventDefault();
-        let signin=null;
+        let res=null;
         try{
-        signin = await AuthService.signin(form)
-        console.log(signin)
-        if(signin.status===200){
-            console.log("ok", signin.data)
-            const {email,id, nombre}=signin.data
+        res = await AuthService.signin(form)
+        console.log(res)
+        if(res.status===200 && res.data.auth === true){
+            const {email,id, nombre}=res.data.data
+            console.log("RES DATA",res.data)
             setUser({email, id, nombre})
-            login()
+            login(res.data.token)
+            //Context login
         }
         }catch(e){
             if ( e.response.status === 401 ){
