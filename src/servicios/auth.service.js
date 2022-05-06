@@ -3,6 +3,15 @@ import httpC from "../commons/js/httpConfig";
 
 export default class AuthService{
 
+    static userIsAuth(){
+        let dataToSend = {
+            headers:{
+                "x-access-token": localStorage.getItem("token")
+            }
+        }
+        return httpC.get("/checkAuth",dataToSend)
+    }
+
     static signup(data){
         console.log(data)
         return httpC.post("/auth/register", data);

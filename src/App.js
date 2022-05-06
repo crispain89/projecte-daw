@@ -17,6 +17,7 @@ import Home from './commons/js/Home';
 import {AuthContextProvider} from './commons/js/AuthContext';
 import PrivateRoute from './commons/js/routes/PrivateRoute';
 import HomeLayout from './commons/js/layout/home';
+import MainPage from './commons/js/MainPage';
 
 mapboxgl.accessToken = "pk.eyJ1IjoiY2lzcGFpbjg5IiwiYSI6ImNsMmo4ZmxtbjBjem0zY3MzNG41em80MDkifQ.n3GnK0soJwz763xqSPVdoQ";
 
@@ -28,14 +29,16 @@ function App() {
           <Routes>
             <Route path='/' element={
               <HomeLayout>
-                <Home/>
+                <PrivateRoute>
+                  <Home/>
+                </PrivateRoute>
               </HomeLayout>
             }/>
             <Route path='/home' element={<Home/>}/> 
             <Route path='/user' element={
               <Layout>
                 <PrivateRoute>
-                  <Home/>
+                  <MainPage/>
                 </PrivateRoute>
               </Layout>
             }/>
