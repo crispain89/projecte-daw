@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
+import Content from '../Content'
 import Sidebar from '../Sidebar';
 import Header from '../Header';
 import Footer from '../Footer';
+
 import { Button, Modal } from 'react-bootstrap'
 import '../../../css/estilosGrid.css'
 import mapboxgl from 'mapbox-gl';
@@ -33,6 +35,7 @@ export default function Layout({ children, sidebar = false }) {
     });
   });
   return (
+    //Pagina de usuario de inicio
     <>
       <Helmet>
         <title>Cram page</title>
@@ -43,11 +46,14 @@ export default function Layout({ children, sidebar = false }) {
       </Helmet>
       <div className="container__principal">
         <Header />
+        {/* Menu de la Izquierda */}
         <Sidebar />
+        {/* Contenido donde va aparecer la infromacion de los servicio */}
         <section>
           {children}
         </section>
         <Modal show={showModal} backdrop="static" fullscreen >
+
           <Modal.Header>
             <Modal.Title>Nuestra Ubicaciónn</Modal.Title>
           </Modal.Header>

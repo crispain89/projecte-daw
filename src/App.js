@@ -4,6 +4,7 @@ import './App.css';
 import mapboxgl from 'mapbox-gl';
 /* import 'mapbox-gl/dist/mapbox-gl.css'; */
 import {Login} from './commons/js/Login'
+import MainPage from './commons/js/MainPage'
 import {Register} from './commons/js/Register'
 import {Button, Modal} from 'react-bootstrap'
 import {BrowserRouter as Router, Route, Routes ,Link} from 'react-router-dom'
@@ -35,7 +36,7 @@ function App() {
             <Route path='/user' element={
               <Layout>
                 <PrivateRoute>
-                  <Home/>
+                  <MainPage/>
                 </PrivateRoute>
               </Layout>
             }/>
