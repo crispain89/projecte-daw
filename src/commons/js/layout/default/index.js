@@ -13,7 +13,7 @@ import Helmet from 'react-helmet';
 
 export default function Layout({ children, sidebar = false }) {
   const [showModal, setShowModal] = useState(false);
-
+  
   const mapContainer = useRef(null);
   const map = useRef(null);
   const [lng, setLng] = useState(1.7266128);
@@ -25,6 +25,7 @@ export default function Layout({ children, sidebar = false }) {
   };
 
   useEffect(() => {
+    console.log("hola")
     if (!showModal) return
     if (map.current) return; // initialize map only once
     map.current = new mapboxgl.Map({

@@ -1,20 +1,19 @@
-import React, { useContext, useEffect } from 'react'
-import {  Route, useLocation, useNavigate } from 'react-router';
-import { AuthContext } from '../AuthContext';
+import React, { useContext, useEffect,useState } from 'react'
+import {  Route, useLocation, useNavigate,Navigate } from 'react-router';
+import { useAuth } from '../AuthContext';
 
 export default function PrivateRoute(props) {
     // keep in mind path is required as a prop
-    const { isAuthenticated } = useContext(AuthContext);
+    const [logged,setLogged]=useState(false);
+    const { isAuthenticated,isLogged } = useAuth();
     const location = useLocation()
     const { path, children, ...rest } = props;
     let navigate = useNavigate()
-    useEffect(()=>{
-        if ( !isAuthenticated ){
-            navigate("/login",{state:{...location.state}})
-        }
-    })
+
+    if(!isAuthenticated){
+       return <Navigate to='/login' replace state={{from: location}}/>
+    } 
     // using the AuthContext to get the state variable isAuthenticated
-
-
+ 
     return children;
 }
