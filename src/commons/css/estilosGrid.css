@@ -18,6 +18,10 @@ body,html,#root{
     grid-template-columns: 200px 1fr 200px
 }
 
+.row{
+    width: 100%;
+}
+
 .container__home{
     gap: 8px;
     height: 100%;
@@ -40,7 +44,7 @@ ul{
 
 aside li{
     padding-bottom: 16px ;
-    border-bottom: 1px solid rgba(61, 61, 61, 0.39);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.39);
 }
 
 aside li a{
@@ -54,6 +58,12 @@ img{
     width: 100%;
     height: auto;
 }
+
+.logo{
+    width: 125px;
+    height: 125px;
+}
+
 .avatar{
     margin: 10px auto 0px;
     overflow: hidden;
@@ -63,6 +73,10 @@ img{
 }
 header{
     grid-area: header;
+    display: flex;
+    background-color: #0274d86c;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .cards__container{
@@ -75,7 +89,7 @@ header{
 }
 
 aside{
-    background-color: #A27ADE;
+    background-color: #0274d86c;
     display: flex;
     align-items: stretch;
     flex-direction: column;
@@ -94,6 +108,7 @@ section{
 }
 footer{
     grid-area:footer;
+    background-color: #0274d86c;
 }
 /* ESTILOS DEL TITULO */
 .bienvenido{
@@ -126,10 +141,6 @@ footer{
     justify-content: center;
     color: #0275d8;
 
-}
-footer{
-    background-color: #0275d8;
-    opacity: 0.5;
 }
 footer h1{
    color:white;

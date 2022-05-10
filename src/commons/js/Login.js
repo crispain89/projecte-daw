@@ -16,6 +16,7 @@ import { AuthContext } from './AuthContext'
 export function Login() {
     const [show,setShow] = useState(false)
     const [form , setForm]= useState({ email:"", password:""})
+    const [remember, setRemember] = useState(false)
 
     let navigate = useNavigate();
     const {user, setUser, isAuthenticated, login, setAuthStatus}= useContext(AuthContext)
@@ -45,26 +46,20 @@ export function Login() {
         navigate("/register",{replace:true})
     }
 
-    /* Estado para el usuario */
-
-    
-
-
     const handleSubmit= async(e)=>{
         e.preventDefault();
         let res=null;
         try{
-        res = await AuthService.signin(form)
-        console.log(res)
-        if(res.status===200 && res.data.auth === true){
-            const {email,id, nombre}=res.data.data
-            console.log("RES DATA",res.data)
-            //Quitamos set user pq lo usamos en el login
-            login(res.data.data,res.data.token)
-            //Context login
-        }
+            res = await AuthService.signin(form)
+            console.log(res)
+            if(res.status===200 && res.data.auth === true){
+                console.log("RES DATA",res.data)
+                const {data, token} = res.data
+                login(data,token,remember)
+                //Context login
+            }
         }catch(e){
-            if ( e.response.status === 401 ){
+            if ( e.response?.status === 401 ){
                 setShow(true)
             }
             console.log(e)
@@ -96,7 +91,7 @@ export function Login() {
                 </Form.Text>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                <Form.Check type="checkbox" label="Check me out" />
+                <Form.Check type="checkbox" onChange={()=>setRemember(!remember)} label="Recuerdame" />
             </Form.Group>
             <Button className="botones__login" variant="primary" type="submit">
                 Login
