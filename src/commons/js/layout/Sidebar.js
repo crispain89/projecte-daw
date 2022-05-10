@@ -8,7 +8,6 @@ import { AuthContext } from '../AuthContext';
 
 export default function Sidebar({ accio }) {
     const {user,logout} = useContext(AuthContext)
-    console.log("DATOS",user)
     const logoutSession = async () => {
         try{
             let res = await AuthService.signout()
@@ -34,16 +33,10 @@ export default function Sidebar({ accio }) {
                     <Link to="/">Home</Link>
                 </li>
                 <li>
-                    <Link to="/login">Login</Link>
-                </li>
-                <li>
-                    <a onClick={logoutSession}>Logout</a>
+                    <Link to="/login" onClick={logoutSession}>Logout</Link>
                 </li>
                 <li>
                     <Link to="/profile">Profile</Link>
-                </li>
-                <li>
-                    <Link to="/messages">Messages</Link>
                 </li>
             </ul>
         </aside>
