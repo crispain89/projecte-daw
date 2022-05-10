@@ -18,8 +18,8 @@ import Home from './commons/js/Home';
 import {AuthContextProvider} from './commons/js/AuthContext';
 import PrivateRoute from './commons/js/routes/PrivateRoute';
 import HomeLayout from './commons/js/layout/home';
-import MainPage from './commons/js/MainPage';
-
+import MockComponent from './commons/js/MockComponent';
+//el token del mapbox
 mapboxgl.accessToken = "pk.eyJ1IjoiY2lzcGFpbjg5IiwiYSI6ImNsMmo4ZmxtbjBjem0zY3MzNG41em80MDkifQ.n3GnK0soJwz763xqSPVdoQ";
 
 function App() {
@@ -40,6 +40,13 @@ function App() {
               <Layout>
                 <PrivateRoute>
                   <MainPage/>
+                </PrivateRoute>
+              </Layout>
+            }/>
+            <Route path='/user/:id/eventos' element={
+              <Layout>
+                <PrivateRoute>
+                  <MockComponent/>
                 </PrivateRoute>
               </Layout>
             }/>

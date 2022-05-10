@@ -52,7 +52,7 @@ aside li a{
 }
 img{
     width: 100%;
-    height: 100%;
+    height: auto;
 }
 .avatar{
     margin: 10px auto 0px;
@@ -64,6 +64,16 @@ img{
 header{
     grid-area: header;
 }
+
+.cards__container{
+    width: 100%;
+    height: 100%;
+
+}
+.card__image{
+    height: 225px;
+}
+
 aside{
     background-color: #A27ADE;
     display: flex;
@@ -74,7 +84,7 @@ aside{
     grid-area: sidebar;
 }
 section{
-    overflow: hidden;
+    /*overflow: hidden;*/
     grid-area: contenido;
 }
 .container__login{

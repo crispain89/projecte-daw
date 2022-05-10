@@ -47,23 +47,7 @@ export function Login() {
 
     /* Estado para el usuario */
 
-    useEffect(()=>{
-        async function checkAuth(){
-            let isAuth = await setAuthStatus()
-            console.log("ISAUTH",isAuth)
-            if(isAuth){
-                navigate("/user", {replace:true})
-            }
-            //NORMAL:
-            //Si esta autenticado, se mantiene en la misma localizacion
-            //Si no lo esta, redirige al login
-
-            //Si se llama en el login:
-            //Si esta autenticado, redirige al user
-            //Si no lo esta, no redirige a ningun sitio
-        }
-        checkAuth()
-    },[])
+    
 
 
     const handleSubmit= async(e)=>{
@@ -75,8 +59,8 @@ export function Login() {
         if(res.status===200 && res.data.auth === true){
             const {email,id, nombre}=res.data.data
             console.log("RES DATA",res.data)
-            setUser({email, id, nombre})
-            login(res.data.token)
+            //Quitamos set user pq lo usamos en el login
+            login(res.data.data,res.data.token)
             //Context login
         }
         }catch(e){
