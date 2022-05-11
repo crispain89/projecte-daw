@@ -1,7 +1,8 @@
 import React, { useState,useEffect } from 'react'
 import { Button, ButtonGroup, ButtonToolbar, Collapse } from 'react-bootstrap'
 import ApiCrudService from '../../servicios/eventos.service';
-import Evento from './TarjetaEvento.js';
+import Filters from './Filters';
+import Evento from './TarjetaEvento';
 
 //En esta pagina se mostraran todos los eventos de la aplicacion, por orden alfabetico o proximidad,
 //por defecto, la lista mostrará primero los eventos a los que estas inscrito y los diferenciará de los otros
@@ -31,33 +32,13 @@ export default function Eventos({className, ...rest}) {
   },[])
   return (
     <div>
-      <div className='filters__wrapper'>
-        <Button
-          onClick={() => setOpen(!open)}
-          aria-controls="example-collapse-text"
-          aria-expanded={open}
-        >
-          Filtros
-        </Button>
-        <Collapse in={open}>
-          <div id="example-collapse-text">
-            <span>Escoge un filtro: </span>
-          <ButtonToolbar type="checkbox" >
-            <ButtonGroup >
-              <Button onClick={(e)=>{setSelected(1)}} className={`${selected === 1 ? "selected" : ""} button__option`} value={1}>Inscritos</Button>
-              <Button onClick={(e)=>{setSelected(2)}} className={`${selected === 2 ? "selected" : ""} button__option`} value={2}>No inscritos</Button>
-              <Button onClick={(e)=>{setSelected(3)}} className={`${selected === 3 ? "selected" : ""} button__option`} value={3}>Todos</Button>
-            </ButtonGroup>
-          </ButtonToolbar>
-          </div>
-        </Collapse>
-      </div>
+      <Filters eventos={eventos} open={open} setOpen={setOpen}/>
       <div className='eventos__topbar'>
         <h1>Eventos Disponibles</h1>
 
         <div className='eventos'>
           { eventos.map((evento)=>{ 
-          return<Evento key={evento.id} nombre={evento.nombre} edicion={evento.edicion} lugar={evento.lugar} src={evento.src}/>
+          return <Evento key={evento.id} nombre={evento.nombre} edicion={evento.edicion} lugar={evento.lugar} src={evento.src}/>
           })}
         </div>
       </div>
