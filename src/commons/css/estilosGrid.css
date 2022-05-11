@@ -92,6 +92,10 @@ header{
     background-color: #f4fa9ac5;
     border-radius: 8px;
 }
+.imagen__card{
+    width: 200px;
+    height: 200px;
+}
 .card__wrapper:hover .card__box{
     transform: scale(1.2);
 }
