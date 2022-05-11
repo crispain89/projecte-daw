@@ -8,6 +8,7 @@ import { AuthContext } from '../AuthContext';
 
 export default function Sidebar({ accio }) {
     const {user,logout} = useContext(AuthContext)
+    console.log("USER",user)
     const logoutSession = async () => {
         try{
             let res = await AuthService.signout()

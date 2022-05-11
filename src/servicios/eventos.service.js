@@ -1,10 +1,12 @@
 import httpC from "../commons/js/httpConfig";
+import ApiCrudService from "./crud.service";
 
 
-export default class ApiCrudService{
+export default class EventosService extends ApiCrudService{
 
-    static index(resource) {
-        return httpC.get(`/${resource}`)
+    constructor(){
+        super()
     }
-   
+    
+    
 }

@@ -1,15 +1,98 @@
 import { useEffect, useState } from "react"
-import { Button, ButtonGroup, ButtonToolbar, Collapse, Dropdown, DropdownButton, InputGroup } from 'react-bootstrap'
+import { Button, ButtonGroup, ButtonToolbar, Collapse, Dropdown, DropdownButton, Form, InputGroup } from 'react-bootstrap'
 import { FaSearch } from "react-icons/fa"
 
 
-export default function Filters({open, setOpen, eventos}){
+export default function Filters({open, setOpen, eventos, filteredEventos, setEventos}){
     const [selected,setSelected] = useState(0)
+
+    const handleSortChange = (e) => {
+        let sortedEventos = [...filteredEventos];
+        switch (e.target.value) {
+            case "1":
+                console.log("easfas")
+                sortedEventos = filteredEventos.sort((a,b)=>{
+                    if (a.nombre > b.nombre) {
+                        return 1;
+                    }
+                    if (a.nombre < b.nombre) {
+                    return -1;
+                    }
+                    // a must be equal to b
+                    return 0;
+                }) 
+                break;
+            case "2":
+                sortedEventos = filteredEventos.sort((a,b)=>{
+                    if (a.nombre < b.nombre) {
+                        return 1;
+                    }
+                    if (a.nombre > b.nombre) {
+                    return -1;
+                    }
+                    // a must be equal to b
+                    return 0;
+                }) 
+                break;
+            case "3":
+                sortedEventos = filteredEventos.sort((a,b)=>{
+                    if (a.fecha_inicio > b.fecha_inicio) {
+                        return 1;
+                    }
+                    if (a.fecha_inicio < b.fecha_inicio) {
+                        return -1;
+                    }
+                    // a must be equal to b
+                    return 0;
+                }) 
+                break;
+            case "4":
+                sortedEventos = filteredEventos.sort((a,b)=>{
+                    if (a.fecha_inicio < b.fecha_inicio) {
+                        return 1;
+                    }
+                    if (a.fecha_inicio > b.fecha_inicio) {
+                        return -1;
+                    }
+                    // a must be equal to b
+                    return 0;
+                }) 
+                break;
+        
+            default:
+                sortedEventos = filteredEventos.sort((a,b)=>{
+                    if (a.nombre > b.nombre) {
+                        return 1;
+                    }
+                    if (a.nombre < b.nombre) {
+                    return -1;
+                    }
+                    // a must be equal to b
+                    return 0;
+                }) 
+                break;
+        }
+        console.log("SORTED",sortedEventos)
+        setEventos([...sortedEventos])
+    }
+
+    const handleSearchChange = (e) => {
+        let value = e.target.value;
+        let newEventos;
+        if ( value === "" ){
+            setEventos([...eventos])
+            return
+        }
+        newEventos = eventos.filter(ev => ev.nombre.toLowerCase().includes(value.toLowerCase()))
+        console.log("filtered",newEventos)
+        setEventos([...newEventos])
+    }
+
     useEffect(()=>{
         let filteredEventos = [...eventos]
         switch (selected) {
             case 1:
-                
+                filteredEventos = eventos.filter((ev)=>{})
                 break;
             case 2:
                 
@@ -35,17 +118,13 @@ export default function Filters({open, setOpen, eventos}){
                 <div id="example-collapse-text">
                     <div className='filters'>
                     <div className='sortings'>
-                        <DropdownButton
-                        variant="outline-primary"
-                        title="Orden"
-                        id="input-group-dropdown-1"
-                        >
-                        <Dropdown.Item href="#">Alfabetico/Ascendente</Dropdown.Item>
-                        <Dropdown.Item href="#">Alfabetico/Descendente</Dropdown.Item>
-                        <Dropdown.Divider />
-                        <Dropdown.Item href="#">Proximidad/Ascendente</Dropdown.Item>
-                        <Dropdown.Item href="#">Proximidad/Descendente</Dropdown.Item>
-                        </DropdownButton>
+                        <Form.Select onChange={handleSortChange} aria-label="Default select example">
+                            <option>Open this select menu</option>
+                            <option value="1">Alfabetico/Ascendente</option>
+                            <option value="2">Alfabetico/Descendente</option>
+                            <option value="3">Fecha/Ascendente</option>
+                            <option value="4">Fecha/Descendente</option>
+                        </Form.Select>
                     </div>
                     <ButtonToolbar className='filter__selection' type="checkbox" >
                         <span>Escoge un filtro: </span>
@@ -58,7 +137,7 @@ export default function Filters({open, setOpen, eventos}){
                     <form className='input-group'>
                         <label class="form-label" for="form1">Busca un evento:</label>
                         <div class="form-outline search__wrapper">
-                        <input type="search" id="form1" class="form-control" />
+                        <input onChange={handleSearchChange}  type="search" id="form1" class="form-control" />
                         <button type="button" class="btn btn-primary">
                             <FaSearch/>
                         </button>

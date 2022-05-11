@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react'
 import { Button, ButtonGroup, ButtonToolbar, Collapse } from 'react-bootstrap'
-import ApiCrudService from '../../servicios/eventos.service';
+import EventosService from '../../servicios/eventos.service';
 import Filters from './Filters';
 import Evento from './TarjetaEvento';
 
@@ -11,17 +11,21 @@ import Evento from './TarjetaEvento';
 
 export default function Eventos({className, ...rest}) {
   const [open, setOpen] = useState(false);
-  const [selected,setSelected] = useState(0)
   const [eventos, setEventos] = useState([]);
+  const [filteredEventos, setFilteredEventos] = useState([])
+
+  useEffect(()=>{
+    console.log("eventos",filteredEventos)
+  },[filteredEventos,eventos])
 
   useEffect(() => {
     if(eventos.length > 0) return
     async function getEventos (){
       try{
-        const eventos= await ApiCrudService.index("eventos");
+        const eventos= await EventosService.index("eventos");
         console.log(eventos.data)
         setEventos(eventos.data)
-        
+        setFilteredEventos(eventos.data)
 
       }catch(err){
         console.log(err)
@@ -30,16 +34,24 @@ export default function Eventos({className, ...rest}) {
     getEventos();
     return () =>getEventos();
   },[])
+
   return (
     <div>
-      <Filters eventos={eventos} open={open} setOpen={setOpen}/>
+      <Filters setEventos={setFilteredEventos} filteredEventos={filteredEventos} eventos={eventos} open={open} setOpen={setOpen}/>
       <div className='eventos__topbar'>
-        <h1>Eventos Disponibles</h1>
-
         <div className='eventos'>
-          { eventos.map((evento)=>{ 
-          return <Evento key={evento.id} nombre={evento.nombre} edicion={evento.edicion} lugar={evento.lugar} src={evento.src}/>
-          })}
+          { 
+            filteredEventos.length > 0 
+            ?
+              <>
+                <h1>Eventos Disponibles</h1>
+                {filteredEventos.map((evento)=>{ 
+                  return <Evento key={evento.id} nombre={evento.nombre} edicion={evento.edicion} lugar={evento.lugar} src={evento.src}/>
+                })}
+              </>
+            :
+              <h1>No hemos encontrado ningun resultado</h1>
+          }
         </div>
       </div>
     </div>
