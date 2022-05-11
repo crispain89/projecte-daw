@@ -30,7 +30,7 @@ export default function Sidebar({ accio }) {
             }
             <ul>
                 <li>
-                    <Link to="/">Home</Link>
+                    <Link to="/user">User page</Link>
                 </li>
                 <li>
                     <Link to="/login" onClick={logoutSession}>Logout</Link>

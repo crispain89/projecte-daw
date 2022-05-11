@@ -1,12 +1,18 @@
 import React, {useState, useEffect}from 'react'
 import {Card, ListGroup,ListGroupItem} from 'react-bootstrap'
+import { useNavigate } from 'react-router'
 
-export default function Tarjeta({src,alt, title, subtitle}) {
+export default function Tarjeta({src,alt, title, subtitle, path }) {
 
     /* haremos un map y mostraremos las fotos de forma random */
-    
+  let navigate = useNavigate()
+
+  const handleNavigate = () => {
+    navigate(path)
+  }
+
   return (
-    <Card  >
+    <Card onClick={handleNavigate}>
         <Card.Img className='card__image' variant="top" width="100%" height="225px" src={src} alt={alt}/>
         <Card.Body>
             <Card.Title>{title}</Card.Title>

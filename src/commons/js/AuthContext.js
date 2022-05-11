@@ -14,7 +14,8 @@ function useAuth(){
     const [user, setUser]=useState({id:null, email:null, nombre:null})
     const navigate = useNavigate();
     const location = useLocation();
-    const expireTime =  Date.now() + 604800
+    //1semana
+    const expireTime =  Date.now() + 604800000
 
     useEffect(() => {
         if ( localStorage.getItem("token") ){
@@ -36,7 +37,6 @@ function useAuth(){
             // your authentication logic
             setIsAuthenticated(true)
             if( remember ){
-                //1 semana de inicio de sesion
                 localStorage.setItem("token",JSON.stringify({token,expireTime}))
             }else{
                 localStorage.setItem("token",JSON.stringify({token,expireTime:0}))
