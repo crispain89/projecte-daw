@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Button, Collapse, ToggleButton, ToggleButtonGroup } from 'react-bootstrap'
+import { Button, ButtonGroup, ButtonToolbar, Collapse } from 'react-bootstrap'
+import Evento from './TarjetaEvento';
 
 //En esta pagina se mostraran todos los eventos de la aplicacion, por orden alfabetico o proximidad,
 //por defecto, la lista mostrará primero los eventos a los que estas inscrito y los diferenciará de los otros
@@ -8,6 +9,7 @@ import { Button, Collapse, ToggleButton, ToggleButtonGroup } from 'react-bootstr
 
 export default function Eventos({className, ...rest}) {
   const [open, setOpen] = useState(false);
+  const [selected,setSelected] = useState(0)
   return (
     <div>
       <div className='filters__wrapper'>
@@ -21,17 +23,21 @@ export default function Eventos({className, ...rest}) {
         <Collapse in={open}>
           <div id="example-collapse-text">
             <span>Escoge un filtro: </span>
-          <ToggleButtonGroup type="checkbox" onChange={()=>{}}>
-            <ToggleButton className={"button__option"} value={1}>Inscritos</ToggleButton>
-            <ToggleButton className={"button__option"} value={2}>No inscritos</ToggleButton>
-            <ToggleButton className={"button__option"} value={3}>Todos</ToggleButton>
-          </ToggleButtonGroup>
+          <ButtonToolbar type="checkbox" >
+            <ButtonGroup >
+              <Button onClick={(e)=>{setSelected(1)}} className={`${selected === 1 ? "selected" : ""} button__option`} value={1}>Inscritos</Button>
+              <Button onClick={(e)=>{setSelected(2)}} className={`${selected === 2 ? "selected" : ""} button__option`} value={2}>No inscritos</Button>
+              <Button onClick={(e)=>{setSelected(3)}} className={`${selected === 3 ? "selected" : ""} button__option`} value={3}>Todos</Button>
+            </ButtonGroup>
+          </ButtonToolbar>
           </div>
         </Collapse>
       </div>
       <div className='eventos__topbar'>
         <h1>Eventos Disponibles</h1>
-
+        <div className='eventos'>
+          <Evento/>
+        </div>
       </div>
     </div>
   )

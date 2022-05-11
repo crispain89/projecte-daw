@@ -81,7 +81,7 @@ header{
     align-items: center;
 }
 
-.card{
+.card_prueba{
     background-color: #f4fa9ac5;
     border: none;
 }
@@ -104,7 +104,7 @@ header{
     display: block;
 }
 
-.button__option:focus{
+.button__option.selected{
     background-color: rgb(92, 196, 109);
 }
 
