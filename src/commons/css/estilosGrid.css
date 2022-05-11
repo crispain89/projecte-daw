@@ -7,6 +7,8 @@ body,html,#root{
     height: 100%;
 }
 .container__principal{
+    background-color: #81bdf1c5;
+
     gap: 8px;
     height: 100%;
     width: 100%;
@@ -77,6 +79,33 @@ header{
     background-color: #0274d86c;
     justify-content: space-between;
     align-items: center;
+}
+
+.card{
+    background-color: #f4fa9ac5;
+    border: none;
+}
+
+.card__box{
+    transition: all 0.5s;
+    box-shadow: 5px 5px 15px 5px #888888;
+    background-color: #f4fa9ac5;
+    border-radius: 8px;
+}
+.card__wrapper:hover .card__box{
+    transform: scale(1.2);
+}
+.card__wrapper:hover{
+    z-index: 1;
+}
+
+.card__link{
+    padding: 10px 10px;
+    display: block;
+}
+
+.button__option:focus{
+    background-color: rgb(92, 196, 109);
 }
 
 .cards__container{

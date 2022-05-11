@@ -76,20 +76,26 @@ export default function MainPage() {
   return (
     <div className="container h-100 ">
       <div className="row">
-        <div className="col-lg-4 col-md-6">
-          <Tarjeta src={imageRef.current} alt={altRef.current} title={titleRef.current} subtitle={subtitleRef.current} />
-          {/* Al hacer click aqui te irias a una página donde estaria todos los eventos que hay disponibles. */}
-          <Link to={`/user/${user.id}/eventos`}>Ver todos los eventos</Link>
+        <div className="card__wrapper col-lg-4 col-md-6">
+          <div className='card__box'>
+            <Tarjeta path={"/user/eventos"} src={imageRef.current} alt={altRef.current} title={titleRef.current} subtitle={subtitleRef.current} />
+            {/* Al hacer click aqui te irias a una página donde estaria todos los eventos que hay disponibles. */}
+            <Link className="card__link" to={`/user/${user.id}/eventos`}>Ver todos los eventos</Link>
+          </div>
         </div>
-        <div className="col-lg-4 col-md-6">
-          <Tarjeta src={"https://d2f0ora2gkri0g.cloudfront.net/9d/d5/9dd59804-f004-491c-911e-cc7e1dc3f2a4.png"} alt={altRef.current} title={"Promociones"} subtitle={" Promociones de tus eventos"} />
-          {/* Al hacer click aqui te irias a una página donde estaria todos las PRMOCIONES que hay disponibles. */}
-          <Link to={"/home"}>Ver todos los descuentos</Link>
+        <div className="card__wrapper col-lg-4 col-md-6">
+          <div className='card__box'>
+            <Tarjeta path={"/user/descuentos"} src={"https://d2f0ora2gkri0g.cloudfront.net/9d/d5/9dd59804-f004-491c-911e-cc7e1dc3f2a4.png"} alt={"descuento"} title={"Promociones"} subtitle={" Promociones de tus eventos"} />
+            {/* Al hacer click aqui te irias a una página donde estaria todos las PRMOCIONES que hay disponibles. */}
+            <Link className="card__link" to={"/home"}>Ver todos los descuentos</Link>
+          </div>
         </div>
-        <div className="col-lg-4 col-md-12">
-          <Tarjeta src={imageRef.current} alt={altRef.current} title={"Noticias"} subtitle={" Noticias de los eventos"} />
-          {/* Al hacer click aqui te irias a una página donde estaria todas las Noticias que hay disponibles. */}
-          <Link to={"/home"}>Ver noticias locales</Link>
+        <div className="card__wrapper col-lg-4 col-md-12">
+          <div className='card__box'>
+            <Tarjeta path={"/noticias"} src={"https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Newspaper_Cover.svg/2048px-Newspaper_Cover.svg.png"} alt={"newspaper"} title={"Noticias"} subtitle={" Noticias de los eventos"} />
+            {/* Al hacer click aqui te irias a una página donde estaria todas las Noticias que hay disponibles. */}
+            <Link className="card__link" to={"/home"}>Ver noticias locales</Link>
+          </div>
         </div>
 
       </div>
