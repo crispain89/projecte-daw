@@ -1,13 +1,21 @@
 import { Button, Card } from "react-bootstrap";
 
-export default function Evento(){
+export default function Evento({nombre,edicion,lugar,src}){
+
     return(
         <Card>
-            <Card.Header>Featured</Card.Header>
+            <Card.Header>Evento</Card.Header>
             <Card.Body>
-                <Card.Title>Special title treatment</Card.Title>
+                <Card.Title>{nombre}{edicion}</Card.Title>
+                {console.log(src)}
+
+                <Card.Img className='imagen__card' variant="top" src={src} />
+                {console.log(src)}
                 <Card.Text>
-                With supporting text below as a natural lead-in to additional content.
+                    
+                    <li>{lugar}</li>
+                    
+
                 </Card.Text>
                 <Button variant="primary">Go somewhere</Button>
             </Card.Body>

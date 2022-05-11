@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { Button, ButtonGroup, ButtonToolbar, Collapse } from 'react-bootstrap'
-import Evento from './TarjetaEvento';
+import ApiCrudService from '../../servicios/eventos.service';
+import Evento from './TarjetaEvento.js';
 
 //En esta pagina se mostraran todos los eventos de la aplicacion, por orden alfabetico o proximidad,
 //por defecto, la lista mostrará primero los eventos a los que estas inscrito y los diferenciará de los otros
@@ -10,6 +11,24 @@ import Evento from './TarjetaEvento';
 export default function Eventos({className, ...rest}) {
   const [open, setOpen] = useState(false);
   const [selected,setSelected] = useState(0)
+  const [eventos, setEventos] = useState([]);
+
+  useEffect(() => {
+    if(eventos.length > 0) return
+    async function getEventos (){
+      try{
+        const eventos= await ApiCrudService.index("eventos");
+        console.log(eventos.data)
+        setEventos(eventos.data)
+        
+
+      }catch(err){
+        console.log(err)
+      }
+    }
+    getEventos();
+    return () =>getEventos();
+  },[])
   return (
     <div>
       <div className='filters__wrapper'>
@@ -35,8 +54,11 @@ export default function Eventos({className, ...rest}) {
       </div>
       <div className='eventos__topbar'>
         <h1>Eventos Disponibles</h1>
+
         <div className='eventos'>
-          <Evento/>
+          { eventos.map((evento)=>{ 
+          return<Evento key={evento.id} nombre={evento.nombre} edicion={evento.edicion} lugar={evento.lugar} src={evento.src}/>
+          })}
         </div>
       </div>
     </div>
