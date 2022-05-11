@@ -12,7 +12,8 @@ export default function Tarjeta({src,alt, title, subtitle, path }) {
   }
 
   return (
-    <Card onClick={handleNavigate}>
+
+    <Card className="card_prueba" onClick={handleNavigate}>
         <Card.Img className='card__image' variant="top" width="100%" height="225px" src={src} alt={alt}/>
         <Card.Body>
             <Card.Title>{title}</Card.Title>
