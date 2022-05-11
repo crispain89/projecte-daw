@@ -136,6 +136,9 @@ header{
     align-items: center;
     gap: 8px;
 }
+.btn-group{
+    gap: 2px;
+}
 
 .input-group{
     width: auto;
