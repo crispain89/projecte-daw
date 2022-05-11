@@ -27,8 +27,11 @@ const Evento = sequelize.define("evento", {
     fecha_finalizacion:{
         type:Sequelize.DATEONLY,
         allowNull: true
-    }
-    },{
+    },
+    src:{
+        type:Sequelize.STRING,
+        allowNull: true
+    }},{
         timestamps: false,
         
     });
