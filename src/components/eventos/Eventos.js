@@ -1,7 +1,7 @@
 import React, { useState,useEffect, useCallback, useContext } from 'react'
 import { Button, ButtonGroup, ButtonToolbar, Collapse } from 'react-bootstrap'
 import EventosService from '../../servicios/eventos.service';
-import { AuthContext } from './AuthContext';
+import { AuthContext } from '../context/AuthContext';
 import Filters from './Filters';
 import Evento from './TarjetaEvento';
 

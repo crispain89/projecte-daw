@@ -3,7 +3,7 @@ import Sidebar from '../Sidebar';
 import Header from '../Header';
 import Footer from '../Footer';
 import { Button, Modal } from 'react-bootstrap'
-import '../../../css/estilosGrid.css'
+//import '../../../css/estilosGrid.css'
 import mapboxgl from 'mapbox-gl';
 import Helmet from 'react-helmet';
 

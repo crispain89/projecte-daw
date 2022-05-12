@@ -1,6 +1,6 @@
 import React,{useState, useContext} from 'react'
 
-import '../css/estilosGrid.css'
+//import '../css/estilosGrid.css'
 import * as yup from "yup"
 import {Form, Button, Row, Col, InputGroup} from 'react-bootstrap'
 import { Formik } from 'formik';
