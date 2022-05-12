@@ -20,6 +20,11 @@ body,html,#root{
     grid-template-columns: 200px 1fr 200px
 }
 
+.modal__spinner{
+    border: none;
+    background-color: transparent;
+}
+
 .row{
     width: 100%;
 }
@@ -134,7 +139,7 @@ header{
 .filters{
     box-shadow: 0px 0px 15px 3px #586dc9;
     border-radius: 8px;
-    background-color: rgba(255, 211, 146, 0.986);
+    background-color: #f0f79f;
     padding: 20px 8px;
     margin: 10px 8px 0px 0px;
     display: flex;

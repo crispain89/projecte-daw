@@ -3,8 +3,7 @@ import { Button, ButtonGroup, ButtonToolbar, Collapse, Dropdown, DropdownButton,
 import { FaSearch } from "react-icons/fa"
 
 
-export default function Filters({open, setOpen, eventos, filteredEventos, setEventos}){
-    const [selected,setSelected] = useState(0)
+export default function Filters({open, setOpen, eventos, filteredEventos, setEventos, setSelected, selected}){
 
     const handleSortChange = (e) => {
         let sortedEventos = [...filteredEventos];
@@ -87,24 +86,7 @@ export default function Filters({open, setOpen, eventos, filteredEventos, setEve
         console.log("filtered",newEventos)
         setEventos([...newEventos])
     }
-
-    useEffect(()=>{
-        let filteredEventos = [...eventos]
-        switch (selected) {
-            case 1:
-                filteredEventos = eventos.filter((ev)=>{})
-                break;
-            case 2:
-                
-                break;
-            case 3:
-                
-                break;
-        
-            default:
-                return;
-        }
-    },[selected])
+    
     return(
         <div className='filters__wrapper'>
             <Button

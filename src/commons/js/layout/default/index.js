@@ -9,12 +9,13 @@ import '../../../css/estilosGrid.css'
 import mapboxgl from 'mapbox-gl';
 import Helmet from 'react-helmet';
 import { AuthContext } from '../../AuthContext';
+import LoadingSpinner from '../../Spinner';
 
 
 
 export default function Layout({ children, sidebar = false }) {
   const [showModal, setShowModal] = useState(false);
-  const {logout} = useContext(AuthContext)
+  const {logout, loading} = useContext(AuthContext)
   const mapContainer = useRef(null);
   const map = useRef(null);
   const [lng, setLng] = useState(1.7266128);
@@ -64,6 +65,22 @@ export default function Layout({ children, sidebar = false }) {
         <section>
           {children}
         </section>
+
+        {/* Modal de loading */}
+        <Modal
+          contentClassName='modal__spinner'
+          size="sm"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+          show={loading}
+        >
+          <Modal.Body style={{backgroundColor:"transparent"}}>
+            <LoadingSpinner/>
+          </Modal.Body>
+        </Modal>
+        
+        {/* Modal de mapa */}
+
         <Modal show={showModal} backdrop="static" fullscreen >
 
           <Modal.Header>
