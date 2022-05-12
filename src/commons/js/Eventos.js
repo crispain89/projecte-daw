@@ -46,12 +46,13 @@ export default function Eventos({className, ...rest}) {
               <>
                 <h1>Eventos Disponibles</h1>
                 {filteredEventos.map((evento)=>{ 
-                  return <Evento key={evento.id} nombre={evento.nombre} edicion={evento.edicion} lugar={evento.lugar} src={evento.src}/>
+                  return<Evento key={evento.id} nombre={evento.nombre} edicion={evento.edicion} descripcion={evento.descripcion}inicio={evento.fecha_inicio} final={evento.fecha_finalizacion} lugar={evento.lugar} src={evento.src}/>
                 })}
               </>
             :
-              <h1>No hemos encontrado ningun resultado</h1>
+            <h1>No hemos encontrado ningun resultado</h1>
           }
+          
         </div>
       </div>
     </div>
