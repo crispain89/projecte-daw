@@ -20,7 +20,7 @@ import MockComponent from './components/MockComponent';
 import Eventos from './components/eventos/Eventos';
 import Promociones from './components/promociones/Promociones';
 //el token del mapbox
-mapboxgl.accessToken = "pk.eyJ1IjoiY2lzcGFpbjg5IiwiYSI6ImNsMmo4ZmxtbjBjem0zY3MzNG41em80MDkifQ.n3GnK0soJwz763xqSPVdoQ";
+mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_KEY
 
 function App() {
   const {isAuthenticated} = useContext(AuthContext)
