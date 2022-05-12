@@ -1,4 +1,4 @@
-import httpC from "../commons/js/httpConfig";
+import httpC from "./httpConfig";
 
 
 export default class AuthService{

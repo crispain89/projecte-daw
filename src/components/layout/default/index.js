@@ -5,11 +5,11 @@ import Header from '../Header';
 import Footer from '../Footer';
 import {GrLogout} from 'react-icons/gr'
 import { Button, Modal } from 'react-bootstrap'
-import '../../../css/estilosGrid.css'
+//import '../../../css/estilosGrid.css'
 import mapboxgl from 'mapbox-gl';
 import Helmet from 'react-helmet';
-import { AuthContext } from '../../AuthContext';
 import LoadingSpinner from '../../Spinner';
+import { AuthContext } from '../../context/AuthContext';
 
 
 

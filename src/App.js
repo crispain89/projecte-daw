@@ -3,23 +3,21 @@ import './commons/css/estilosGrid.css'
 import './App.css';
 import mapboxgl from 'mapbox-gl';
 /* import 'mapbox-gl/dist/mapbox-gl.css'; */
-import {Login} from './commons/js/Login'
-import MainPage from './commons/js/MainPage'
-import {Register} from './commons/js/Register'
+import {Login} from './components/auth/Login'
+import MainPage from './components/mainPage/MainPage'
+import {Register} from './components/auth/Register'
 import {Button, Modal} from 'react-bootstrap'
 import {BrowserRouter as Router, Route, Routes ,Link} from 'react-router-dom'
-import ForgotPassword from './commons/js/ForgotPassword';
-import EmailVerification from './commons/js/EmailVerification';
-import ResetPassword from './commons/js/ResetPassword';
-import NotFound from './commons/js/NotFound';
-import Footer from './commons/js/layout/Footer';
-import Layout from './commons/js/layout/default';
-import Home from './commons/js/Home';
-import {AuthContext} from './commons/js/AuthContext';
-import PrivateRoute from './commons/js/routes/PrivateRoute';
-import HomeLayout from './commons/js/layout/home';
-import MockComponent from './commons/js/MockComponent';
-import Eventos from './commons/js/Eventos';
+import ForgotPassword from './components/auth/ForgotPassword';
+import EmailVerification from './components/auth/EmailVerification';
+import ResetPassword from './components/auth/ResetPassword';
+import NotFound from './components/NotFound';
+import Layout from './components/layout/default';
+import Home from './components/home/Home';
+import {AuthContext} from './components/context/AuthContext';
+import HomeLayout from './components/layout/home';
+import MockComponent from './components/MockComponent';
+import Eventos from './components/eventos/Eventos';
 //el token del mapbox
 mapboxgl.accessToken = "pk.eyJ1IjoiY2lzcGFpbjg5IiwiYSI6ImNsMmo4ZmxtbjBjem0zY3MzNG41em80MDkifQ.n3GnK0soJwz763xqSPVdoQ";
 

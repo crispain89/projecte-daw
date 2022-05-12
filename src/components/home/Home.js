@@ -1,6 +1,6 @@
 import { Parallax, ParallaxLayer } from '@react-spring/parallax'
 import React, {useState, useEffect} from 'react'
-import '../css/estilosGrid.css'
+//import '../css/estilosGrid.css'
 
 export default function Home() {
   return(

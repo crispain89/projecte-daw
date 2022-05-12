@@ -1,22 +1,22 @@
-import http from "../commons/js/httpConfig";
+import httpC from "./httpConfig";
 
 
 class UsuariosService{
     getAll(){
-        return http.get("/usuarios");
+        return httpC.get("/usuarios");
     }
 
     get(id){
-        return http.get(`/usuarios/${id}`);
+        return httpC.get(`/usuarios/${id}`);
     }
     create(data){
-        return http.post("/usuarios", data);
+        return httpC.post("/usuarios", data);
     }
     update(id, data){
-        return http.put(`/usuarios/${id}`, data);
+        return httpC.put(`/usuarios/${id}`, data);
     }
     delete(id){
-        return http.delete(`/usuarios/${id}`);
+        return httpC.delete(`/usuarios/${id}`);
     }
     
 }

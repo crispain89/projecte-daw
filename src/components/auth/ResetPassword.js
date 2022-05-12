@@ -3,7 +3,7 @@ import {Form, Button, Row, Col, InputGroup} from 'react-bootstrap'
 import { useNavigate } from 'react-router';
 import { useParams } from 'react-router-dom';
 import AuthService from '../../servicios/auth.service';
-import '../css/estilosGrid.css'
+//import '../css/estilosGrid.css'
 import YupPassword from 'yup-password'
 import * as yup from "yup"
 import {Formik} from 'formik'

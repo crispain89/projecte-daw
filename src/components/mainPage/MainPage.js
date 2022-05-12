@@ -1,13 +1,9 @@
 import React, { useState, useRef, useEffect, createContext, useContext } from 'react';
 import {useSearchParams, useNavigate} from 'react-router-dom'
 import Tarjeta from './Tarjeta';
-import '../css/estilosGrid.css'
-import imageEvent1 from '../multimedia/eventos/hestaAran.jpg';
-import imageEvent2 from '../multimedia/eventos/MarxaBeret.jpg';
-import imageEvent3 from '../multimedia/eventos/utmbValle.png';
-import imageEvent4 from '../multimedia/eventos/nocheVieja.jpeg';
+//import '../css/estilosGrid.css'
 import { Link } from 'react-router-dom';
-import { AuthContext } from './AuthContext';
+import { AuthContext } from '../context/AuthContext';
 
 export default function MainPage() {
 

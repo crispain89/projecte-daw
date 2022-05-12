@@ -1,6 +1,6 @@
 import React, {useContext, useEffect} from 'react';
-import { AuthContext,useAuth } from './AuthContext';
 import { useNavigate } from 'react-router';
+import { useAuth } from './context/AuthContext';
 
 const MockComponent = () =>{
     let navigate = useNavigate()

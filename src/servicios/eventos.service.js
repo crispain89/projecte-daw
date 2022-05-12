@@ -1,5 +1,5 @@
-import httpC from "../commons/js/httpConfig";
 import ApiCrudService from "./crud.service";
+import httpC from "./httpConfig";
 
 
 export default class EventosService extends ApiCrudService{
