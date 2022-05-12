@@ -10,7 +10,6 @@ export default function Evento({inscrito,nombre,edicion,descripcion,inicio,final
                     <Card.Img className='imagen__card' variant="top" src={src} />
                     <div className='card__body'>
                         <Card.Title>{nombre}{edicion}</Card.Title>
-                        {console.log(src)}
                         <Card.Text>
                         <li> {descripcion}</li>
                         <br />

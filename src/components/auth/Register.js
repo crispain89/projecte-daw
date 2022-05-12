@@ -40,7 +40,7 @@ export function Register() {
 
   return (
   <div className='container'>
-    <div class="row justify-content-center">
+    <div className="row justify-content-center">
       <h3 className="componente__titulo" >Register</h3>
       <Formik
         validationSchema={schema}
