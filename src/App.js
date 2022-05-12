@@ -18,7 +18,7 @@ import {AuthContext} from './components/context/AuthContext';
 import HomeLayout from './components/layout/home';
 import MockComponent from './components/MockComponent';
 import Eventos from './components/eventos/Eventos';
-import Promociones from './components/Promociones';
+import Promociones from './components/promociones/Promociones';
 //el token del mapbox
 mapboxgl.accessToken = "pk.eyJ1IjoiY2lzcGFpbjg5IiwiYSI6ImNsMmo4ZmxtbjBjem0zY3MzNG41em80MDkifQ.n3GnK0soJwz763xqSPVdoQ";
 
