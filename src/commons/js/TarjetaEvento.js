@@ -1,7 +1,7 @@
-import { Button, Card ,Badges} from "react-bootstrap";
+import { Button, Card ,Badges, Badge} from "react-bootstrap";
 
-export default function Evento({nombre,edicion,descripcion,inicio,final,lugar,src}){
-
+export default function Evento({inscrito,nombre,edicion,descripcion,inicio,final,lugar,src}){
+    
     return(
         <Card>
             
@@ -22,6 +22,17 @@ export default function Evento({nombre,edicion,descripcion,inicio,final,lugar,sr
                     </div>
                 </div>
                 <Button variant="primary">ver evento</Button>
+                {
+                    inscrito 
+                    ? 
+                        <Badge bg="success">
+                            INSCRITO
+                        </Badge> 
+                    :
+                        <Badge bg="danger">
+                            NO INSCRITO
+                        </Badge>
+                }
             </Card.Body>
         </Card>
     )

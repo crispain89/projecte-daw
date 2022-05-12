@@ -8,5 +8,8 @@ export default class EventosService extends ApiCrudService{
         super()
     }
     
+    static getEventosByUser(id){
+        return httpC.get(`/usuarios/${id}/eventos`)
+    }
     
 }

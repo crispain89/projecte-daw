@@ -12,6 +12,7 @@ const AuthContext = createContext(null)
 function useAuth(){
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser]=useState({id:null, email:null, nombre:null})
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate();
     const location = useLocation();
     //1semana
@@ -30,6 +31,8 @@ function useAuth(){
         isAuthenticated,
         isLogged(){return !!localStorage.getItem("token")},
         user,
+        loading,
+        setLoading,
         login (userData,token,remember)  {
             console.log("USERDATA",userData)
             const {email,id,nombre} = userData
