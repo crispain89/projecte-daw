@@ -31,7 +31,7 @@ const Promocion = sequelize.define("promociones", {
         type:Sequelize.INTEGER,
         allowNull: true
     },
-    imagen_id:{
+    src:{
         type:Sequelize.INTEGER,
         allowNull: true
     }
