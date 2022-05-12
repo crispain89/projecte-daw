@@ -49,7 +49,7 @@ const Usuario = sequelize.define("usuario", {
 });
 Usuario.getInscripciones= async function(req){
   const id= req.params.id;
-  const query= ` SELECT e.nombre, e.fecha_inicio,i.id_usuario
+  const query= ` SELECT e.nombre, e.lugar, e.descripcion, e.fecha_inicio,e.fecha_finalizacion,i.id_usuario
   FROM inscripciones as i, eventos as e
   WHERE i.id_usuario=${id} and i.id_evento=e.id`
 

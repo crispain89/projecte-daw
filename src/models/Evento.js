@@ -31,6 +31,10 @@ const Evento = sequelize.define("evento", {
     src:{
         type:Sequelize.STRING,
         allowNull: true
+    },
+    descripcion:{
+        type:Sequelize.STRING,
+        allowNull: true
     }},{
         timestamps: false,
         
