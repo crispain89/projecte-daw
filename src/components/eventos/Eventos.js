@@ -12,7 +12,6 @@ import Evento from './TarjetaEvento';
 
 export default function Eventos({className, ...rest}) {
   const {user, loading, setLoading} = useContext(AuthContext)
-  console.log("user in EVENTOS",user)
   const [open, setOpen] = useState(false);
   const [eventos, setEventos] = useState([]);
   const [filteredEventos, setFilteredEventos] = useState([])

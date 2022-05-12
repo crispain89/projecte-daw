@@ -2,7 +2,7 @@ import React, { useState,useEffect, useCallback, useContext } from 'react'
 import ComerciosService from '../../servicios/comercios.service.js';
 import PromocionesService from '../../servicios/promociones.service.js.js';
 import { AuthContext } from '../context/AuthContext';
-import Filters from '../eventos/Filters';
+//import Filters from '../eventos/Filters';
 import Promocion from './TarjetaPromociones';
 //En esta pagina se mostraran todos los eventos de la aplicacion, por orden alfabetico o proximidad,
 //por defecto, la lista mostrará primero los eventos a los que estas inscrito y los diferenciará de los otros
@@ -12,54 +12,27 @@ import Promocion from './TarjetaPromociones';
 export default function Promociones({className, ...rest}) {
   const {user, loading, setLoading} = useContext(AuthContext)
   console.log("user in Promociones",user)
+  
   const [open, setOpen] = useState(false);
   const [promociones, setPromociones] = useState([]);
   const [filteredPromociones, setFilteredPromociones] = useState([])
-  const [userPromociones, setUserPromociones] = useState([])
+  //guardamos las promociones de un usuario
+ 
+
   const renderPromociones = () => {
     //Renderizamos los eventos dependiendo del filtro de tipo: "inscrito" | "no inscrito" | "todos"
     //Este filtro se encuentra en el componente Filters y le pasamos el resultado a este componente
-    console.log("userPromociones",userPromociones)
+  
     console.log("filteredPromociones",filteredPromociones)
 
 
     console.log(promociones)
-    userPromociones.map((promocion)=>{
-      //if(promociones.find(promo=>promo.comercio_id===comercio.id)){
+    return promociones.map((promocion)=>{
+     
 
-        <Promocion key={promocion.id} titulo={promocion.titulo} descripcion={promocion.descripcion} inicio={promocion.fecha_inicio} final={promocion.fecha_expiracion}/>
-     // }
+        return <Promocion key={promocion.id} titulo={promocion.titulo} descripcion={promocion.descripcion} inicio={promocion.fecha_inicio} src={promocion.src} final={promocion.fecha_expiracion}/>
+    
     })
-
-
-    /* switch (selected) {
-      case 1:
-        //Inscritos
-        return userPromociones.map((promocion)=>{ 
-          return<Promocion key={promocion.id} nombre={promocion.descripcion} titulo={promociones.titulo}inicio={promocion.fecha_inicio} final={promocion.fecha_expiracion} src={promocion.src}/>
-        })
-      case 2:
-        //No inscritos
-        return filteredPromociones.map((promocion)=>{ 
-          if ( userPromociones.find(ev=>ev.id_evento !== evento.id) ){
-          return<Promocion key={promocion.id} nombre={promocion.descripcion}  titulo={promociones.titulo} nicio={promocion.fecha_inicio} final={promocion.fecha_expiracion} src={promocion.src}/>
-          }
-        })
-      case 3:
-        return filteredPromociones.map((promocion)=>{ 
-          if ( userPromociones.find(ev=>ev.id_evento === evento.id) ){
-            return<Promocion key={promocion.id} nombre={promocion.descripcion}  titulo={promociones.titulo} inicio={promocion.fecha_inicio} final={promocion.fecha_expiracion} src={promocion.src}/>
-          }
-          return<Promocion key={promocion.id} nombre={promocion.descripcion}  titulo={promociones.titulo} inicio={promocion.fecha_inicio} final={promocion.fecha_expiracion} src={promocion.src}/>
-        })
-      default:
-        return filteredPromociones.map((promocion)=>{ 
-          if ( userPromociones.find(ev=>ev.id_evento === evento.id) ){
-            return<Promocion key={promocion.id} nombre={promocion.descripcion} titulo={promociones.titulo} inicio={promocion.fecha_inicio} final={promocion.fecha_expiracion} src={promocion.src}/>
-          }
-          return<Promocion key={promocion.id} nombre={promocion.descripcion}  titulo={promociones.titulo} inicio={promocion.fecha_inicio} final={promocion.fecha_expiracion} src={promocion.src}/>
-        })
-    } */
   }
 
   useEffect(() => {
@@ -69,13 +42,12 @@ export default function Promociones({className, ...rest}) {
         //Loading del modal a true
         setLoading(true)
         const userPromociones= await PromocionesService.getPromocionesByUser(user.id);
+        console.log("USERPROMOS",userPromociones.data)
         //le pasamos el id del comercio que tiene la promocion.
-        const comercio= await ComerciosService.show(promociones.comercio_id);
-        console.log(promociones.data)
-        console.log('id del comercio', comercio.data.id)
-        setUserPromociones(userPromociones.data)
-        setPromociones(promociones.data)
-        setFilteredPromociones(promociones.data)
+        const comercio= await ComerciosService.show("comercios",promociones.comercio_id);
+        console.log(' comercio', comercio.data)
+        setPromociones(userPromociones.data)
+        setFilteredPromociones(userPromociones.data)
       }catch(err){
         console.log(err)
       }
@@ -90,7 +62,7 @@ export default function Promociones({className, ...rest}) {
 
   return (
     <div>
-      <Filters setPromociones={setFilteredPromociones} filteredPromociones={filteredPromociones} promociones={promociones} open={open} setOpen={setOpen}/>
+      {/* <Filters setPromociones={setFilteredPromociones} filteredPromociones={filteredPromociones} promociones={promociones} open={open} setOpen={setOpen}/> */}
       <div className='eventos__topbar'>
         <div className='eventos'>
           { 
