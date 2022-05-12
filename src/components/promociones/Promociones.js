@@ -1,8 +1,8 @@
 import React, { useState,useEffect, useCallback, useContext } from 'react'
-import ComerciosService from '../servicios/comercios.service.js';
-import PromocionesService from '../servicios/promociones.service.js';
-import { AuthContext } from './context/AuthContext';
-import Filters from './eventos/Filters';
+import ComerciosService from '../../servicios/comercios.service.js';
+import PromocionesService from '../../servicios/promociones.service.js.js';
+import { AuthContext } from '../context/AuthContext';
+import Filters from '../eventos/Filters';
 import Promocion from './TarjetaPromociones';
 //En esta pagina se mostraran todos los eventos de la aplicacion, por orden alfabetico o proximidad,
 //por defecto, la lista mostrará primero los eventos a los que estas inscrito y los diferenciará de los otros
@@ -24,12 +24,12 @@ export default function Promociones({className, ...rest}) {
 
 
     console.log(promociones)
-    /* promociones.map((promocion)=>{
-      if(Promociones.find(promo=>promo.comercio_id===)){
+    userPromociones.map((promocion)=>{
+      //if(promociones.find(promo=>promo.comercio_id===comercio.id)){
 
-        <Promocion key={promocion.id} comercion={}titulo={promocion.titulo} descripcion={promocion.descripcion} inicio={promocion.fecha_inicio} final={promocion.fecha_expiracion}/>
-      }
-    }) */
+        <Promocion key={promocion.id} titulo={promocion.titulo} descripcion={promocion.descripcion} inicio={promocion.fecha_inicio} final={promocion.fecha_expiracion}/>
+     // }
+    })
 
 
     /* switch (selected) {
