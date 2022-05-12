@@ -2,7 +2,11 @@
     margin:0;
     box-sizing: border-box;
 }
-body,html,#root{
+html{
+    width:100%;
+    height:fit-content;
+}
+body,#root{
     width: 100%;
     height: 100%;
 }

@@ -9,9 +9,8 @@ export default class PromocionesService extends ApiCrudService{
     }
     
     static getPromocionesByUser(id){
-        return httpC.get(`/usuarios/${id}/promociones`)
-    }
+         return httpC.get(`/usuarios/${id}/promociones`)
     //le pasare el id de comercio que lo tiene la promcion
     
-    
+    }
 }
