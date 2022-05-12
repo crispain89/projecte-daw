@@ -81,9 +81,9 @@ export default function MainPage() {
         </div>
         <div className="card__wrapper col-lg-4 col-md-6">
           <div className='card__box'>
-            <Tarjeta path={"/user/descuentos"} src={"https://d2f0ora2gkri0g.cloudfront.net/9d/d5/9dd59804-f004-491c-911e-cc7e1dc3f2a4.png"} alt={"descuento"} title={"Promociones"} subtitle={" Promociones de tus eventos"} />
+            <Tarjeta path={"/user/promociones"} src={"https://d2f0ora2gkri0g.cloudfront.net/9d/d5/9dd59804-f004-491c-911e-cc7e1dc3f2a4.png"} alt={"descuento"} title={"Promociones"} subtitle={" Promociones de tus eventos"} />
             {/* Al hacer click aqui te irias a una página donde estaria todos las PRMOCIONES que hay disponibles. */}
-            <Link className="card__link" to={"/home"}>Ver todos los descuentos</Link>
+            <Link className="card__link" to={`/home/${user.id}`}>Ver todas las promociones</Link>
           </div>
         </div>
         <div className="card__wrapper col-lg-4 col-md-12">

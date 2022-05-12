@@ -18,6 +18,7 @@ import {AuthContext} from './components/context/AuthContext';
 import HomeLayout from './components/layout/home';
 import MockComponent from './components/MockComponent';
 import Eventos from './components/eventos/Eventos';
+import Promociones from './components/Promociones';
 //el token del mapbox
 mapboxgl.accessToken = "pk.eyJ1IjoiY2lzcGFpbjg5IiwiYSI6ImNsMmo4ZmxtbjBjem0zY3MzNG41em80MDkifQ.n3GnK0soJwz763xqSPVdoQ";
 
@@ -33,6 +34,7 @@ function App() {
               <Route path='/user' element={ <MainPage/> }/>
               <Route path='/user/:id/eventos' element={ <MockComponent/> }/>
               <Route path='/user/eventos' element={ <Eventos/> }/>
+              <Route path='user/:id/promociones' element={<Promociones/>}/>
               <Route path="*" element={<NotFound />}></Route>
             </Routes>
           </Layout> 
