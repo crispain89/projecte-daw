@@ -85,6 +85,16 @@ header{
     background-color: #f4fa9ac5;
     border: none;
 }
+.card__evento{
+    display: flex;
+    flex-direction: row;
+}
+.card__body li{
+    list-style: none;
+}
+.card__styleInfo{
+    font-weight: bolder
+}
 
 .card__box{
     transition: all 0.5s;
