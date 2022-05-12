@@ -117,10 +117,10 @@ export default function Filters({open, setOpen, eventos, filteredEventos, setEve
                         </ButtonGroup>
                     </ButtonToolbar>
                     <form className='input-group'>
-                        <label class="form-label" for="form1">Busca un evento:</label>
-                        <div class="form-outline search__wrapper">
-                        <input onChange={handleSearchChange}  type="search" id="form1" class="form-control" />
-                        <button type="button" class="btn btn-primary">
+                        <label className="form-label" htmlFor="form1">Busca un evento:</label>
+                        <div className="form-outline search__wrapper">
+                        <input onChange={handleSearchChange}  type="search" id="form1" className="form-control" />
+                        <button type="button" className="btn btn-primary">
                             <FaSearch/>
                         </button>
                         </div>
