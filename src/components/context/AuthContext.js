@@ -26,6 +26,11 @@ function useAuth(){
             console.log("EXPIRED",expired )
             setIsAuthenticated(!expired)
         }
+        if ( localStorage.getItem("user") ){
+            let data = JSON.parse(localStorage.getItem('user'))
+            console.log("DATA",data )
+            setUser(data)
+        }
     }, [])
     return {
         isAuthenticated,
