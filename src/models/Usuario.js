@@ -65,12 +65,13 @@ Usuario.getInscripciones= async function(req){
   
 }
 Usuario.getPromociones= async function(req){
-  const {id, nid}=req.params.id;
-  const query=`SELECT e.nombre, p.fecha_inicio,p.fecha_expiracion,p.token,p.descripcion
+  const id = req.params.id;
+  const query=`SELECT e.nombre as evento_nombre, p.fecha_inicio,p.fecha_expiracion,p.descripcion, p.titulo,i.id_evento,p.src,c.nombre as comercio_nombre, c.poblacion,p.comercio_id,p.src
   FROM (( usuarios as u
   INNER JOIN inscripciones as i ON i.id_usuario= u.id
   INNER JOIN eventos as e ON e.id=i.id_evento
-  INNER JOIN promociones as p ON p.evento_id=e.id))
+  INNER JOIN promociones as p ON p.evento_id=e.id 
+  INNER JOIN comercios as c ON c.id=p.comercio_id))
   WHERE u.id=${id}`
 
   const result = await sequelize.query(query, 
@@ -85,7 +86,7 @@ Usuario.getPromociones= async function(req){
 }
 Usuario.getPromocionesById= async function(req){
   const id=req.params.id;
-  const query=`SELECT e.nombre, p.fecha_inicio,p.fecha_expiracion,p.token,p.descripcion
+  const query=`SELECT e.nombre, p.fecha_inicio,p.fecha_expiracion,p.descripcion, p.titulo, i.id_evento,p.src
   FROM (( usuarios as u
   INNER JOIN inscripciones as i ON i.id_usuario= u.id
   INNER JOIN eventos as e ON e.id=i.id_evento

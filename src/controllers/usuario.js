@@ -31,6 +31,7 @@ exports.promocionIs=async function(req, res){
 exports.promociones=async(req,res)=>{
   try{
     models= await User.getPromociones(req);
+    console.log("models",models)
     res.send(models)
   }catch(error){
     res.status(500).send({

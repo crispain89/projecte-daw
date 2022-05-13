@@ -47,7 +47,7 @@ router.apiResource('comercios', ComerCtrl)
 router.apiResource('comercios.promociones', PromoComerCtrl)
 router.apiResource('eventos.promociones', PromoEventCtrl)
 router.apiResource('comercios.eventos',EventComerCtrl)
-router.get('comercios/:id/eventos', ComerCtrl.promos)
+router.get('/comercios/:id/eventos', ComerCtrl.promos)
 router.get('/usuarios/:id/eventos',UsuarioCtrl.inscripcion)
 router.get('/usuarios/:id/promociones',UsuarioCtrl.promociones)
 
