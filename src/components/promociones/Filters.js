@@ -117,7 +117,7 @@ export default function Filters({open, setOpen, eventos, filteredEventos, setEve
                         </ButtonGroup>
                     </ButtonToolbar>
                     <form className='input-group'>
-                        <label class="form-label" for="form1">Busca un evento:</label>
+                        <label class="form-label" for="form1">Busca una promoción</label>
                         <div class="form-outline search__wrapper">
                         <input onChange={handleSearchChange}  type="search" id="form1" class="form-control" />
                         <button type="button" class="btn btn-primary">

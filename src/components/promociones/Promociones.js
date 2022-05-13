@@ -1,6 +1,7 @@
 import React, { useState,useEffect, useCallback, useContext } from 'react'
 import ComerciosService from '../../servicios/comercios.service.js';
 import PromocionesService from '../../servicios/promociones.service.js.js';
+import Filters from './Filters'
 import { AuthContext } from '../context/AuthContext';
 //import Filters from '../eventos/Filters';
 import Promocion from './TarjetaPromociones';
@@ -60,7 +61,7 @@ export default function Promociones({className, ...rest}) {
 
   return (
     <div>
-      {/* <Filters setPromociones={setFilteredPromociones} filteredPromociones={filteredPromociones} promociones={promociones} open={open} setOpen={setOpen}/> */}
+      <Filters setPromociones={setFilteredPromociones} filteredPromociones={filteredPromociones} promociones={promociones} open={open} setOpen={setOpen}/>
       <div className='eventos__topbar'>
         <div className='eventos'>
           { 
