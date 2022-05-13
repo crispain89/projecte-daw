@@ -84,6 +84,26 @@ Usuario.getPromociones= async function(req){
     console.log("RESULT",result)
   return result;
 }
+Usuario.getPromocionesExpiredByUser= async function(req){
+  const id=req.params.id;
+  const query=`SELECT e.nombre, p.fecha_inicio,p.fecha_expiracion,p.descripcion, p.titulo, i.id_evento,p.src,c.nombre, c.poblacion,p.comercio_id
+  FROM (( usuarios as u
+  INNER JOIN inscripciones as i ON i.id_usuario= u.id
+  INNER JOIN eventos as e ON e.id=i.id_evento
+  INNER JOIN promociones as p ON p.evento_id=e.id 
+  INNER JOIN comercios as c ON c.id=p.comercio_id))
+  WHERE u.id=${id} and p.fecha_expiracion < curdate()`
+}
+Usuario.getPromocionesCurrentByUser= async function(req){
+  const id=req.params.id;
+  const query=`SELECT e.nombre, p.fecha_inicio,p.fecha_expiracion,p.descripcion, p.titulo, i.id_evento,p.src,c.nombre, c.poblacion,p.comercio_id
+  FROM (( usuarios as u
+  INNER JOIN inscripciones as i ON i.id_usuario= u.id
+  INNER JOIN eventos as e ON e.id=i.id_evento
+  INNER JOIN promociones as p ON p.evento_id=e.id 
+  INNER JOIN comercios as c ON c.id=p.comercio_id))
+  WHERE u.id=${id} and p.fecha_expiracion > curdate()`
+}
 Usuario.getPromocionesById= async function(req){
   const id=req.params.id;
   const query=`SELECT e.nombre, p.fecha_inicio,p.fecha_expiracion,p.descripcion, p.titulo, i.id_evento,p.src
