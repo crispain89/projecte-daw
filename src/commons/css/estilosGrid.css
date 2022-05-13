@@ -2,20 +2,30 @@
     margin:0;
     box-sizing: border-box;
 }
+body,html,#root{
+    width: 100%;
+
+}
+body{
+    height: 100vh;
+    min-height: 100vh;
+    
+}
 html{
     width:100%;
-    height:fit-content;
+    min-height: 100vh;
+
+    display: block;
+
 }
-body,#root{
-    width: 100%;
-    height: 100%;
-}
+
 .container__principal{
     background-color: #81bdf1c5;
 
     gap: 8px;
     height: 100%;
     width: 100%;
+    min-height: 100vh;
     display:grid;
     grid-template-areas:"header header header"
     "sidebar contenido contenido"

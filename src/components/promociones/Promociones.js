@@ -24,8 +24,6 @@ export default function Promociones({className, ...rest}) {
     //Este filtro se encuentra en el componente Filters y le pasamos el resultado a este componente
   
     console.log("filteredPromociones",filteredPromociones)
-
-
     console.log(promociones)
     return promociones.map((promocion)=>{
      
