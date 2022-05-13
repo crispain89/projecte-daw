@@ -32,11 +32,13 @@ export default function Eventos({className, ...rest}) {
         })
       case 2:
         //No inscritos
-        return filteredEventos.map((evento)=>{ 
-          if ( userEventos.find(ev=>ev.id_evento !== evento.id) ){
-            return<Evento key={evento.id} nombre={evento.nombre} edicion={evento.edicion} descripcion={evento.descripcion}inicio={evento.fecha_inicio} final={evento.fecha_finalizacion} lugar={evento.lugar} src={evento.src}/>
-          }
-        })
+        return filteredEventos
+          .filter(evento=>{
+            return !userEventos.find(e => e.id_evento === evento.id)
+          })
+          .map((evento)=>{ 
+            return<Evento inscrito={false} key={evento.id} nombre={evento.nombre} edicion={evento.edicion} descripcion={evento.descripcion}inicio={evento.fecha_inicio} final={evento.fecha_finalizacion} lugar={evento.lugar} src={evento.src}/>
+          })
       case 3:
         return filteredEventos.map((evento)=>{ 
           if ( userEventos.find(ev=>ev.id_evento === evento.id) ){
