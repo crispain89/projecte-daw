@@ -15,14 +15,14 @@ const Usuario = sequelize.define("usuario", {
   },
   password: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   email: {
     type: Sequelize.STRING,
+    allowNull: true,
     validate:{
       isEmail: true
-    },
-    allowNull: false,
+    }
   },
   fecha_nacimiento: {
     type: Sequelize.DATEONLY,
@@ -31,7 +31,15 @@ const Usuario = sequelize.define("usuario", {
   dni: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: true,
+    allowNull: false,
+  },
+  localidad:{
+    type:Sequelize.STRING,
+    allowNull: true
+  },
+  cp:{
+    type:Sequelize.INTEGER,
+    allowNull: true
   },
   rol_id: {
     type: Sequelize.INTEGER,
@@ -105,6 +113,7 @@ Usuario.getPromocionesCurrentByUser= async function(req){
   INNER JOIN comercios as c ON c.id=p.comercio_id))
   WHERE u.id=${id} and p.fecha_expiracion > curdate()`
 }
+
 Usuario.getPromocionesById= async function(req){
   const id=req.params.id;
   const query=`SELECT e.nombre, p.fecha_inicio,p.fecha_expiracion,p.descripcion, p.titulo, i.id_evento,p.src

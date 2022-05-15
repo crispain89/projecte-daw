@@ -57,6 +57,7 @@ exports.store = async (req, res) => {
     const usuario = User.build(req.body);
     /* probar en poner MockData.JSON */
     usuario.save();
+    console.log('usuariooooo', res)
     res.send(usuario)
   } catch (error) {
     console.log("error",error)
