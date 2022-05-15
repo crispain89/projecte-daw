@@ -7,16 +7,16 @@ export default class UsuariosService extends ApiCrudService{
         return httpC.get("/usuarios");
     }
 
-    get(id){
+    static get(id){
         return httpC.get(`/usuarios/${id}`);
     }
-    create(data){
+    static create(data){
         return httpC.post("/usuarios", data);
     }
-    update(id, data){
+    static update(id, data){
         return httpC.put(`/usuarios/${id}`, data);
     }
-    delete(id){
+    static delete(id){
         return httpC.delete(`/usuarios/${id}`);
     } */
     static updateAvatar(data,id){
