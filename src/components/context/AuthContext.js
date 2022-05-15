@@ -11,7 +11,7 @@ const AuthContext = createContext(null)
 
 function useAuth(){
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [user, setUser]=useState({id:null, email:null, nombre:null})
+    const [user, setUserData]=useState({id:null, email:null, nombre:null})
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate();
     const location = useLocation();
@@ -29,19 +29,25 @@ function useAuth(){
         if ( localStorage.getItem("user") ){
             let data = JSON.parse(localStorage.getItem('user'))
             console.log("DATA",data )
-            setUser(data)
+            setUserData(data)
         }
     }, [])
+
+    const setUser = (data) => {
+        localStorage.setItem('user',JSON.stringify({...data}))
+        setUserData({...data})
+    }
+
     return {
         isAuthenticated,
         isLogged(){return !!localStorage.getItem("token")},
         user,
+        setUser,
         loading,
         setLoading,
         login (userData,token,remember)  {
             console.log("USERDATA",userData)
-            const {email,id,nombre} = userData
-            setUser({email, id, nombre})
+            setUserData({...userData})
             // your authentication logic
             setIsAuthenticated(true)
             if( remember ){

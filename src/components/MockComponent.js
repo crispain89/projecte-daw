@@ -10,7 +10,18 @@ const MockComponent = () =>{
     if(!isAuthenticated){
         navigate('/login');
     }
-    return <h1>Hola mundo</h1>
+    return (
+        <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Start Time</legend>
+        <div class="control-group">
+            <label class="control-label input-label" for="startTime">Start :</label>
+            <div class="controls bootstrap-timepicker">
+                <input type="text" class="datetime" id="startTime" name="startTime" placeholder="Start Time" />
+                <i class="icon-time"></i>
+            </div>
+        </div>
+    </fieldset>
+      )
 }
 
 export default MockComponent;

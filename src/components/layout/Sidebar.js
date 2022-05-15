@@ -22,7 +22,7 @@ export default function Sidebar({ accio }) {
     return (
         <aside >
             <div className='avatar'>
-                <img src="https://oneill.law.georgetown.edu/wp-content/uploads/2021/06/generic-profile.png"></img>
+                <img src={user.avatar_src || "https://oneill.law.georgetown.edu/wp-content/uploads/2021/06/generic-profile.png"}></img>
             </div>
             {user.nombre && 
                 <h3 className='usuario__nombre'>
@@ -37,7 +37,7 @@ export default function Sidebar({ accio }) {
                     <Link to="/login" onClick={logoutSession}>Logout</Link>
                 </li>
                 <li>
-                    <Link to="/profile">Profile</Link>
+                    <Link to="/user/profile">Profile</Link>
                 </li>
             </ul>
         </aside>
