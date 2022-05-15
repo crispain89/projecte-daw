@@ -124,7 +124,8 @@ exports.signin = async (req, res) => {
       email: usuario.email,
       rol: usuario.rol,
       token:token,
-      token_activado: usuario.token_activado ?? null
+      token_activado: usuario.token_activado ?? null,
+      avatar_src:usuario.avatar_src
     }
     req.session.user = usuarioData;
     /*let authorities = [];
@@ -142,8 +143,8 @@ exports.signin = async (req, res) => {
         localidad: usuario.localidad ?? null,
         fecha_nacimiento: usuario.fecha_nacimiento ?? null,
         dni: usuario.dni ?? null,
-        avatar_id: usuario.avatar_id ?? null,
-        token_activado: usuario.token_activado ?? null
+        avatar_src: usuario.avatar_src ?? null,
+        token_activado: usuario.token_activado ?? null,
       },
       auth: true,
       token:token,

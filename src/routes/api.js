@@ -11,8 +11,9 @@ const AuthCtrl = require('../controllers/auth.js')
 const EventCtrl = require('../controllers/evento.js')
 const ComerCtrl = require('../controllers/comercio.js')
 const PromoComerCtrl = require('../controllers/promo_comercio.js')
-const PromoEventCtrl= require('../controllers/promo_evento.js')
-const EventComerCtrl=require('../controllers/evento_comercio.js')
+const PromoEventCtrl = require('../controllers/promo_evento.js')
+const EventComerCtrl = require('../controllers/evento_comercio.js')
+const UploadCtrl = require('../controllers/file.js')
 /* const InscripUserCtrl= require('../controllers/inscripciones_usuarios.js') */
 
 //Middlewares
@@ -77,7 +78,7 @@ router.get('/usuarios/:id/eventos',UsuarioCtrl.inscripcion)
 router.get('/usuarios/:id/promociones',UsuarioCtrl.promociones)
 
 //Upload
-router.post('/upload',fileUpload.single('image'),uploadFile)
+router.put('/file/:id',fileUpload.single('image'),UploadCtrl.updateUserAvatar)
 
 
 module.exports = router

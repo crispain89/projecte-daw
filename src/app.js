@@ -35,7 +35,8 @@ app.use(
   
   // App routes - API
   const api = require('./routes/api')
-app.use('/api', api, authJwt.verifyToken)
+//app.use('/api', api, authJwt.verifyToken)
+app.use('/api', api)
 app.use('/api', express.urlencoded({extended: false}))
 app.use('/api', express.json())
 

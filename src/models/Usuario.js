@@ -37,9 +37,10 @@ const Usuario = sequelize.define("usuario", {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
-  avatar_id: {
-    type: Sequelize.INTEGER,
+  avatar_src: {
+    type: Sequelize.STRING,
     allowNull: false,
+    defaultValue: "https://res.cloudinary.com/dhdbik42m/image/upload/v1652107106/cld-sample.jpg"
   },
   token_activado:{
     type: Sequelize.BOOLEAN,
