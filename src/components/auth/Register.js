@@ -57,7 +57,7 @@ export function Register() {
           codigo_postal:'',
           telefono:'',
           fecha_nacimiento:'',
-          file: null,
+          avatar_src: null,
           terms: false,
         }}
         onSubmit={async (values)=>{

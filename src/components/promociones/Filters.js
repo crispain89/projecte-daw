@@ -15,7 +15,7 @@ export default function Filters({open, setOpen, promociones, filteredPromociones
                     if (a.evento_nombre > b.evento_nombre) {
                         return 1;
                     }
-                    if (a.evento_nombre < b.evento_nombre) {
+                    else if (a.evento_nombre < b.evento_nombre) {
                         console.log("nombre de A",a.evento_nombre)
                         console.log("nombre de B",a.evento_nombre)
 
@@ -30,7 +30,7 @@ export default function Filters({open, setOpen, promociones, filteredPromociones
                     if (a.evento_nombre < b.evento_nombre) {
                         return 1;
                     }
-                    if (a.evento_nombre > b.evento_nombre) {
+                    else if (a.evento_nombre > b.evento_nombre) {
                         console.log("nombre de A",a.evento_nombre)
                         console.log("nombre de B",a.evento_nombre)
                     return -1;
@@ -46,7 +46,7 @@ export default function Filters({open, setOpen, promociones, filteredPromociones
                         console.log("nombre de B",a.evento_nombre)
                         return 1;
                     }
-                    if (a.fecha_inicio < b.fecha_inicio) {
+                    else if (a.fecha_inicio < b.fecha_inicio) {
                         return -1;
                     }
                     // a must be equal to b
@@ -58,7 +58,7 @@ export default function Filters({open, setOpen, promociones, filteredPromociones
                     if (a.fecha_inicio < b.fecha_inicio) {
                         return 1;
                     }
-                    if (a.fecha_inicio > b.fecha_inicio) {
+                    else if (a.fecha_inicio > b.fecha_inicio) {
                         return -1;
                     }
                     // a must be equal to b
