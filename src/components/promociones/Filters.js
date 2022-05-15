@@ -3,18 +3,22 @@ import { Button, ButtonGroup, ButtonToolbar, Collapse, Dropdown, DropdownButton,
 import { FaSearch } from "react-icons/fa"
 
 
-export default function Filters({open, setOpen, eventos, filteredEventos, setEventos, setSelected, selected}){
-
+export default function Filters({open, setOpen, promociones, filteredPromociones, setPromociones, setSelected, selected}){
+    console.log("promociones filtro",filteredPromociones)
+    console.log("promociones de l filtro", promociones)
     const handleSortChange = (e) => {
-        let sortedEventos = [...filteredEventos];
+        let sortedPromociones = [...filteredPromociones];
         switch (e.target.value) {
             case "1":
                 console.log("easfas")
-                sortedEventos = filteredEventos.sort((a,b)=>{
-                    if (a.nombre > b.nombre) {
+                sortedPromociones = filteredPromociones.sort((a,b)=>{
+                    if (a.evento_nombre > b.evento_nombre) {
                         return 1;
                     }
-                    if (a.nombre < b.nombre) {
+                    if (a.evento_nombre < b.evento_nombre) {
+                        console.log("nombre de A",a.evento_nombre)
+                        console.log("nombre de B",a.evento_nombre)
+
                     return -1;
                     }
                     // a must be equal to b
@@ -22,11 +26,13 @@ export default function Filters({open, setOpen, eventos, filteredEventos, setEve
                 }) 
                 break;
             case "2":
-                sortedEventos = filteredEventos.sort((a,b)=>{
-                    if (a.nombre < b.nombre) {
+                sortedPromociones = filteredPromociones.sort((a,b)=>{
+                    if (a.evento_nombre < b.evento_nombre) {
                         return 1;
                     }
-                    if (a.nombre > b.nombre) {
+                    if (a.evento_nombre > b.evento_nombre) {
+                        console.log("nombre de A",a.evento_nombre)
+                        console.log("nombre de B",a.evento_nombre)
                     return -1;
                     }
                     // a must be equal to b
@@ -34,8 +40,10 @@ export default function Filters({open, setOpen, eventos, filteredEventos, setEve
                 }) 
                 break;
             case "3":
-                sortedEventos = filteredEventos.sort((a,b)=>{
+                sortedPromociones = filteredPromociones.sort((a,b)=>{
                     if (a.fecha_inicio > b.fecha_inicio) {
+                        console.log("nombre de A",a.evento_nombre)
+                        console.log("nombre de B",a.evento_nombre)
                         return 1;
                     }
                     if (a.fecha_inicio < b.fecha_inicio) {
@@ -46,7 +54,7 @@ export default function Filters({open, setOpen, eventos, filteredEventos, setEve
                 }) 
                 break;
             case "4":
-                sortedEventos = filteredEventos.sort((a,b)=>{
+                sortedPromociones = filteredPromociones.sort((a,b)=>{
                     if (a.fecha_inicio < b.fecha_inicio) {
                         return 1;
                     }
@@ -59,11 +67,11 @@ export default function Filters({open, setOpen, eventos, filteredEventos, setEve
                 break;
         
             default:
-                sortedEventos = filteredEventos.sort((a,b)=>{
-                    if (a.nombre > b.nombre) {
+                 sortedPromociones= filteredPromociones.sort((a,b)=>{
+                    if (a.evento_nombre > b.evento_nombre) {
                         return 1;
                     }
-                    if (a.nombre < b.nombre) {
+                    if (a.evento_nombre < b.evento_nombre) {
                     return -1;
                     }
                     // a must be equal to b
@@ -71,20 +79,20 @@ export default function Filters({open, setOpen, eventos, filteredEventos, setEve
                 }) 
                 break;
         }
-        console.log("SORTED",sortedEventos)
-        setEventos([...sortedEventos])
+        console.log("SORTED ",sortedPromociones)
+        setPromociones([...sortedPromociones])
     }
 
     const handleSearchChange = (e) => {
         let value = e.target.value;
-        let newEventos;
+        let newPromociones;
         if ( value === "" ){
-            setEventos([...eventos])
+            setPromociones([...promociones])
             return
         }
-        newEventos = eventos.filter(ev => ev.nombre.toLowerCase().includes(value.toLowerCase()))
-        console.log("filtered",newEventos)
-        setEventos([...newEventos])
+        newPromociones = promociones.filter(promo => promo.titulo.toLowerCase().includes(value.toLowerCase()))
+        console.log("filtered",newPromociones)
+        setPromociones([...newPromociones])
     }
     
     return(
@@ -111,8 +119,8 @@ export default function Filters({open, setOpen, eventos, filteredEventos, setEve
                     <ButtonToolbar className='filter__selection' type="checkbox" >
                         <span>Escoge un filtro: </span>
                         <ButtonGroup >
-                        <Button onClick={(e)=>{setSelected(1)}} className={`${selected === 1 ? "selected" : ""} button__option`} value={1}>Inscritos</Button>
-                        <Button onClick={(e)=>{setSelected(2)}} className={`${selected === 2 ? "selected" : ""} button__option`} value={2}>No inscritos</Button>
+                        <Button onClick={(e)=>{setSelected(1)}} className={`${selected === 1 ? "selected" : ""} button__option`} value={1}>Caducadas</Button>
+                        <Button onClick={(e)=>{setSelected(2)}} className={`${selected === 2 ? "selected" : ""} button__option`} value={2}>Vigentes</Button>
                         <Button onClick={(e)=>{setSelected(3)}} className={`${selected === 3 ? "selected" : ""} button__option`} value={3}>Todos</Button>
                         </ButtonGroup>
                     </ButtonToolbar>
