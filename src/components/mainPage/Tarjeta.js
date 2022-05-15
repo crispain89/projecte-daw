@@ -1,5 +1,5 @@
-import React, {useState, useEffect}from 'react'
-import {Card, ListGroup,ListGroupItem} from 'react-bootstrap'
+import React from 'react'
+import {Card} from 'react-bootstrap'
 import { useNavigate } from 'react-router'
 
 export default function Tarjeta({src,alt, title, subtitle, path }) {
