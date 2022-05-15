@@ -42,9 +42,6 @@ export default function Sidebar({ accio }) {
                 <li>
                     <Link to="/inscripciones">cargar archivo csv</Link>
                 </li>
-                <li>
-                    <Link to="/inscripcion">cargar archivo csv</Link>
-                </li>
             </ul>
         </aside>
     )
