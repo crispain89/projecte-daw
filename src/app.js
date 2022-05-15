@@ -59,7 +59,7 @@ app.post('/api/reset',auth.resetPassword)
 
 
 
-const multer = require("multer");
+/* const multer = require("multer");
 const cloudinary = require('./config/cloudinary')
 const streamifier = require('streamifier')
 const fileUpload = multer()
@@ -87,7 +87,7 @@ app.post('/upload', fileUpload.single('image'), function (req, res, next) {
   }
 
   upload(req);
-});
+}); */
 
 
 

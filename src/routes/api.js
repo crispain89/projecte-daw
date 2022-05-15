@@ -2,6 +2,8 @@
 
 const express = require('express')
 var router = express.Router()
+const multer = require("multer");
+const fileUpload = multer()
 //Import controllers
 const UsuarioCtrl = require('../controllers/usuario.js')
 const RolCtrl = require('../controllers/rol.js')
@@ -12,6 +14,9 @@ const PromoComerCtrl = require('../controllers/promo_comercio.js')
 const PromoEventCtrl= require('../controllers/promo_evento.js')
 const EventComerCtrl=require('../controllers/evento_comercio.js')
 /* const InscripUserCtrl= require('../controllers/inscripciones_usuarios.js') */
+
+//Helpers
+const { selectByFk, createByFk, deleteByFk, updateByFk ,getIdByFk, uploadFile}= require("../controllers/helpers");
 
 
 // Emulate Laravel apiResource method
@@ -51,7 +56,8 @@ router.get('/comercios/:id/eventos', ComerCtrl.promos)
 router.get('/usuarios/:id/eventos',UsuarioCtrl.inscripcion)
 router.get('/usuarios/:id/promociones',UsuarioCtrl.promociones)
 
-
+//Upload
+router.post('/upload',fileUpload.single('image'),uploadFile)
 
 
 module.exports = router
