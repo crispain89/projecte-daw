@@ -10,15 +10,34 @@ import Promocion from './TarjetaPromociones';
 //con una etiqueta verde de "inscrito" 
 //Además, se podrá filtrar por inscritos o no inscritos, para que la busqueda sea mas sencilla
 
+
+
+
 export default function Promociones({className, ...rest}) {
   const {user, loading, setLoading} = useContext(AuthContext)
   console.log("user in Promociones",user)
-  
   const [open, setOpen] = useState(false);
   const [promociones, setPromociones] = useState([]);
+  const [promocionesCaducadas, setPromocionesCaducadas] = useState([]);
   const [filteredPromociones, setFilteredPromociones] = useState([])
   //guardamos las promociones de un usuario
  
+  /* functionDate(fechaPromo){
+    var date=new Date();
+    let year= date.getFullYear();
+    let month=date.getMonth();
+    let day= date.getDate();
+  
+    var dateParts = fechaPromo.split("-");
+    var datePromo= (dateParts[2]+"/"+dateParts[1]+"/"+dateParts[0]).toString();
+    var dateNow=[day,month,year].join('/');
+    if(datePromo<dateNow){
+      return false
+    }
+    else {
+      return true}
+    
+  } */
 
   const renderPromociones = () => {
     //Renderizamos los eventos dependiendo del filtro de tipo: "inscrito" | "no inscrito" | "todos"
@@ -26,14 +45,32 @@ export default function Promociones({className, ...rest}) {
   
     console.log("filteredPromociones",filteredPromociones)
     console.log(promociones)
-    return promociones.map((promocion)=>{
-     
-
-        return <Promocion key={promocion.id} titulo={promocion.titulo} descripcion={promocion.descripcion} inicio={promocion.fecha_inicio} src={promocion.src} final={promocion.fecha_expiracion}/>
+    /* var f = new Date();
+      f.getFullYear()+"/"+f.getMonth()+"/"+getDate(); */
     
+    return promociones.map((promocion)=>{
+      let caducado=false;
+      var date1= Date.parse(promocion.fecha_expiracion)
+      console.log(date1)
+      var date2= Date.now()
+      console.log(date2)
+      if(date1<date2){
+        caducado=true;
+      }
+      return <Promocion key={promocion.id} caducado={caducado} titulo={promocion.titulo} comercio={promocion.comercio_nombre} evento={promocion.evento_nombre} descripcion={promocion.descripcion} inicio={promocion.fecha_inicio} src={promocion.src} final={promocion.fecha_expiracion}/>
+      
     })
   }
-
+  useEffect(() => {
+    if(promocionesCaducadas.length > 0)return
+    async function getPromocionesCaducadas(){
+      try{
+        setLoading(true);
+        const userPromocionesCaducadas= await PromocionesService.getPromocionesExpiredByUser(user.id);
+        console.log("Promos CADUCADAS", userPromocionesCaducadas)
+      }catch(e){}
+    }
+  })
   useEffect(() => {
     if(promociones.length > 0) return
     async function getPromociones (){
@@ -61,7 +98,7 @@ export default function Promociones({className, ...rest}) {
 
   return (
     <div>
-      <Filters setPromociones={setFilteredPromociones} filteredPromociones={filteredPromociones} promociones={promociones} open={open} setOpen={setOpen}/>
+      <Filters setPromociones={setFilteredPromociones} filteredPromociones={filteredPromociones}  promociones={promociones} open={open} setOpen={setOpen}/>
       <div className='eventos__topbar'>
         <div className='eventos'>
           { 
