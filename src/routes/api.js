@@ -15,6 +15,10 @@ const PromoEventCtrl= require('../controllers/promo_evento.js')
 const EventComerCtrl=require('../controllers/evento_comercio.js')
 /* const InscripUserCtrl= require('../controllers/inscripciones_usuarios.js') */
 
+//Middlewares
+const { verifySignUp, authJwt } = require("../middlewares");
+
+
 //Helpers
 const { selectByFk, createByFk, deleteByFk, updateByFk ,getIdByFk, uploadFile}= require("../controllers/helpers");
 
@@ -41,8 +45,24 @@ router.apiResource = function(resource,controller) {
 }
 
 //Auth
-//router.post('auth/login',AuthCtrl.signin)
-router.post('auth/register',AuthCtrl.signup)
+
+router.post(
+    "/auth/register",
+    [
+      verifySignUp.checkDuplicateUsernameOrEmail,
+    ],
+    AuthCtrl.signup
+);
+
+router.post("/auth/login", AuthCtrl.signin);
+router.post("/auth/logout", AuthCtrl.signout);
+
+router.get('/confirmation/:email/:token',AuthCtrl.confirmEmail)
+router.post('/resend/:email',AuthCtrl.resendLink)
+router.post('/forgot',AuthCtrl.forgotEmail)
+router.post('/reset',AuthCtrl.resetPassword)
+
+
 
 // CRUD products
 router.apiResource('usuarios', UsuarioCtrl)

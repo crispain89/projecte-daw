@@ -35,27 +35,12 @@ app.use(
   
   // App routes - API
   const api = require('./routes/api')
-app.use('/api', api)
+app.use('/api', api, authJwt.verifyToken)
 app.use('/api', express.urlencoded({extended: false}))
 app.use('/api', express.json())
 
 //Verify authJWT
-app.get("/api/checkAuth",authJwt.verifyToken)
 
-app.post(
-  "/api/auth/register",
-  [
-    verifySignUp.checkDuplicateUsernameOrEmail,
-  ],
-  auth.signup
-);
-app.post("/api/auth/login", auth.signin);
-app.post("/api/auth/logout", auth.signout);
-
-app.get('/confirmation/:email/:token',auth.confirmEmail)
-app.post('/api/resend/:email',auth.resendLink)
-app.post('/api/forgot',auth.forgotEmail)
-app.post('/api/reset',auth.resetPassword)
 
 
 
