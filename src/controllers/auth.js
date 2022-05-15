@@ -26,7 +26,7 @@ async function sendVerificationMail(req,res,usuario,token,type="account"){
       from: 'cram.testing@gmail.com', 
       to: usuario.email, 
       subject: 'Account Verification Link',
-      text: 'Hello '+ usuario.nombre +',\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/confirmation\/' + usuario.email + '\/' + token.token + '\n\nThank You!\n' 
+      text: 'Hello '+ usuario.nombre +',\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/api\/' + '\/confirmation\/' + usuario.email + '\/' + token.token + '\n\nThank You!\n' 
     };
     smtpTransport.sendMail(mailOptions, function (err) {
       if (err) { 
@@ -117,6 +117,7 @@ exports.signin = async (req, res) => {
     const token = jwt.sign({ id: usuario.id }, config.secret, {
       expiresIn: 86400, // 24 hours
     });
+    console.log("TOKEN",token)
     let usuarioData = {
       id: usuario.id,
       nombre: usuario.nombre,

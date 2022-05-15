@@ -3,6 +3,7 @@ const createByFk = require('./createByFk')
 const deleteByFk = require('./deleteByFk')
 const updateByFk = require('./updateByFk')
 const getIdByFk = require('./getIdByFk')
+const uploadFile = require('./upload')
 
 
 module.exports = {
@@ -10,5 +11,6 @@ module.exports = {
   createByFk,
   deleteByFk,
   updateByFk,
-  getIdByFk
+  getIdByFk,
+  uploadFile
 };
