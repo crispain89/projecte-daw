@@ -15,7 +15,7 @@ export default function Filters({open, setOpen, promociones, filteredPromociones
                     if (a.evento_nombre > b.evento_nombre) {
                         return 1;
                     }
-                    if (a.evento_nombre < b.evento_nombre) {
+                    else if (a.evento_nombre < b.evento_nombre) {
                         console.log("nombre de A",a.evento_nombre)
                         console.log("nombre de B",a.evento_nombre)
 
@@ -30,7 +30,7 @@ export default function Filters({open, setOpen, promociones, filteredPromociones
                     if (a.evento_nombre < b.evento_nombre) {
                         return 1;
                     }
-                    if (a.evento_nombre > b.evento_nombre) {
+                    else if (a.evento_nombre > b.evento_nombre) {
                         console.log("nombre de A",a.evento_nombre)
                         console.log("nombre de B",a.evento_nombre)
                     return -1;
