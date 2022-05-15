@@ -1,8 +1,9 @@
+import ApiCrudService from "./crud.service";
 import httpC from "./httpConfig";
 
 
-class UsuariosService{
-    getAll(){
+export default class UsuariosService extends ApiCrudService{
+    /* getAll(){
         return httpC.get("/usuarios");
     }
 
@@ -17,6 +18,8 @@ class UsuariosService{
     }
     delete(id){
         return httpC.delete(`/usuarios/${id}`);
+    } */
+    static updateAvatar(data,id){
+        return httpC.put(`/file/${id}`,data)
     }
-    
 }

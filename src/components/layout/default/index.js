@@ -10,6 +10,7 @@ import mapboxgl from 'mapbox-gl';
 import Helmet from 'react-helmet';
 import LoadingSpinner from '../../Spinner';
 import { AuthContext } from '../../context/AuthContext';
+import SidebarCollapse from '../SidebarCollpase';
 
 
 

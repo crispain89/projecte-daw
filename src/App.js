@@ -19,6 +19,7 @@ import HomeLayout from './components/layout/home';
 import MockComponent from './components/MockComponent';
 import Eventos from './components/eventos/Eventos';
 import Promociones from './components/promociones/Promociones';
+import UserProfile from './components/user/UserProfile';
 //el token del mapbox
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_KEY
 
@@ -31,8 +32,10 @@ function App() {
           isAuthenticated ?
           <Layout>
             <Routes>
+              <Route path='/' element={ <MainPage/> }/>
               <Route path='/user' element={ <MainPage/> }/>
-              <Route path='/user/:id/eventos' element={ <MockComponent/> }/>
+              <Route path='/user/profile' element={ <UserProfile/> }/>
+              <Route path='/user/eventos/:id' element={ <MockComponent/> }/>
               <Route path='/user/eventos' element={ <Eventos/> }/>
               <Route path='user/promociones' element={<Promociones/>}/>
               <Route path="*" element={<NotFound />}></Route>
