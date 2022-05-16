@@ -48,6 +48,7 @@ const Usuario = sequelize.define("usuario", {
   rol_id: {
     type: Sequelize.INTEGER,
     allowNull: false,
+    defaultValue:1
   },
   avatar_src: {
     type: Sequelize.STRING,
