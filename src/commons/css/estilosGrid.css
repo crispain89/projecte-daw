@@ -75,6 +75,21 @@ html{
     grid-template-rows: 15vh 1fr;
     grid-template-columns: auto
 }
+.container__cruds{
+    display: flex;
+    justify-content: space-around;
+    width:1500px;
+
+}
+.container__uno{
+
+    width:600px;
+}
+.container__dos{
+    width:600px;
+
+
+}
 
 
 @keyframes gradient {
