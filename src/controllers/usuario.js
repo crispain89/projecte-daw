@@ -84,10 +84,12 @@ exports.show = async (req, res) => {
 exports.update = async (req, res) => {
   try {
     const id = req.params.id;
-    const usuario = await User.update(req.body,{
+    const user = await User.findByPk(id);
+    const usuarioUpdated = await user.update(req.body,{
       where : {id : id}
     });
-    console.log("usuario",usuario)
+    console.log("usuario",usuarioUpdated)
+    res.status(200).send({message:"El usuario se ha actualizado correctamente"})
    /*  res.send("El usuario se ha actualizado correctamente"); */
   } catch (error) {
     res.status(500).send({

@@ -35,7 +35,7 @@ app.use(
   
   // App routes - API
   const api = require('./routes/api')
-//app.use('/api', api, authJwt.verifyToken)
+//app.use('/api', api, authJwt.verifyToken) NECESARIO PARA TODAS LAS RUTAS (VERIFICA QUE EL USUARIO PROVIENE DEL LOGIN DE NUESTRA APP)
 app.use('/api', api)
 app.use('/api', express.urlencoded({extended: false}))
 app.use('/api', express.json())

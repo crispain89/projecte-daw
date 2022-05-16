@@ -17,6 +17,10 @@ const Usuario = sequelize.define("usuario", {
     type: Sequelize.STRING,
     allowNull: true,
   },
+  telefono: {
+    type: Sequelize.INTEGER,
+    allowNull: true,
+  },
   email: {
     type: Sequelize.STRING,
     allowNull: true,
