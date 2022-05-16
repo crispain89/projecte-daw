@@ -156,7 +156,7 @@ header{
     height: 200px;
 }
 .card__wrapper:hover .card__box{
-    transform: scale(1.2);
+    transform: scale(1.1);
 }
 .card__wrapper:hover{
     z-index: 1;
