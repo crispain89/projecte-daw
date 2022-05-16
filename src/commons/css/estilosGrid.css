@@ -134,6 +134,7 @@ img{
 }
 .customLegend {
     display: flex;
+    align-items: flex-end;
     border: 1px solid #746d6d;
     padding: 2em 0 1em;
     margin-top: 2em;
