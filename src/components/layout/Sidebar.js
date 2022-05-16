@@ -40,7 +40,7 @@ export default function Sidebar({ accio }) {
                     <Link to="/user/profile">Profile</Link>
                 </li>
                 <li>
-                    <Link to="/inscripcion">cargar archivo csv</Link>
+                    <Link to="/inscripciones">cargar archivo csv</Link>
                 </li>
             </ul>
         </aside>

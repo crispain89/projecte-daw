@@ -39,7 +39,7 @@ function App() {
               <Route path='/user/eventos/:id' element={ <MockComponent/> }/>
               <Route path='/user/eventos' element={ <Eventos/> }/>
               <Route path='user/promociones' element={<Promociones/>}/>
-              <Route path='inscripcion' element={<Inscripciones/>}/>
+              <Route path='inscripciones' element={<Inscripciones/>}/>
 
 
               <Route path="*" element={<NotFound />}></Route>
