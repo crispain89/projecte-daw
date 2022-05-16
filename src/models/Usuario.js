@@ -37,7 +37,7 @@ const Usuario = sequelize.define("usuario", {
     type:Sequelize.STRING,
     allowNull: true
   },
-  cp:{
+  codigo_postal:{
     type:Sequelize.INTEGER,
     allowNull: true
   },

@@ -3,8 +3,32 @@ const {Sequelize,sequelize} = require("../models/db");
 const {Evento} = require("../models");
 const Op= Sequelize.Op;
 
-exports.index=async ( req, res)=>{
+
+exports.getEventoActive= async (req, res)=>{
+    
+
     try{
+        const eventos= await Evento.getEventosCurrent();
+        console.log("EVENTOS NO CADUCADOS",eventos);
+        res.status(200).send(eventos)
+
+    }catch(e){
+        res.status(500).send({
+            message:
+                e.message || "No hemos podido listar los eventos"
+        });
+
+    }
+}
+exports.index=async ( req, res)=>{
+    console.log("query",req.query)
+    
+    try{
+        if(req.query.active===true){
+            const eventos= await Evento.getEventosCurrent();
+            console.log("EVENTOS NO CADUCADOS",eventos);
+            return res.status(200).send(eventos)
+        }
         const eventos = await Evento.findAll();
         console.log("eventos", eventos)
         res.send(eventos);
@@ -17,6 +41,8 @@ exports.index=async ( req, res)=>{
     }
 };
 exports.store = async( req, res)=>{
+    console.log("ENTRAAA")
+
     try{
         const evento = Evento.build(req.body);
         evento.save();
@@ -30,6 +56,8 @@ exports.store = async( req, res)=>{
     }
 };
 exports.show=async (req, res)=>{
+    console.log("ENTRAAA")
+
     try{
         const id= req.params.id;
         const evento= await Evento.findOne({where:{id:id}});

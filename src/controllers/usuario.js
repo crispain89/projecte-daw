@@ -54,10 +54,10 @@ exports.index = async (req, res) => {
 };
 exports.store = async (req, res) => {
   try {
-    const usuario = User.build(req.body);
+    const usuario = await User.build(req.body);
     /* probar en poner MockData.JSON */
-    usuario.save();
-    console.log('usuariooooo', res)
+    const usu= await usuario.save()
+    console.log('usuariooooo',usu)
     res.send(usuario)
   } catch (error) {
     console.log("error",error)

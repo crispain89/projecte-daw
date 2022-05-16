@@ -5,5 +5,6 @@ module.exports = {
   Evento: require("./Evento.js"),
   Comercio: require("./Comercio.js"),
   Promocion: require("./Promocion.js"),
-  Extra: require("./extra.js")
+  Extra: require("./extra.js"),
+  Inscripcion: require("./Inscripciones.js")
 }

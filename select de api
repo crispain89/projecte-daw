@@ -1,0 +1,35 @@
+SELECTS del projecto api-cram
+SELECT e.nombre
+FROM (( usuarios as u
+INNER JOIN inscripciones as i ON i.id_usuario= u.id
+INNER JOIN eventos as e ON e.id=i.id_evento))
+WHERE u.id=24;
+
+SELECT *
+FROM eventos as e, promociones as p
+WHERE p.evento_id in (SELECT  distinct (e.id)
+FROM
+    promociones AS p,
+    inscripciones AS i,
+    eventos AS e
+WHERE
+    i.id_usuario = 24 AND e.id = i.id_evento)
+
+    SELECT e.nombre, e.fecha_inicio,e.fecha_finalizacion,e.lugar
+FROM (( usuarios as u
+INNER JOIN eventos as e
+INNER JOIN inscripciones as i ON i.id_evento= e.id
+))
+WHERE u.id=24 and e.id=20;
+
+SELECT e.nombre, p.fecha_inicio,p.fecha_expiracion,p.descripcion, p.titulo, i.id_evento,p.src,c.nombre, c.poblacion,p.comercio_id
+  FROM (( usuarios as u
+  INNER JOIN inscripciones as i ON i.id_usuario= u.id
+  INNER JOIN eventos as e ON e.id=i.id_evento
+  INNER JOIN promociones as p ON p.evento_id=e.id
+INNER JOIN comercios as c ON c.id=p.comercio_id))
+  WHERE u.id=25 and p.fecha_expiracion< curdate();
+
+SELECT e.nombre, e.fecha_inicio,i.id_usuario
+    FROM inscripciones as i, eventos as e
+    WHERE i.id_usuario=24 and e.id=i.id_evento;

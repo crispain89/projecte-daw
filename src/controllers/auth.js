@@ -142,6 +142,7 @@ exports.signin = async (req, res) => {
         apellidos: usuario.apellidos ?? null,
         localidad: usuario.localidad ?? null,
         fecha_nacimiento: usuario.fecha_nacimiento ?? null,
+        codigo_postal:usuario.codigo_postal ?? null,
         dni: usuario.dni ?? null,
         avatar_src: usuario.avatar_src ?? null,
         token_activado: usuario.token_activado ?? null,
