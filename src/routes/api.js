@@ -50,9 +50,6 @@ router.apiResource = function(resource,controller) {
 
 router.post(
     "/auth/register",
-    [
-      verifySignUp.checkDuplicateUsernameOrEmail,
-    ],
     AuthCtrl.signup
 );
 

@@ -5,6 +5,7 @@ const smtpTransport = require("../config/mail")
 const jwt = require("jsonwebtoken");
 const crypto = require('crypto');
 const bcrypt = require("bcryptjs");
+const Usuario = require("../models/Usuario");
 const Op = Sequelize.Op;
 
 async function generateToken(usuario){
@@ -55,37 +56,35 @@ async function sendVerificationMail(req,res,usuario,token,type="account"){
 exports.signup = async (req, res) => {
   // Save User to Database
   try {
-    let rol;
-    if (req.body.rol) {
-        rol = await Rol.findByName(req.body.rol);
-        console.log(rol)
-        rol = req.body.rol
-    } else {
-        // usuario has rol = 1
-        rol = 1;
+    const user = await User.findOne({where:{dni:req.body.dni}})
+
+    if ( user.password !== null ) {
+      return res.status(400).send({message:"El usuario con este dni ya esta registrado en nuestra aplicacion..."})
     }
+
     const passwordIsValid = req.body.password===req.body.rep_password
     if( !passwordIsValid ){
       res.status(403).send({message: "Passwords are not the same"})
     }
-    const usuario = await User.create({
-        nombre: req.body.nombre,
-        apellidos: req.body.apellidos ?? null,
-        localidad: req.body.localidad ?? null,
-        fecha_nacimiento: req.body.fecha_nacimiento ?? null,
-        dni: req.body.dni ?? null,
-        email: req.body.email,
+
+    console.log("USERDNI",user)
+    if (!user){
+      return res.status(404).send({message:"No user with matching dni was found"})
+    }
+
+    const usuario = await user.update({
         password: bcrypt.hashSync(req.body.password, 8),
-        avatar_id: 1,
-        rol_id: rol,
         token_activado:0
     });
-    if ( !usuario ) throw new Error("No se ha podido crear el usuario")
-    let tokenObject = await generateToken(usuario)
-    await sendVerificationMail(req,res,usuario,tokenObject)
-    if (usuario) res.send({ message: "User registered successfully!" });
+    
+    console.log("updatedUser",usuario)
+
+    if ( !user ) throw new Error("No se ha podido crear el usuario")
+    let tokenObject = await generateToken(user)
+    await sendVerificationMail(req,res,user,tokenObject)
+    if (user) res.status(201).send({ message: "User registered successfully!" });
   } catch (error) {
-    res.status(500).send({ message: error.message });
+    res.status(500).send({ message: error });
   }
 };
 exports.signin = async (req, res) => {
