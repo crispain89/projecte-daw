@@ -11,5 +11,8 @@ export default class EventosService extends ApiCrudService{
     static getEventosByUser(id){
         return httpC.get(`/usuarios/${id}/eventos`)
     }
+    static getEventosCurrent(){
+        return httpC.get(`/eventos?active=true`)
+    }
     
 }

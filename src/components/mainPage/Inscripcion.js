@@ -1,53 +1,65 @@
-import React, { CSSProperties, useState,useEffect } from 'react';
+import React, { CSSProperties, useState,useEffect, useContext} from 'react';
+import { AuthContext } from '../context/AuthContext';
 import Papa from 'papaparse';
 import {Form, Button} from 'react-bootstrap'
-import UsuariosService from '../../servicios/usuarios.service'
-import EventosService from '../../servicios/usuarios.service'
-
-
+import ApiCrudService from '../../servicios/crud.service'
+import EventosService from '../../servicios/eventos.service'
 export default function CSVReader() {
-
+	
+const {user, loading, setLoading} = useContext(AuthContext)
 const [inscripcion, setInscripcion]=useState([]);
 const [datos, setDatos]=useState([]);
-console.log("Vacio====??", inscripcion)
-
 const [eventos, setEventos]=useState([]);
+const [idEvento, setIdEvento]=useState();
 
 useEffect(() => {
-  if(eventos.length<0){
+	console.log("DATOS",datos)
+})
+useEffect(() => {
+  if(eventos.length<0) return 
     async function getEventos(){
       try{
-        const eventos = await EventosService.index("eventos")
-        console.log("eventos para el select:=>",eventos)
+		setLoading(true)
+        const eventos = await EventosService.getEventosCurrent("eventos")
+        console.log("eventos para el select:=>",eventos.data)
         setEventos(eventos.data)
       }catch(e){
         console.log(e)
-      }
+      }finally{
+		  setLoading(false)
+	  }
     }
-  }
-},[])
-const handleSubmit = (e) => {
-  e.preventDefault();
-  console.log("holiiiiita", inscripcion)
-  
+	getEventos();
+  },[])
+
+
+const handleSubmit = async(e) => {
+  e.preventDefault();  
   try{
-    inscripcion.map(async (ins)=> {
-    let res = await UsuariosService.create(ins)
-
-    console.log(res)
-    setDatos(res.data.id)
-    /* return res; */
-
-    })
+	
+		let newIns=await Promise.all(inscripcion.map(async (ins)=> {
+    		return await ApiCrudService.create("usuarios",ins)
     
-    /* if(res.status ===200){console.log('hola')} */
+		}))
+		setDatos(newIns)
+		console.log("AAAAARRRAYYY",newIns)
+
+		await Promise.all(newIns.map(async(part)=>{
+			console.log("PARTTTT",part)
+			return await ApiCrudService.create("inscripciones",{id_usuario:part.data.id,id_evento:idEvento})
+
+		}))
+    
     }catch(e){
       console.log(e)
     }
-    
   }
   
-
+const handleSelect=(e)=>{
+	let idEvento=e.target.value
+	setIdEvento(idEvento)
+	console.log(idEvento)
+}
 
 const handleFile=(e)=>{
   const csv= e.target.files;
@@ -66,11 +78,13 @@ const handleFile=(e)=>{
 
 return (
   <>
-    <Form.Select aria-label="Escoge un evento">
-      <option>Elige un evento</option>
-      <option value="1">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
+    <Form.Label>Escoge un evento para inscribir a los participantes</Form.Label>
+    <Form.Select aria-label="Escoge un evento" onChange={(e)=>handleSelect(e)}>
+		{
+		eventos.map((evento)=>{
+			return <option value={evento.id}> {evento.nombre + " "+ evento.edicion}</option>
+			}) 
+		}
     </Form.Select>
 
     <Form onSubmit={handleSubmit}>
