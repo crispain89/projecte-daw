@@ -19,6 +19,11 @@ html{
 
 }
 
+
+.input-group>.form-control, .input-group>.form-select {
+    width: unset;
+}
+
 .container__principal{
     background-color: #81bdf1c5;
 
