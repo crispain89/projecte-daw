@@ -74,6 +74,7 @@ router.apiResource('comercios.eventos',EventComerCtrl)
 router.apiResource('inscripciones', InsCtrl)
 router.get('/comercios/:id/eventos', ComerCtrl.promos)
 router.get('/usuarios/:id/eventos',UsuarioCtrl.inscripcion)
+router.delete('/usuarios/:id/eventos',UsuarioCtrl.deleteInscripciones)
 router.get('/usuarios/:id/promociones',UsuarioCtrl.promociones)
 
 //Upload

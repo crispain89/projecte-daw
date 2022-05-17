@@ -107,6 +107,16 @@ Usuario.getPromocionesExpiredByUser= async function(req){
   INNER JOIN promociones as p ON p.evento_id=e.id 
   INNER JOIN comercios as c ON c.id=p.comercio_id))
   WHERE u.id=${id} and p.fecha_expiracion < curdate()`
+
+  const result = await sequelize.query(query, 
+    { 
+      model: Usuario, mapToModel: true,
+      nest: true,
+      raw: true,
+      type: sequelize.QueryTypes.SELECT 
+    })
+    console.log("RESULT",result)
+  return result;
 }
 Usuario.getPromocionesCurrentByUser= async function(req){
   const id=req.params.id;
@@ -117,6 +127,15 @@ Usuario.getPromocionesCurrentByUser= async function(req){
   INNER JOIN promociones as p ON p.evento_id=e.id 
   INNER JOIN comercios as c ON c.id=p.comercio_id))
   WHERE u.id=${id} and p.fecha_expiracion > curdate()`
+  const result = await sequelize.query(query, 
+    { 
+      model: Usuario, mapToModel: true,
+      nest: true,
+      raw: true,
+      type: sequelize.QueryTypes.SELECT 
+    })
+    console.log("RESULT",result)
+  return result;
 }
 
 Usuario.getPromocionesById= async function(req){
@@ -137,5 +156,20 @@ Usuario.getPromocionesById= async function(req){
     })
     console.log("RESULT",result)
   return result;
+}
+Usuario.deleteInscripcionesByUser= async function(req){
+  const id = req.params.id
+
+  const query=`DELETE FROM inscripciones WHERE id_usuario=${id};`
+  const result = await sequelize.query(query, 
+    { 
+      model: Usuario, mapToModel: true,
+      nest: true,
+      raw: true,
+      type: sequelize.QueryTypes.DELETE
+    })
+    console.log("RESULT",result)
+  return result;
+
 }
 module.exports=Usuario

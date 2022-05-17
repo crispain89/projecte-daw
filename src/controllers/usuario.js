@@ -16,6 +16,19 @@ exports.inscripcion=async (req,res)=>{
 
   }
 }
+exports.deleteInscripciones=async (req,res)=>{
+  try{
+    deleted= await User.deleteInscripcionesByUser(req);
+    console.log(deleted)
+    res.status(200).send({message: 'Se han boorado las inscripciones del usuario'})
+  }catch(error){
+    res.status(500).send({
+      message:
+        error.message || "No hemos podido eliminar las inscripciones del usuario"
+    });
+
+  }
+}
 exports.promocionIs=async function(req, res){
   try{
     models= await User.getPromociones(req);

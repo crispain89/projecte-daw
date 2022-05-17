@@ -10,3 +10,8 @@ exports.index=async( req, res)=>{
     models = await User.getEventos(req.params.id);
     res.send(models);
 };
+exports.delete=async( req, res)=>{
+    /* selectByFk(req,res,Evento,"comercio_id","evento_id") */
+    models = await User.deleteInscripcionesByUser(req.params.id);
+    res.send(models);
+};
