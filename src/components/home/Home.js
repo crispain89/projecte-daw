@@ -1,13 +1,15 @@
 import { Parallax, ParallaxLayer } from '@react-spring/parallax'
 import React, {useState, useEffect} from 'react'
+import { Button } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 //import '../css/estilosGrid.css'
 
 export default function Home() {
   return(
-    <Parallax pages={4}>
+    <Parallax pages={1.5} style={{top:"0",left:"0"}}>
         <ParallaxLayer 
           style={{
-            backgroundImage: `url(https://free-images.com/or/77e1/clouds_clouds_above_sky.jpg`,
+            backgroundImage: `url(https://images2.alphacoders.com/120/1209425.png)`,
             backgroundSize: "cover"
           }} 
           offset={0}
@@ -15,27 +17,46 @@ export default function Home() {
           factor={2}
         />
         <ParallaxLayer
-          offset={2} 
-          speed={1}
-          factor={4}
-          style={{
-            backgroundImage: `url(https://image.winudf.com/v2/image/Y29tLndhbGxwYXBlci5wYXJyYWxleC5TdW5zZXRwYXJhbGxheHdhbGxwYXBlcl9zY3JlZW5fMF8xNTIxMTcxODA0XzA4NQ/screen-0.jpg?fakeurl=1&type=.jpg)`,
-            backgroundSize: "cover"
-          }} 
-        /> 
-        <ParallaxLayer
-          offset={0.2} 
+          offset={0} 
           speed={0.5}
-          factor={4}
+          style={{
+            display:"flex",
+            justifyContent:"center",
+            alignItems:"center",
+            flexDirection:"column",
+            margin:"0 auto",
+            color:"white",
+          }}
         > 
-            <h1>MIcaracuando micara</h1>
+          <h1 style={{fontSize:"6rem"}}>CRAM SPORTS</h1>
+          <h3 className='text-light'>Tu web de eventos favorita</h3>
+          <a href="#cositas" className='link-info'>Conocer más...</a>
         </ParallaxLayer>
+
         <ParallaxLayer
-          offset={3.2} 
-          speed={2}
+          offset={0.8} 
+          speed={0.7}
+          style={{
+            display:"flex",
+            justifyContent:"center",
+            alignItems:"center",
+            flexDirection:"column",
+            margin:"0 auto",
+            color:"white",
+            textAlign:"center"
+          }}
         > 
-            <h1>Los cromañones</h1>
+          <div className='home__buttons' id="cositas">
+            <h4>Con Cram Sports podrás acceder facilmente a los eventos a los que estas inscrito, además de poder ver tus promociones disponibles, todo en una misma app</h4>
+            <h2>CREA UNA CUENTA EN UN ÚNICO PASO:</h2>
+            <Link to="/register" className="btn btn-primary" >Registrate</Link>
+            <h5>Ya estas inscrito?</h5>
+            <Link to="/login" className="btn btn-secondary" >Iniciar Sesion</Link>
+          </div>
         </ParallaxLayer>
+
+        
+        
     </Parallax>
   )
 }
