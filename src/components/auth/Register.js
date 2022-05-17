@@ -24,7 +24,7 @@ export function Register() {
   }
 
   return (
-  <div className='container w-50'>
+  <div className='container w-50 mt-5 bg-light rounded p-3'>
     <div className="row justify-content-center">
       <h3 className="componente__titulo" >Register</h3>
       <Formik
