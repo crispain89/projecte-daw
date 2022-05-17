@@ -84,8 +84,8 @@ export function Register() {
                     isInvalid={!!errors.password}
                   />
                   <Form.Text className="text-muted">
-
-                  </Form.Text>
+                    Introduce la contraseña para autenticarte en nuestra aplicacion
+                  </Form.Text>  
                   <Form.Control.Feedback type="invalid" tooltip>
                     {errors.password}
                   </Form.Control.Feedback>
@@ -125,8 +125,10 @@ export function Register() {
                   onChange={handleChange}
                   isInvalid={!!errors.dni}
                 />
-
-                <Form.Control.Feedback type="invalid" tooltip>
+                <Form.Text className="text-muted">
+                  Introduce tu dni para que podamos verificar si estas inscrito a alguna carrera
+                </Form.Text>  
+                  <Form.Control.Feedback type="invalid" tooltip>
                   {errors.dni}
                 </Form.Control.Feedback>
               </Form.Group>
