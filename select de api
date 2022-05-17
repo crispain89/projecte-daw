@@ -15,7 +15,7 @@ FROM
 WHERE
     i.id_usuario = 24 AND e.id = i.id_evento)
 
-    SELECT e.nombre, e.fecha_inicio,e.fecha_finalizacion,e.lugar
+SELECT e.nombre, e.fecha_inicio,e.fecha_finalizacion,e.lugar
 FROM (( usuarios as u
 INNER JOIN eventos as e
 INNER JOIN inscripciones as i ON i.id_evento= e.id

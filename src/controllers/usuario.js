@@ -43,6 +43,11 @@ exports.promociones=async(req,res)=>{
 }
 exports.index = async (req, res) => {
   try {
+
+    if(req.query.dni){
+      const usuario=await User.findOne({where:{dni:req.query.dni}})
+      return res.status(200).send(usuario)
+    }
     const usuarios = await User.findAll();
     res.send(usuarios);
   } catch (error) {
