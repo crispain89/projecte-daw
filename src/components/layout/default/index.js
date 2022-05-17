@@ -4,13 +4,14 @@ import Sidebar from '../Sidebar';
 import Header from '../Header';
 import Footer from '../Footer';
 import {GrLogout} from 'react-icons/gr'
-import { Button, Modal } from 'react-bootstrap'
+import { Button, Modal,DropdownButton ,Dropdown} from 'react-bootstrap'
 //import '../../../css/estilosGrid.css'
 import mapboxgl from 'mapbox-gl';
 import Helmet from 'react-helmet';
 import LoadingSpinner from '../../Spinner';
 import { AuthContext } from '../../context/AuthContext';
 import SidebarCollapse from '../SidebarCollpase';
+import { Link } from 'react-router-dom';
 
 
 
@@ -58,6 +59,10 @@ export default function Layout({ children, sidebar = false }) {
           <div className='logo'>
             <img src='https://camo.githubusercontent.com/48d099290b4cb2d7937bcd96e8497cf1845b54a810a6432c70cf944b60b40c77/68747470733a2f2f7261776769742e636f6d2f676f72616e67616a69632f72656163742d69636f6e732f6d61737465722f72656163742d69636f6e732e737667'></img>
           </div>
+         
+          <Link to="/inscripciones" className='btn btn-primary'>Usuarios</Link>
+          
+          
           <GrLogout onClick={logoutSession} size={"40px"} ></GrLogout>
         </Header>
         {/* Menu de la Izquierda */}

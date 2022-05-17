@@ -25,4 +25,9 @@ export default class UsuariosService extends ApiCrudService{
     static deleteInscripcionesByUser(id){
         return httpC.delete(`/usuarios/${id}/eventos`)
     }
+    static searchUser(dni){
+        return httpC.get(`/usuarios?dni=${dni}`)
+
+    }
+    
 }
