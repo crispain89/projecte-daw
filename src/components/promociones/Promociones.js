@@ -20,6 +20,7 @@ export default function Promociones({className, ...rest}) {
   const [promociones, setPromociones] = useState([]);
   const [promocionesCaducadas, setPromocionesCaducadas] = useState([]);
   const [filteredPromociones, setFilteredPromociones] = useState([])
+  const [selected, setSelected] = useState(0)
   //guardamos las promociones de un usuario
  
   /* functionDate(fechaPromo){
@@ -61,7 +62,7 @@ export default function Promociones({className, ...rest}) {
       
     })
   }
-  useEffect(() => {
+/*   useEffect(() => {
     if(promocionesCaducadas.length > 0)return
     async function getPromocionesCaducadas(){
       try{
@@ -70,7 +71,7 @@ export default function Promociones({className, ...rest}) {
         console.log("Promos CADUCADAS", userPromocionesCaducadas)
       }catch(e){}
     }
-  })
+  }) */
   useEffect(() => {
     if(promociones.length > 0) return
     async function getPromociones (){
@@ -78,10 +79,13 @@ export default function Promociones({className, ...rest}) {
         //Loading del modal a true
         setLoading(true)
         const userPromociones= await PromocionesService.getPromocionesByUser(user.id);
+        const userPromocionesCaducadas= await PromocionesService.getPromocionesExpiredByUser(user.id);
         console.log("USERPROMOS",userPromociones.data)
+        console.log("CADUCADAS",userPromocionesCaducadas.data)
         //le pasamos el id del comercio que tiene la promocion.
         const comercio= await ComerciosService.show("comercios",promociones.comercio_id);
         console.log(' comercio', comercio.data)
+        setPromocionesCaducadas(userPromocionesCaducadas.data)
         setPromociones(userPromociones.data)
         setFilteredPromociones(userPromociones.data)
       }catch(err){
@@ -98,7 +102,7 @@ export default function Promociones({className, ...rest}) {
 
   return (
     <div>
-      <Filters setPromociones={setFilteredPromociones} filteredPromociones={filteredPromociones}  promociones={promociones} open={open} setOpen={setOpen}/>
+      <Filters setSelected={setSelected} selected={selected} setPromociones={setFilteredPromociones} filteredPromociones={filteredPromociones}  promociones={promociones} open={open} setOpen={setOpen}/>
       <div className='eventos__topbar'>
         <div className='eventos'>
           { 
