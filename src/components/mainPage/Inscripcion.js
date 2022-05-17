@@ -2,8 +2,12 @@ import React, { CSSProperties, useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import Papa from 'papaparse';
 import { Form, Button } from 'react-bootstrap'
+
 import ApiCrudService from '../../servicios/crud.service'
 import EventosService from '../../servicios/eventos.service'
+
+import MenusAuxiliar from './MenusAuxiliar'
+import { Link } from 'react-router-dom';
 export default function CSVReader() {
 
 	const { user, loading, setLoading } = useContext(AuthContext)
@@ -98,34 +102,17 @@ export default function CSVReader() {
 
 
 	return (
-		<div className="container__cruds">
-			<div className="container__uno">
-				<h3>Dar de alta usuarios (archivo CSV)</h3>
-
-				<Form.Label>Escoge un evento para inscribir a los participantes</Form.Label>
-				<Form.Select aria-label="Escoge un evento" onChange={(e) => handleSelect(e)}>
-					{
-						eventos.map((evento) => {
-							return <option value={evento.id}> {evento.nombre + " " + evento.edicion}</option>
-						})
-					}
-				</Form.Select>
-
-				<Form onSubmit={handleSubmit}>
-					<Form.Group className="mb-3" controlId="formBasicEmail">
-						<Form.Label>Escoge un archivo</Form.Label>
-						<Form.Control onChange={(e) => handleFile(e)} type="file" accept=".csv,.xlsx,.xls" />
-					</Form.Group>
-					<Button variant="primary" type="submit">
-						Enviar
-					</Button>
-				</Form>
-			</div>
-
-			{/* DAR DE ALTA SOLAMENTE A UN USUARIO */}
-			<div className="container__dos">
-				<Form onSubmit={handleSubmitAlone}>
-					<h3>Dar de alta  un usuario</h3>
+		<>
+			<MenusAuxiliar >
+				
+				<Link className='btn btn-warning' to={'/inscripciones/modificaciones'} title={"Modicar usuario"} > Buscar usuario</Link>
+		
+			</MenusAuxiliar>
+			<div className="container__cruds">
+				
+				
+				<div className="container__uno">
+					<h3>Dar de alta usuarios (archivo CSV)</h3>
 
 					<Form.Label>Escoge un evento para inscribir a los participantes</Form.Label>
 					<Form.Select aria-label="Escoge un evento" onChange={(e) => handleSelect(e)}>
@@ -135,27 +122,53 @@ export default function CSVReader() {
 							})
 						}
 					</Form.Select>
-					<Form.Group className="mb-3" controlId="formBasicEmail">
-						<Form.Label>Nombre</Form.Label>
-						<Form.Control onChange={(e)=>{setForm({...form,nombre:e.target.value})}}/>
-						<Form.Label>Apellidos</Form.Label>
-						<Form.Control onChange={(e)=>{setForm({...form,apellidos:e.target.value})}} />
-						<Form.Label>Dni</Form.Label>
-						<Form.Control type='text' maxLength="9" minLength="9"onChange={(e)=>{setForm({...form,dni:e.target.value.toUpperCase()})}} />
-						<Form.Label >Telefono</Form.Label>
-						<Form.Control type='text' maxLength='9' onChange={(e)=>{setForm({...form,telefono:e.target.value})}} />
-						<Form.Label>Email</Form.Label>
-						<Form.Control type='email' onChange={(e)=>{setForm({...form,email:e.target.value})}} />
-						<Form.Label >Fecha de Nacimiento</Form.Label>
-						<Form.Control  type='date' placeholder='AAAA/MM/DD' onChange={(e)=>{setForm({...form,fecha_nacimiento:e.target.value})}} />
-					</Form.Group>
-					<Button variant="primary" type="submit">
-						Enviar
-					</Button>
-				</Form>
-			</div>
+
+					<Form onSubmit={handleSubmit}>
+						<Form.Group className="mb-3" controlId="formBasicEmail">
+							<Form.Label>Escoge un archivo</Form.Label>
+							<Form.Control onChange={(e) => handleFile(e)} type="file" accept=".csv,.xlsx,.xls" />
+						</Form.Group>
+						<Button variant="primary" type="submit">
+							Enviar
+						</Button>
+					</Form>
+				</div>
+
+				{/* DAR DE ALTA SOLAMENTE A UN USUARIO */}
+				<div className="container__dos">
+					<Form onSubmit={handleSubmitAlone}>
+						<h3>Dar de alta  un usuario</h3>
+
+						<Form.Label>Escoge un evento para inscribir a los participantes</Form.Label>
+						<Form.Select aria-label="Escoge un evento" onChange={(e) => handleSelect(e)}>
+							{
+								eventos.map((evento) => {
+									return <option value={evento.id}> {evento.nombre + " " + evento.edicion}</option>
+								})
+							}
+						</Form.Select>
+						<Form.Group className="mb-3" controlId="formBasicEmail">
+							<Form.Label>Nombre</Form.Label>
+							<Form.Control onChange={(e)=>{setForm({...form,nombre:e.target.value})}}/>
+							<Form.Label>Apellidos</Form.Label>
+							<Form.Control onChange={(e)=>{setForm({...form,apellidos:e.target.value})}} />
+							<Form.Label>Dni</Form.Label>
+							<Form.Control type='text' maxLength="9" minLength="9"onChange={(e)=>{setForm({...form,dni:e.target.value.toUpperCase()})}} />
+							<Form.Label >Telefono</Form.Label>
+							<Form.Control type='text' maxLength='9' onChange={(e)=>{setForm({...form,telefono:e.target.value})}} />
+							<Form.Label>Email</Form.Label>
+							<Form.Control type='email' onChange={(e)=>{setForm({...form,email:e.target.value})}} />
+							<Form.Label >Fecha de Nacimiento</Form.Label>
+							<Form.Control  type='date' placeholder='AAAA/MM/DD' onChange={(e)=>{setForm({...form,fecha_nacimiento:e.target.value})}} />
+						</Form.Group>
+						<Button variant="primary" type="submit">
+							Enviar
+						</Button>
+					</Form>
+				</div>
 
 		</div>
+	</>
 	)
 }
 

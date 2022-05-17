@@ -87,8 +87,16 @@ html{
 }
 .container__dos{
     width:600px;
-
-
+}
+.container__dos-modificaciones {
+    /* width: 600px; */
+    display: flex;
+    justify-content: space-around;
+}
+.botonera__header{
+    display: flex;
+    justify-content: center;
+    gap: 8px;
 }
 
 
@@ -180,6 +188,11 @@ header{
     justify-content: space-between;
     align-items: center;
 }
+.menu__opciones{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 40px;
+    justify-content: center;}
 
 .card_prueba{
     background-color: #f4fa9ac5;

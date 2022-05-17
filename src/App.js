@@ -21,6 +21,7 @@ import Eventos from './components/eventos/Eventos';
 import Promociones from './components/promociones/Promociones';
 import UserProfile from './components/user/UserProfile';
 import Inscripciones from './components/mainPage/Inscripcion'
+import Modificaciones from './components/mainPage/Modificaciones'
 //el token del mapbox
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_KEY
 
@@ -39,7 +40,9 @@ function App() {
               <Route path='/user/eventos/:id' element={ <MockComponent/> }/>
               <Route path='/user/eventos' element={ <Eventos/> }/>
               <Route path='user/promociones' element={<Promociones/>}/>
-              <Route path='inscripciones' element={<Inscripciones/>}/>
+              <Route path='inscripciones' element={<Inscripciones/> }/>
+              <Route path='inscripciones/modificaciones' element={<Modificaciones tabla={'usuarios'} /> }/>
+
 
 
               <Route path="*" element={<NotFound />}></Route>
