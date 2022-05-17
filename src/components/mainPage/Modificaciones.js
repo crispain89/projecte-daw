@@ -28,6 +28,39 @@ export default function Modificaciones({tabla}) {
 
     */
 
+    const handleDelete = async () => {
+        try{
+            if( eventos.length === 0 ){
+                let res = await UsuariosService.delete("usuarios",usuario.id)
+                console.log(res.data)
+                alert("Se ha eliminado el usuario...")
+                if ( res.status === 200 ){
+                    console.log(res.data.message)
+                    setFormState("buscar")
+                    setBuscar(false)
+                    setUsuario({})
+                }   
+                return
+            }
+            let res = await UsuariosService.deleteInscripcionesByUser(usuario.id)
+            alert("Se han eliminado las inscripciones del usuario...")
+            console.log(res.data)
+            if ( res.status === 200 ){
+                console.log(res.data.message)
+                let delRes = await UsuariosService.delete("usuarios",usuario.id)
+                alert("Se ha eliminado el usuario...")
+                console.log(delRes.data)
+                setFormState("buscar")
+                setBuscar(false)
+                setUsuario({})
+            }   
+        }
+        catch(e){
+            console.log(e)
+        }
+        /* let res = await  */
+    }
+
     const renderButtons = ()=>{
         switch (formState) {
             case "buscar":
@@ -57,9 +90,12 @@ export default function Modificaciones({tabla}) {
                     </>
             case "eliminar":
                 let respuesta=window.confirm('Esta seguro de que quieres eliminar a este usuario? ')
+                console.log(respuesta)
                 if (!respuesta) {
                     setFormState("opciones")
+                    return
                 }
+                handleDelete()
                 
             default:
                 setFormState("opciones")
@@ -103,7 +139,11 @@ export default function Modificaciones({tabla}) {
         try {
             setLoading(true)
             if(formState ==='editar'){
-                let res =await UsuariosService.update(usuario.id,usuario);
+                let res =await UsuariosService.update('usuarios',usuario.id,usuario);
+                console.log(res)
+                if(res.status===200){
+                    setFormState('opciones');
+                }
                 console.log('RESSSSSSSSSSSSSSSSSSSSSss',res)
                 return
             }
@@ -134,17 +174,17 @@ export default function Modificaciones({tabla}) {
             <h3>Introduce  los datos del usuario</h3>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Nombre</Form.Label>
-                <Form.Control value={usuario.nombre} onChange={(e)=>{setUsuario({...usuario,nombre:e.target.value})}} readOnly={formState!=='editar'}/>
+                <Form.Control value={usuario.nombre || ""} onChange={(e)=>{setUsuario({...usuario,nombre:e.target.value})}} readOnly={formState!=='editar'}/>
                 <Form.Label>Apellidos</Form.Label>
-                <Form.Control value={usuario.apellidos} onChange={(e)=>{setUsuario({...usuario,apellidos:e.target.value})}} readOnly={formState!=='editar'}/>
+                <Form.Control value={usuario.apellidos || ""} onChange={(e)=>{setUsuario({...usuario,apellidos:e.target.value})}} readOnly={formState!=='editar'}/>
                 <Form.Label>Dni</Form.Label>
-                <Form.Control  onBlur={handleBlur} type='text' maxLength="9" minLength="9"onChange={(e)=>{setUsuario({...usuario,dni:e.target.value.toUpperCase()})}} readOnly={formState==='editar'} />
+                <Form.Control  value={usuario.dni || ""} onBlur={handleBlur} type='text' maxLength="9" minLength="9"onChange={(e)=>{setUsuario({...usuario,dni:e.target.value.toUpperCase()})}} readOnly={formState==='editar'} />
                 <Form.Label >Telefono</Form.Label>
-                <Form.Control value={usuario.telefono}type='text' maxLength='9' onChange={(e)=>{setUsuario({...usuario,telefono:e.target.value})}} readOnly={formState!=='editar'}/>
+                <Form.Control value={usuario.telefono || ""}type='text' maxLength='9' onChange={(e)=>{setUsuario({...usuario,telefono:e.target.value})}} readOnly={formState!=='editar'}/>
                 <Form.Label>Email</Form.Label>
-                <Form.Control value={usuario.email} type='email' onChange={(e)=>{setUsuario({...usuario,email:e.target.value})}} readOnly={formState!=='editar'}/>
+                <Form.Control value={usuario.email || ""} type='email' onChange={(e)=>{setUsuario({...usuario,email:e.target.value})}} readOnly={formState!=='editar'}/>
                 <Form.Label >Fecha de Nacimiento</Form.Label>
-                <Form.Control  value ={usuario.fecha_nacimiento} type='date' placeholder='AAAA/MM/DD' onChange={(e)=>{setUsuario({...usuario,fecha_nacimiento:e.target.value})}} readOnly={formState!=='editar'}/>
+                <Form.Control  value ={usuario.fecha_nacimiento || ""} type='date' placeholder='AAAA/MM/DD' onChange={(e)=>{setUsuario({...usuario,fecha_nacimiento:e.target.value})}} readOnly={formState!=='editar'}/>
             </Form.Group>
             {
                 renderButtons()
