@@ -10,14 +10,16 @@ export default function Filters({open, setOpen, promociones, filteredPromociones
         let sortedPromociones = [...filteredPromociones];
         switch (e.target.value) {
             case "1":
-                console.log("easfas")
+                console.log("A/A")
                 sortedPromociones = filteredPromociones.sort((a,b)=>{
-                    if (a.evento_nombre > b.evento_nombre) {
+                    let A = a.titulo.toLowerCase()
+                    let B = b.titulo.toLowerCase()
+                    if (A > B) {
                         return 1;
                     }
-                    else if (a.evento_nombre < b.evento_nombre) {
-                        console.log("nombre de A",a.evento_nombre)
-                        console.log("nombre de B",a.evento_nombre)
+                    else if (A < B) {
+                        console.log("nomBre de A",A)
+                        console.log("nomBre de B",A)
 
                     return -1;
                     }
@@ -26,13 +28,16 @@ export default function Filters({open, setOpen, promociones, filteredPromociones
                 }) 
                 break;
             case "2":
+                console.log("A/D")
                 sortedPromociones = filteredPromociones.sort((a,b)=>{
-                    if (a.evento_nombre < b.evento_nombre) {
+                    let A = a.titulo.toLowerCase()
+                    let B = b.titulo.toLowerCase()
+                    if (A < B) {
                         return 1;
                     }
-                    else if (a.evento_nombre > b.evento_nombre) {
-                        console.log("nombre de A",a.evento_nombre)
-                        console.log("nombre de B",a.evento_nombre)
+                    else if (A > B) {
+                        console.log("nombre de A",A)
+                        console.log("nombre de B",A)
                     return -1;
                     }
                     // a must be equal to b
@@ -40,13 +45,12 @@ export default function Filters({open, setOpen, promociones, filteredPromociones
                 }) 
                 break;
             case "3":
+                console.log("F/A")
                 sortedPromociones = filteredPromociones.sort((a,b)=>{
-                    if (a.fecha_inicio > b.fecha_inicio) {
-                        console.log("nombre de A",a.evento_nombre)
-                        console.log("nombre de B",a.evento_nombre)
+                    if (a.fecha_expiracion > b.fecha_expiracion) {
                         return 1;
                     }
-                    else if (a.fecha_inicio < b.fecha_inicio) {
+                    else if (a.fecha_expiracion < b.fecha_expiracion) {
                         return -1;
                     }
                     // a must be equal to b
@@ -54,11 +58,12 @@ export default function Filters({open, setOpen, promociones, filteredPromociones
                 }) 
                 break;
             case "4":
+                console.log("F/D")
                 sortedPromociones = filteredPromociones.sort((a,b)=>{
-                    if (a.fecha_inicio < b.fecha_inicio) {
+                    if (a.fecha_expiracion < b.fecha_expiracion) {
                         return 1;
                     }
-                    else if (a.fecha_inicio > b.fecha_inicio) {
+                    else if (a.fecha_expiracion > b.fecha_expiracion) {
                         return -1;
                     }
                     // a must be equal to b
@@ -112,8 +117,8 @@ export default function Filters({open, setOpen, promociones, filteredPromociones
                             <option>Open this select menu</option>
                             <option value="1">Alfabetico/Ascendente</option>
                             <option value="2">Alfabetico/Descendente</option>
-                            <option value="3">Fecha/Ascendente</option>
-                            <option value="4">Fecha/Descendente</option>
+                            <option value="3">Fecha Caducidad/Ascendente</option>
+                            <option value="4">Fecha Caducidad/Descendente</option>
                         </Form.Select>
                     </div>
                     <ButtonToolbar className='filter__selection' type="checkbox" >
