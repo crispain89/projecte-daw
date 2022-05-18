@@ -27,7 +27,7 @@ import ModificacionesE from './components/mainPage/ModificacionesE'
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_KEY
 
 function App() {
-  const {isAuthenticated} = useContext(AuthContext)
+  const {isAuthenticated,user} = useContext(AuthContext)
   console.log("ISAUTH",isAuthenticated)
   return (
     <>
@@ -35,16 +35,22 @@ function App() {
           isAuthenticated ?
           <Layout>
             <Routes>
+              {
+                user.rol === 2 && 
+                <>
+                <Route path='inscripciones' element={<Inscripciones/> }/>
+                <Route path='inscripciones/modificaciones' element={<Modificaciones tabla={'usuarios'} /> }/>
+                <Route path='eventos' element={<Eventos/>}/>
+                <Route path='/eventos/modificaciones' element={<ModificacionesE/>}/>
+                </>
+
+              }
               <Route path='/' element={ <MainPage/> }/>
               <Route path='/user' element={ <MainPage/> }/>
               <Route path='/user/profile' element={ <UserProfile/> }/>
               <Route path='/user/eventos/:id' element={ <MockComponent/> }/>
               <Route path='/user/eventos' element={ <Eventos/> }/>
               <Route path='user/promociones' element={<Promociones/>}/>
-              <Route path='inscripciones' element={<Inscripciones/> }/>
-              <Route path='inscripciones/modificaciones' element={<Modificaciones tabla={'usuarios'} /> }/>
-              <Route path='eventos' element={<Eventos/>}/>
-              <Route path='/eventos/modificaciones' element={<ModificacionesE/>}/>
               
 
 
