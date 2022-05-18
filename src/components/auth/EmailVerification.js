@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Form, Button } from 'react-bootstrap'
+import { Form, Button, Row, Col } from 'react-bootstrap'
 import { useNavigate, useLocation} from 'react-router';
 import {  useParams } from 'react-router-dom';
 import AuthService from '../../servicios/auth.service';
@@ -29,16 +29,20 @@ export default function EmailVerification() {
     } 
 
     return (
-        <div className="container__login">
-            <div className='d-flex flex-column gap-3'>
-            <h1>Se ha enviado un email a tu cuenta para restablecer tu contraseña</h1>
-            <Button onClick={handleResend}>
-                Resend the link
-            </Button>
-            <span>Already verified?</span>
-            <Button onClick={handleRedirect}>
-                Return to login
-            </Button>
+        <div className="container w-50 mt-5 bg-light rounded p-3">
+            <div className='text-center d-flex flex-column gap-3 align-items-center'>
+            <h2>Se ha enviado un email a tu cuenta para restablecer tu contraseña</h2>
+            <Col>
+                <Button onClick={handleResend}>
+                    Resend the link
+                </Button>
+            </Col>
+                <span>Already verified?</span>
+            <Col>
+                <Button onClick={handleRedirect}>
+                    Return to login
+                </Button>
+            </Col>
             </div>
         </div>    
     )

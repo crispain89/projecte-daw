@@ -44,7 +44,7 @@ export default function ResetPassword() {
   }
 
     return (
-        <div className="container__login">
+        <div className="container w-25 mt-5 bg-light rounded p-3">
           <Formik
         validationSchema={schema}
         initialValues={{

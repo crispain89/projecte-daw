@@ -125,7 +125,7 @@ export default function UserProfile(){
                             Nombre
                             </Form.Label>
                             <Col sm="10">
-                            <Form.Control readOnly defaultValue={user.nombre || "Sin definir"} />
+                            <Form.Control readOnly defaultValue={user.nombre} />
                             </Col>
                         </Form.Group>
                         <Form.Group as={Col} className="mb-3" controlId="formPlaintextPassword">
@@ -133,7 +133,7 @@ export default function UserProfile(){
                             Apellidos
                             </Form.Label>
                             <Col sm="10">
-                            <Form.Control readOnly={!!user.apellidos} onChange={(e)=>setForm({...form,apellidos:e.target.value})} value={user.apellidos || "Sin definir"} />
+                            <Form.Control readOnly={!!user.apellidos} onChange={(e)=>setForm({...form,apellidos:e.target.value})} value={user.apellidos} />
                             </Col>
                         </Form.Group>
                     </Col>
@@ -143,7 +143,7 @@ export default function UserProfile(){
                             Email
                             </Form.Label>
                             <Col sm="10">
-                            <Form.Control readOnly defaultValue={user.email || "Sin definir"} />
+                            <Form.Control readOnly defaultValue={user.email} />
                             </Col>
                         </Form.Group>
 
@@ -152,7 +152,7 @@ export default function UserProfile(){
                             Telefono
                             </Form.Label>
                             <Col sm="10">
-                            <Form.Control readOnly={!!user.telefono} onChange={(e)=>setForm({...form,telefono:e.target.value})} value={user.telefono || "Sin definir"} />
+                            <Form.Control readOnly={user.telefono !== null} onChange={(e)=>setForm({...form,telefono:e.target.value})} value={user.telefono} />
                             </Col>
                         </Form.Group>
                     </Col>
@@ -162,7 +162,7 @@ export default function UserProfile(){
                             DNI
                             </Form.Label>
                             <Col sm="10">
-                            <Form.Control readOnly defaultValue={user.dni || "Sin definir"}/>
+                            <Form.Control readOnly defaultValue={user.dni}/>
                             </Col>
                         </Form.Group>
                         <Form.Group as={Col} className="mb-3" controlId="formPlaintextEmail">
@@ -170,7 +170,7 @@ export default function UserProfile(){
                             Fecha nacimiento
                             </Form.Label>
                             <Col sm="10">
-                            <Form.Control type="date" readOnly={!!user.fecha_nacimiento} onChange={(e)=>setForm({...form,fecha_nacimiento:e.target.value})} value={user.fecha_nacimiento || "Sin definir"} />
+                            <Form.Control type="date" readOnly={!!user.fecha_nacimiento} onChange={(e)=>setForm({...form,fecha_nacimiento:e.target.value})} value={user.fecha_nacimiento} />
                             </Col>
                         </Form.Group>
                     </Col>
