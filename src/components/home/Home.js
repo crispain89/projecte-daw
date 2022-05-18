@@ -48,10 +48,12 @@ export default function Home() {
         > 
           <div className='home__buttons' id="cositas">
             <h4>Con Cram Sports podrás acceder facilmente a los eventos a los que estas inscrito, además de poder ver tus promociones disponibles, todo en una misma app</h4>
+            <hr style={{width:"75%",opacity:"0.5",borderBottom:"2px solid white"}}></hr>
             <h2>CREA UNA CUENTA EN UN ÚNICO PASO:</h2>
-            <Link to="/register" className="btn btn-primary" >Registrate</Link>
+            <Link to="/register" className="btn btn-lg btn-primary" >Registrate</Link>
+            <hr style={{width:"75%",opacity:"0.5",borderBottom:"2px solid white"}}></hr>
             <h5>Ya estas inscrito?</h5>
-            <Link to="/login" className="btn btn-secondary" >Iniciar Sesion</Link>
+            <Link to="/login" className="btn btn-lg btn-secondary" >Iniciar Sesion</Link>
           </div>
         </ParallaxLayer>
 
