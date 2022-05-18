@@ -80,7 +80,7 @@ Usuario.getInscripciones= async function(req){
 }
 Usuario.getPromociones= async function(req){
   const id = req.params.id;
-  const query=`SELECT e.nombre as evento_nombre, p.fecha_inicio,p.fecha_expiracion,p.descripcion, p.titulo,i.id_evento,p.src,c.nombre as comercio_nombre, c.poblacion,p.comercio_id,p.src
+  const query=`SELECT e.nombre as evento_nombre, p.fecha_inicio,p.fecha_expiracion,p.descripcion, p.titulo, p.id, i.id_evento,p.src,c.nombre as comercio_nombre, c.poblacion,p.comercio_id,p.src
   FROM (( usuarios as u
   INNER JOIN inscripciones as i ON i.id_usuario= u.id
   INNER JOIN eventos as e ON e.id=i.id_evento
@@ -99,8 +99,9 @@ Usuario.getPromociones= async function(req){
   return result;
 }
 Usuario.getPromocionesExpiredByUser= async function(req){
+  //REVISAR EL   WHERE u.id=${id} and p.fecha_expiracion < curdate()`
   const id=req.params.id;
-  const query=`SELECT e.nombre, p.fecha_inicio,p.fecha_expiracion,p.descripcion, p.titulo, i.id_evento,p.src,c.nombre, c.poblacion,p.comercio_id
+  const query=`SELECT e.nombre, p.fecha_inicio,p.fecha_expiracion,p.descripcion, p.titulo, p.id, i.id_evento,p.src,c.nombre, c.poblacion,p.comercio_id
   FROM (( usuarios as u
   INNER JOIN inscripciones as i ON i.id_usuario= u.id
   INNER JOIN eventos as e ON e.id=i.id_evento

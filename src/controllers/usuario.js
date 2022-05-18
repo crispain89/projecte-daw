@@ -43,8 +43,14 @@ exports.promocionIs=async function(req, res){
 }
 exports.promociones=async(req,res)=>{
   try{
+    let models;
+    console.log("req",req.query)
+    if(req.query.expired==='true'){
+      models= await User.getPromocionesExpiredByUser(req);
+      console.log("Promos",models)
+      return res.status(200).send(models)
+    }
     models= await User.getPromociones(req);
-    console.log("models",models)
     res.send(models)
   }catch(error){
     res.status(500).send({
