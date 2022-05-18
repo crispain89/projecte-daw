@@ -143,6 +143,7 @@ exports.signin = async (req, res) => {
         fecha_nacimiento: usuario.fecha_nacimiento ?? null,
         codigo_postal:usuario.codigo_postal ?? null,
         dni: usuario.dni ?? null,
+        telefono: usuario.telefono ?? null,
         avatar_src: usuario.avatar_src ?? null,
         token_activado: usuario.token_activado ?? null,
       },
