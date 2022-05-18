@@ -8,8 +8,32 @@ import { AuthContext } from '../context/AuthContext'
 export default function UserProfile(){
     const {user,setUser,logout} = useContext(AuthContext)
     const [selectedFile,setSelectedFile] = useState()
+    const [rolName, setRolName] = useState("")
     const [form,setForm] = useState({})
     const navigate = useNavigate()
+    useEffect(()=>{
+        console.log("Rol",rolName)
+    },[rolName])
+
+    useEffect(()=>{
+        (async ()=>{
+            try{
+                let res = await UsuariosService.getRolByUser(user.rol);
+                if (res.status === 200){
+                    console.log("ress",res)
+                    console.log("nombre",res.data.nombre)
+                    setRolName(res.data.nombre)
+                }
+            }
+            catch(e){
+                if ( e.response.status === 404){
+                    console.log("El rol no se encontró")
+                }
+            }
+
+        })()
+    },[])
+
 
     const handleFileChange = (e) => {
         setSelectedFile(e.target.files[0])
@@ -77,6 +101,9 @@ export default function UserProfile(){
             <div className={"bg-light rounded p-4 w-100"}>
             <Form >
             <h1>Perfil de Usuario</h1>
+                {rolName && 
+                    <h5 style={{textTransform:"capitalize"}}>Rol: {rolName}</h5>
+                }
                 <fieldset className='customLegend'>
                     <legend>Avatar</legend>
                     <Form.Group as={Col} className="mb-3" controlId="formPlaintextPassword">

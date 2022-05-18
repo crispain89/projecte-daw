@@ -29,5 +29,8 @@ export default class UsuariosService extends ApiCrudService{
         return httpC.get(`/usuarios?dni=${dni}`)
 
     }
+    static getRolByUser(id){
+        return httpC.get(`/roles/${id}`)
+    }
     
 }
