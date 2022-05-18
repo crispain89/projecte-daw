@@ -34,7 +34,7 @@ export default function ForgotPassword() {
     }
 
     return (
-        <div className="container__login">
+        <div className="container w-50 mt-5 bg-light rounded p-3">
           <Form className="justify-content-center "  onSubmit={handleSubmit}>
               <h3 className="componente__titulo" >Recuperacion contraseña</h3>
               <h4 className="componente__titulo" >Introduce tu email para enviarte un email de verificacion</h4>
