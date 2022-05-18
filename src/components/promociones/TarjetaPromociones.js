@@ -10,7 +10,6 @@ export default function Promocion({ caducado,titulo,comercio, evento,descripcion
                     <div className='card__body'>
                         {/* Poner el nombre del comercio */}
                         <Card.Title>{titulo}</Card.Title>
-                        {console.log(src)}
                         <Card.Text>
                             <li> {descripcion}</li>
                             <br />

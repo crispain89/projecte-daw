@@ -15,7 +15,6 @@ import Promocion from './TarjetaPromociones';
 
 export default function Promociones({className, ...rest}) {
   const {user, loading, setLoading} = useContext(AuthContext)
-  console.log("user in Promociones",user)
   const [open, setOpen] = useState(false);
   const [promociones, setPromociones] = useState([]);
   const [promocionesCaducadas, setPromocionesCaducadas] = useState([]);
@@ -45,33 +44,35 @@ export default function Promociones({className, ...rest}) {
     //Este filtro se encuentra en el componente Filters y le pasamos el resultado a este componente
   
     console.log("filteredPromociones",filteredPromociones)
-    console.log(promociones)
-    /* var f = new Date();
-      f.getFullYear()+"/"+f.getMonth()+"/"+getDate(); */
+    console.log("PROMOS",promociones)
     
-    return promociones.map((promocion)=>{
-      let caducado=false;
-      var date1= Date.parse(promocion.fecha_expiracion)
-      console.log(date1)
-      var date2= Date.now()
-      console.log(date2)
-      if(date1<date2){
-        caducado=true;
-      }
-      return <Promocion key={promocion.id} caducado={caducado} titulo={promocion.titulo} comercio={promocion.comercio_nombre} evento={promocion.evento_nombre} descripcion={promocion.descripcion} inicio={promocion.fecha_inicio} src={promocion.src} final={promocion.fecha_expiracion}/>
-      
-    })
-  }
-/*   useEffect(() => {
-    if(promocionesCaducadas.length > 0)return
-    async function getPromocionesCaducadas(){
-      try{
-        setLoading(true);
-        const userPromocionesCaducadas= await PromocionesService.getPromocionesExpiredByUser(user.id);
-        console.log("Promos CADUCADAS", userPromocionesCaducadas)
-      }catch(e){}
+    switch(selected){
+      case 1:
+        //Caducadas
+        return promocionesCaducadas.map((promocion)=>{
+          return <Promocion key={promocion.id} caducado={true} titulo={promocion.titulo} comercio={promocion.comercio_nombre} evento={promocion.evento_nombre} descripcion={promocion.descripcion} inicio={promocion.fecha_inicio} src={promocion.src} final={promocion.fecha_expiracion}/>
+        })
+      case 2:
+        //Vigentes
+        return filteredPromociones
+        .filter(promo=>{
+          return !promocionesCaducadas.find(p => p.id === promo.id)
+        }).map((promocion)=>{
+          return <Promocion key={promocion.id} caducado={false} titulo={promocion.titulo} comercio={promocion.comercio_nombre} evento={promocion.evento_nombre} descripcion={promocion.descripcion} inicio={promocion.fecha_inicio} src={promocion.src} final={promocion.fecha_expiracion}/>
+        })
+      case 3:
+      default:
+        //todos
+        return filteredPromociones.map((promocion)=>{
+          let caducado = false;
+          var date1 = Date.parse(promocion.fecha_expiracion)
+          var date2 = Date.now()
+          if (date1 < date2) caducado=true;
+          return <Promocion key={promocion.id} caducado={caducado} titulo={promocion.titulo} comercio={promocion.comercio_nombre} evento={promocion.evento_nombre} descripcion={promocion.descripcion} inicio={promocion.fecha_inicio} src={promocion.src} final={promocion.fecha_expiracion}/>
+        })
     }
-  }) */
+  }
+
   useEffect(() => {
     if(promociones.length > 0) return
     async function getPromociones (){
@@ -84,7 +85,6 @@ export default function Promociones({className, ...rest}) {
         console.log("CADUCADAS",userPromocionesCaducadas.data)
         //le pasamos el id del comercio que tiene la promocion.
         const comercio= await ComerciosService.show("comercios",promociones.comercio_id);
-        console.log(' comercio', comercio.data)
         setPromocionesCaducadas(userPromocionesCaducadas.data)
         setPromociones(userPromociones.data)
         setFilteredPromociones(userPromociones.data)
