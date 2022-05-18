@@ -2,10 +2,8 @@ import React, { CSSProperties, useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import Papa from 'papaparse';
 import { Form, Button } from 'react-bootstrap'
-
 import ApiCrudService from '../../servicios/crud.service'
 import EventosService from '../../servicios/eventos.service'
-
 import MenusAuxiliar from './MenusAuxiliar'
 import { Link } from 'react-router-dom';
 export default function CSVReader() {
@@ -104,7 +102,7 @@ export default function CSVReader() {
 	return (
 		<>
 			<MenusAuxiliar >
-				
+
 				<Link className='btn btn-warning' to={'/inscripciones/modificaciones'} title={"Modicar usuario"} > Buscar usuario</Link>
 		
 			</MenusAuxiliar>
@@ -117,9 +115,12 @@ export default function CSVReader() {
 					<Form.Label>Escoge un evento para inscribir a los participantes</Form.Label>
 					<Form.Select aria-label="Escoge un evento" onChange={(e) => handleSelect(e)}>
 						{
-							eventos.map((evento) => {
+							<>
+							<option selected hidden>Selecciona una opcion</option>
+							{eventos.map((evento) => {
 								return <option value={evento.id}> {evento.nombre + " " + evento.edicion}</option>
-							})
+							})}
+							</>
 						}
 					</Form.Select>
 

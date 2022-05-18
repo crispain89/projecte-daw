@@ -61,6 +61,7 @@ export default function Layout({ children, sidebar = false }) {
           </div>
          
           <Link to="/inscripciones" className='btn btn-primary'>Usuarios</Link>
+          <Link to="/eventos/modificaciones" className='btn btn-primary'>Eventos</Link>
           
           
           <GrLogout onClick={logoutSession} size={"40px"} ></GrLogout>
