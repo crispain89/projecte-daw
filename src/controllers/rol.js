@@ -34,7 +34,7 @@ exports.show = async (req, res) => {
   try {
     const id = req.params.id;
     const rol = await Rol.findByPk(id);
-    res.send(rol);
+    return res.status(200).send(rol);
   } catch (error) {
     res.status(404).send({
       message:

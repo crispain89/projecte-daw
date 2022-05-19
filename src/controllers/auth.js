@@ -121,7 +121,7 @@ exports.signin = async (req, res) => {
       id: usuario.id,
       nombre: usuario.nombre,
       email: usuario.email,
-      rol: usuario.rol,
+      rol: usuario.rol_id ?? 1,
       token:token,
       token_activado: usuario.token_activado ?? null,
       avatar_src:usuario.avatar_src
@@ -132,12 +132,13 @@ exports.signin = async (req, res) => {
     for (let i = 0; i < roles.length; i++) {
       authorities.push("ROLE_" + roles[i].name.toUpperCase());
     } */
+    console.log("ROL",usuario.rol)
     return res.status(200).send({
       data:{
         id: usuario.id,
         nombre: usuario.nombre,
         email: usuario.email,
-        rol: usuario.rol,
+        rol: usuario.rol_id ?? 1,
         apellidos: usuario.apellidos ?? null,
         localidad: usuario.localidad ?? null,
         fecha_nacimiento: usuario.fecha_nacimiento ?? null,

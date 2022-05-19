@@ -53,7 +53,7 @@ const Usuario = sequelize.define("usuario", {
   avatar_src: {
     type: Sequelize.STRING,
     allowNull: false,
-    defaultValue: "https://res.cloudinary.com/dhdbik42m/image/upload/v1652107106/cld-sample.jpg"
+    defaultValue: "https://res.cloudinary.com/dhdbik42m/image/upload/v1652897103/no-hay-icono-de-foto-estilo-contorno-delgado-la-colecci_C3_B3n-iconos-se_C3_B1as-del-centro-comercial-ning_C3_BAn-fotos-para-dise_C3_B1o-147583922_xe4gzv.jpg"
   },
   token_activado:{
     type: Sequelize.BOOLEAN,

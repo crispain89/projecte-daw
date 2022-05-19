@@ -4,7 +4,7 @@ const {sequelize, Sequelize}= require('./db')
     id:{
       type: Sequelize.INTEGER,
       primaryKey: true,
-      autincrement:true
+      autoincrement:true
     },
     nombre: {
       type: Sequelize.STRING,

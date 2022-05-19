@@ -4,6 +4,8 @@ const cors = require("cors");
 
 const app = express();
 
+const path = require('path');
+
 const cookieSession = require("cookie-session");
 
 const { verifySignUp, authJwt } = require("./middlewares");
@@ -11,6 +13,14 @@ const auth = require("./controllers/auth");
 var corsOptions = {
   origin: "http://localhost:3000"
 };
+
+
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
 
 app.use(cors(corsOptions));
 // parse requests of content-type - application/json
