@@ -102,22 +102,7 @@ export default function Modificaciones({tabla}) {
                 break;
         }
     }    
-    useEffect(() => {
-        console.log(usuario)
-         //const handleUsuario=async(e) => {
-            /* try { 
-
-
-            }catch(e) {}finally {
-                /* setLoading(false) */
-            //}
-
-
-            
-
-
-        //}
-    },[usuario,eventos]) 
+   
     const handleBlur=async(e)=>{
         console.log(e)
         e.preventDefault();

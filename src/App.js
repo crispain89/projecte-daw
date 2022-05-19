@@ -51,6 +51,10 @@ function App() {
               <Route path='/user/eventos/:id' element={ <MockComponent/> }/>
               <Route path='/user/eventos' element={ <Eventos/> }/>
               <Route path='user/promociones' element={<Promociones/>}/>
+              <Route path='inscripciones' element={<Inscripciones/> }/>
+              <Route path='inscripciones/modificaciones' element={<Modificaciones tabla={'usuarios'} /> }/>
+              <Route path='/eventos/modificaciones' element={<ModificacionesE/>}/>
+              <Route path='eventos' element={<Eventos/>}/>
               
 
 

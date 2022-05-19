@@ -14,5 +14,7 @@ export default class EventosService extends ApiCrudService{
     static getEventosCurrent(){
         return httpC.get(`/eventos?active=true`)
     }
-    
+    static updatePhoto(data,id){
+        return httpC.put(`/file/${id}`,data)
+    }
 }
