@@ -1,6 +1,7 @@
 /* Controlador */
 const {Sequelize,sequelize} = require("../models/db");
 const {Evento} = require("../models");
+const {uploadFile}= require("./file")
 const Op= Sequelize.Op;
 
 
@@ -40,20 +41,27 @@ exports.index=async ( req, res)=>{
         });
     }
 };
-exports.store = async( req, res)=>{
+exports.store = async( req, res, next)=>{
+    console.log("body",req.body)
+    console.log("file",req.file)
     console.log("ENTRAAA")
-
     try{
-        const evento = Evento.build(req.body);
-        evento.save();
-        res.send(evento);
+        //subir fichero al cloudinari y recoger el src y añadirlo al evento que es el cloudinari
+        //req
+        let image = await uploadFile(req, res, next);
+        console.log("IMAGENNNNN funciona",image)
+        const evento = await Evento.build({...req.body,src:image.url});
+        console.log("eventito, eventito quien es el mas bonito",evento)
+        await evento.save();
+        res.status(200).send(evento);
     }catch (error) {
         console.log('error', error);
         res.status(500).send({
             message: 
-                error.message || "No hemos podido  crear el evento , revisa los datos introducidos"
+            error.message || "No hemos podido  crear el evento , revisa los datos introducidos"
         });
     }
+    next();
 };
 exports.show=async (req, res)=>{
     console.log("ENTRAAA")

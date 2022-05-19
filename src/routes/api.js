@@ -64,9 +64,10 @@ router.post('/reset',AuthCtrl.resetPassword)
 
 
 // CRUD products
+router.post('/eventos',fileUpload.single('image'),EventCtrl.store)
 router.apiResource('usuarios', UsuarioCtrl)
 router.apiResource('roles', RolCtrl)
-router.apiResource('eventos',EventCtrl)
+//router.apiResource('eventos',fileUpload.single('image'),EventCtrl)
 router.apiResource('comercios', ComerCtrl)
 router.apiResource('comercios.promociones', PromoComerCtrl)
 router.apiResource('eventos.promociones', PromoEventCtrl)

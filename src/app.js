@@ -33,6 +33,19 @@ app.get("/", (req, res) => {
 });
 
 
+const multer = require("multer");
+
+const test = require('./routes/test')
+
+// Register and set up the middleware
+app.use('test',express.urlencoded({ extended: true }));
+
+app.use('/test',test)
+
+
+
+
+
 //Set up cookie
 app.use(
   cookieSession({
@@ -47,7 +60,7 @@ app.use(
   const api = require('./routes/api')
 //app.use('/api', api, authJwt.verifyToken) NECESARIO PARA TODAS LAS RUTAS (VERIFICA QUE EL USUARIO PROVIENE DEL LOGIN DE NUESTRA APP)
 app.use('/api', api)
-app.use('/api', express.urlencoded({extended: false}))
+app.use('/api', express.urlencoded({extended: true}))
 app.use('/api', express.json())
 
 //Verify authJWT

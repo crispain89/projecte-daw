@@ -12,7 +12,7 @@ const Evento = sequelize.define("evento", {
         allowNull: false,
     },
     edicion:{
-        type:Sequelize.INTEGER,
+        type:Sequelize.STRING,
         primaryKey:true,
         allowNull: false,
     },
@@ -26,11 +26,13 @@ const Evento = sequelize.define("evento", {
     },
     fecha_finalizacion:{
         type:Sequelize.DATEONLY,
-        allowNull: true
+        allowNull: false
     },
     src:{
         type:Sequelize.STRING,
-        allowNull: true
+        allowNull: true,
+        defaultValue: "https://res.cloudinary.com/dhdbik42m/image/upload/v1652897103/no-hay-icono-de-foto-estilo-contorno-delgado-la-colecci_C3_B3n-iconos-se_C3_B1as-del-centro-comercial-ning_C3_BAn-fotos-para-dise_C3_B1o-147583922_xe4gzv.jpg"
+
     },
     descripcion:{
         type:Sequelize.STRING,
