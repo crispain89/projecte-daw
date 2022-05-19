@@ -60,10 +60,14 @@ export default function Layout({ children, sidebar = false }) {
             <img src='https://camo.githubusercontent.com/48d099290b4cb2d7937bcd96e8497cf1845b54a810a6432c70cf944b60b40c77/68747470733a2f2f7261776769742e636f6d2f676f72616e67616a69632f72656163742d69636f6e732f6d61737465722f72656163742d69636f6e732e737667'></img>
           </div>
           {user.rol === 2 && 
-            <>
-              <Link to="/inscripciones" className='btn btn-primary'>Usuarios</Link>
-              <Link to="/eventos/modificaciones" className='btn btn-primary'>Eventos</Link>
-            </>
+            <div style={{display:"flex",gap:"8px",flexDirection:"column", textAlign:"center"}}>
+              <h5> Gestionar Datos: </h5>
+              <div style={{display:"flex",gap:"8px"}}>
+                <Link to="/inscripciones" className='btn btn-primary'>Usuarios</Link>
+                <Link to="/promociones/modificaciones" className='btn btn-primary'>Promociones</Link>
+                <Link to="/eventos/modificaciones" className='btn btn-primary'>Eventos</Link>
+              </div>
+            </div>
           }
           <GrLogout onClick={logoutSession} size={"40px"} ></GrLogout>
         </Header>
