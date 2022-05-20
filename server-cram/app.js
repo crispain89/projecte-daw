@@ -10,19 +10,9 @@ const cookieSession = require("cookie-session");
 
 const { verifySignUp, authJwt } = require("./middlewares");
 const auth = require("./controllers/auth");
-var corsOptions = {
-  origin: "http://localhost:3000"
-};
 
 
-app.use(express.static(path.join(__dirname, 'build')));
-
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
-
-
-app.use(cors(corsOptions));
+app.use(cors());
 // parse requests of content-type - application/json
 app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
@@ -50,12 +40,11 @@ app.use('/test',test)
 app.use(
   cookieSession({
     name: "cram-session",
-    // keys: ['key1', 'key2'], 
+    // keys: ['key1', 'key2'],
     secret: process.env.SECRET_COOKIE, // should use as secret environment variable
     httpOnly: true
   })
   );
-  
   // App routes - API
   const api = require('./routes/api')
 //app.use('/api', api, authJwt.verifyToken) NECESARIO PARA TODAS LAS RUTAS (VERIFICA QUE EL USUARIO PROVIENE DEL LOGIN DE NUESTRA APP)
@@ -121,10 +110,6 @@ app.post(
 
 
 // set port, listen for requests
-const PORT = process.env.PORT || 8080;
-
-app.listen(PORT, ()=>{
-  console.log(`App listening on port ${PORT}`)
-})
+app.set("port",process.env.PORT || 4000);
 
 module.exports = app;
