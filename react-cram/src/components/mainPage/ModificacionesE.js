@@ -1,5 +1,5 @@
 import React,{useState, useEffect,useContext} from 'react'
-import {Form , Button, Image,Col} from 'react-bootstrap'
+import {Form , Button, Image,Col,Table} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import {AuthContext} from '../context/AuthContext'
 import ApiCrudService from '../../servicios/crud.service'
@@ -10,117 +10,180 @@ import axios from 'axios'
 
 
 export default function Eventos() {
+
     const { user, loading, setLoading } = useContext(AuthContext)
-    const [evento, setEvento]=useState([]);
-    const [datos, setDatos]=useState([]);
-    const [listEventos, setListEventos]=useState([]);
-    const [imagen, setImagen]=useState();
-    const [formState,setFormState]=useState('buscar');
-
-
-
-    useEffect(() => {
-        
-    },[evento, imagen])
-   
-    //////////////////////////////////----Subir foto----/////////////////////////////////
-    const handleImagen=(e)=>{
-        setImagen(e.target.files[0])
-        console.log(e.target)
-        console.log('funcionara??')
-        
-        
-    }
     
-    ////////////////////////////////---Formulario-----//////////////////////////////////////
-    const handleSubmit =async(e)=>{
+    const [formState,setFormState]=useState('buscar');
+    const [listEventos, setListEvento]=useState([]);
+    const [evento, setEvento]=useState([]);
+    const [buscar, setBuscar]=useState(false);
+    //////////////////////////////////-----CARGAREMOS LOS EVENTOS------///////////////////
+    
+    useEffect(() => {
+
+        //conseguimos los eventos que estan disponibles
+        const handleListEvent=async() => {
+            let res= await EventosService.getEventosCurrent();
+            setListEvento(res.data)
+        }
+        handleListEvent();
+
+    },[evento])
+
+    ///////------------BUSCAMOS EL EVENTO --------- //////////////////
+    const handleSubmit= async(e)=>{
+        console.log('cuando entra',buscar)
         e.preventDefault();
-        var todayDate = new Date().toISOString().slice(0, 10);
+        let id=evento.id
+        setLoading(true);
+        
         try{
-            
-
-            if(todayDate<evento.fecha_inicio && evento.fecha_inicio<=evento.fecha_finalizacion){
-
-                const elem = document.getElementById("form")
-                console.log("elem",elem)
+            if(formState==='editar'){
+                let res = await ApiCrudService.update('eventos',id, evento)
                 
-                const formData = new FormData(elem)
-                let res = await ApiCrudService.create("eventos",formData)
-                //{eventdata,src}
                 if(res.status===200){
                     setEvento(res.data)
+                    console.log("EVENTOOOOOOOOOOOO",evento)
+                    setFormState('opciones');
 
                 }
-                /*for (var pair of formData.entries()) {
-                    console.log(pair[0]+ ', ' + pair[1]); 
-                }
-                console.log(todayDate, "fecha de inicio",evento.fecha_inicio);
-                console.log('informacion del EVENTO',evento) */
-                
-                
-                /* 
-                let newEvento= await ApiCrudService.create('eventos',evento)
-                setEvento({...evento,src:newEvento.src});
-                console.log("informacion del nuevo EVENTO",newEvento.data) */
-
-            
-            }else{
-                alert('Las fechas son más pequeñas que el día de hoy.');
+                return
             }
-        }catch(e){
-            if(e?.response?.status===500){
-
-                console.log('EL error esta en el servidor ', e)
-            }
-            else{
-                console.log(e)
-            }
+            setFormState('opciones')
+        }catch(error){
+            console.log(error)
+        }finally{
+            setLoading(false);
+            setBuscar(false);
+            console.log("cuando acaba", buscar)
         }
-
-       
     }
 
-  return (
-    <>
-        <MenusAuxiliar>
-            <Link className='btn btn-warning' to={'/eventos/modificaciones'} title={"Modicar Evento"} > Buscar Evento</Link>
-        </MenusAuxiliar>
-        <div>
-            
-            <h3>Dar de alta un evento</h3>
-            <fieldset className='customLegend'>
-                <legend>Imagen del evento</legend>
+    ////////////////////-----Botones--------------////////////////////////////////
+    const renderButtons = ()=>{
+        switch (formState) {
+            case "buscar":
+                return <Button  variant="primary" type="submit">
+                            Buscar
+                        </Button>
+            case "opciones":
+                return <>
+                        <Button variant="primary" type="submit">
+                            Buscar
+                        </Button>
+                        <Button onClick={(e)=>setFormState('editar')} variant="warning" type="button">
+                            Editar
+                        </Button>
+                        <Button onClick={(e)=>setFormState('eliminar')} variant="danger" type="button">
+                            Eliminar
+                        </Button>
+                    </>
+            case "editar":
+                return <>
+                        <Button variant="primary" type="submit">
+                            Guardar
+                        </Button>
+                        <Button onClick={(e)=>setFormState('opciones')} variant="secondary" type="button">
+                            Cancelar
+                        </Button>
+                    </>
+            case "eliminar":
+                let respuesta=window.confirm('Esta seguro de que quieres eliminar a este evento? ')
+                console.log(respuesta)
+                if (!respuesta) {
+                    setFormState("opciones")
+                    return
+                }
+                //handleDelete()
                 
-                    <div className='avatar__form'>
-                        <Image  src={ evento.src || 'https://res.cloudinary.com/dhdbik42m/image/upload/v1652897103/no-hay-icono-de-foto-estilo-contorno-delgado-la-colecci_C3_B3n-iconos-se_C3_B1as-del-centro-comercial-ning_C3_BAn-fotos-para-dise_C3_B1o-147583922_xe4gzv.jpg'} roundedCircle></Image>
-                    </div>
+            default:
+                setFormState("opciones")
+                break;
+        }
+    }   
+    const handleBlur=async(e)=>{
+        console.log(e)
+        e.preventDefault();
+        /* setLoading(true); */
+        try {
+            let res = await ApiCrudService.show('eventos',e.target.value); 
+            console.log(res.data)         
+            setEvento(res.data)
+        }catch(error){
+            console.log(error)
+        }
 
-            </fieldset>
-            <Form id="form" onSubmit={handleSubmit}>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                    {console.log(Date.now())
+    }
+    
+    
+    
+
+    return(
+        <>
+            <MenusAuxiliar >
+				<Link className='btn btn-warning' to={'/eventos/create'} title={"Modicar usuario"} >Dar de alta Evento</Link>
+		    </MenusAuxiliar>
+            <div className="container__dos-modificaciones">
+                <Form onSubmit={handleSubmit}>
+                    {/* <Image width="30px" height="30px"src={evento.src}/> */}
+                    <h3>Busca un evento por su Identificador ID </h3>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label>Introduce el Id</Form.Label>
+                        <Form.Control value={evento.id || ""} onBlur={handleBlur} onChange={(e)=>setEvento({...evento,id:e.target.value})}/>
+                        <Form.Label>Nombre del Evento</Form.Label>
+                        <Form.Control value={evento.nombre || ""} onChange={(e)=>setEvento({...evento, nombre:e.target.value})}readOnly={formState!=='editar'}/>
+                        <Form.Label> Edicion</Form.Label>
+                        <Form.Control value={evento.edicion || ""} onChange={(e)=>setEvento({...evento,edicion:e.target.value})}readOnly={formState!=='editar'}/>
+                        <Form.Label>Descripción</Form.Label>
+                        <Form.Control value={evento.descripcion || ""} onChange={(e)=>setEvento({...evento,descripcion:e.target.value})}readOnly={formState!=='editar'}/>
+                        <Form.Label>Lugar</Form.Label>
+                        <Form.Control value={evento.lugar || ""} onChange={(e)=>setEvento({...evento,lugar:e.target.value})}readOnly={formState!=='editar'}/>
+                        <Form.Label>Fecha de inicio</Form.Label>
+                        <Form.Control value={evento.fecha_inicio || ""} onChange={(e)=>setEvento({...evento,fecha_inicio:e.target.value})} readOnly={formState!=='editar'}/>
+                        <Form.Label>fecha de finalizacion</Form.Label>
+                        <Form.Control value={evento.fecha_finalizacion || ""} onChange={(e)=>setEvento({...evento,fecha_finalizacion:e.target.value})}readOnly={formState!=='editar'}/>
+                    </Form.Group>
+                    { 
+                        renderButtons()
+
                     }
-{/*                     <Image src={evento.src || "https://res.cloudinary.com/dhdbik42m/image/upload/v1652897103/no-hay-icono-de-foto-estilo-contorno-delgado-la-colecci_C3_B3n-iconos-se_C3_B1as-del-centro-comercial-ning_C3_BAn-fotos-para-dise_C3_B1o-147583922_xe4gzv.jpg" }/>
- */}                <Form.Label>Nombre del Evento</Form.Label>
-                    <Form.Control name="nombre" value={evento.nombre}required onChange={(e)=>{setEvento({...evento, nombre:e.target.value})}}/>
-                    <Form.Label>Descripcion del Evento</Form.Label>
-                    <Form.Control name="descripcion" value={evento.descripcion} required onChange={(e)=>{setEvento({...evento, descripcion:e.target.value})}}/>
+                </Form>
+            </div>
+        { !buscar ?
+           <Table>
+           <thead>
+                <tr>
+                    <th>nº</th>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Edicion</th>
+                    <th>Fecha</th>
+                    <th>Lugar</th>
+                </tr>
+                </thead>
+                <tbody>
+                    { listEventos.map((evento,e)=>{
+                        return (
+                         <tr key={evento.id}>
+                            <td>{e+1}</td>
+                            <td>{evento.id}</td>
+                            <td>{evento.nombre}</td>
+                            <td>{evento.edicion}</td>
+                            <td>{evento.fecha_inicio}</td>
+                            <td>{evento.lugar}</td>
+                         </tr>
+                         )
+                        
+                    })
+                    }
                     
-                    <Form.Label>Edición</Form.Label>
-                    <Form.Control name="edicion" required type='text' onChange={(e)=>{setEvento({...evento, edicion:e.target.value})}} />
-                    <Form.Label>Lugar</Form.Label>
-                    <Form.Control name="lugar" required type='text' onChange={(e)=>{setEvento({...evento, lugar:e.target.value})}} />
-                    <Form.Label >Fecha de Inicio</Form.Label>
-                    <Form.Control name="fecha_inicio" required type='date' onChange={(e)=>{setEvento({...evento, fecha_inicio:e.target.value})}} />
-                    <Form.Label>Fecha de Finalización</Form.Label>
-<Form.Control name="fecha_finalizacion" required type='date' onChange={(e)=>{setEvento({...evento, fecha_finalizacion:e.target.value})}} />
-                    <Form.Label >Selecciona una foto para este evento</Form.Label>
-                    <Form.Control name="image" required type='file' placeholder='Sube una foro para tu evento' onChange={(e)=>{setEvento({...evento,file:e.target.files[0]})}} />
-                </Form.Group>
-                <Button variant='primary' type='submit'> Crear Evento</Button>
-            </Form>
-        </div>
-    </>
+                </tbody>
+           </Table>
+           : null
+           }
+          
+        </>
+    )
 
-  )
+  
 }

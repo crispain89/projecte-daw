@@ -15,6 +15,7 @@ const PromoEventCtrl = require('../controllers/promo_evento.js')
 const EventComerCtrl = require('../controllers/evento_comercio.js')
 const UploadCtrl = require('../controllers/file.js')
 const InsCtrl=require('../controllers/inscripciones.js')
+const CategoriasCtrl=require('../controllers/categoria.js')
 /* const InscripUserCtrl= require('../controllers/inscripciones_usuarios.js') */
 
 //Middlewares
@@ -64,15 +65,21 @@ router.post('/reset',AuthCtrl.resetPassword)
 
 
 // CRUD products
+router.put('/eventos/:id',EventCtrl.update)
+router.post('/comercios',fileUpload.single('image'),ComerCtrl.store)
+router.get('/comercios',ComerCtrl.index)
 router.post('/eventos',fileUpload.single('image'),EventCtrl.store)
+router.get('/eventos',EventCtrl.index)
+router.get('/eventos/:id',EventCtrl.show)
 router.apiResource('usuarios', UsuarioCtrl)
 router.apiResource('roles', RolCtrl)
 //router.apiResource('eventos',fileUpload.single('image'),EventCtrl)
-router.apiResource('comercios', ComerCtrl)
+/* router.apiResource('comercios', ComerCtrl) */
 router.apiResource('comercios.promociones', PromoComerCtrl)
 router.apiResource('eventos.promociones', PromoEventCtrl)
 router.apiResource('comercios.eventos',EventComerCtrl)
 router.apiResource('inscripciones', InsCtrl)
+router.apiResource('categorias', CategoriasCtrl)
 router.get('/comercios/:id/eventos', ComerCtrl.promos)
 router.get('/usuarios/:id/eventos',UsuarioCtrl.inscripcion)
 router.delete('/usuarios/:id/eventos',UsuarioCtrl.deleteInscripciones)

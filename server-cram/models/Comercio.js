@@ -29,8 +29,13 @@ const Comercio = sequelize.define("comercio", {
         type:Sequelize.STRING,
         allowNull: false
     },
-    logo_id:{
-        type:Sequelize.INTEGER,
+    nif:{
+        type:Sequelize.STRING,
+        allowNull: false
+
+    },
+    src:{
+        type:Sequelize.STRING,
         allowNull: true
     },
     categoria_id:{
@@ -45,23 +50,6 @@ const Comercio = sequelize.define("comercio", {
 
    // Comercio.hasMany(Evento, { through: 'Promociones', /* options */ });
 Comercio.getEventos = async function (id) {
-/* return await Comercio.findOne({
-        where: { 'id': id},
-        include: Promocion,
-        include: Evento
-    });
-    */
-    /* return await Comercio.findOne({
-        where: {
-            id: id
-        }, 
-        include: {
-            model:Promocion, 
-            include: {
-                model:Evento,               
-            }
-        }
-    }) */
     const query =`select e.nombre, e.edicion, e.fecha_inicio, p.descripcion, p.comercio_id
     from eventos as e, promociones as p
     where p.comercio_id=${id} and p.evento_id=e.id`
@@ -76,5 +64,18 @@ Comercio.getEventos = async function (id) {
     console.log("RESULT",result)
     return result;
 }
+Comercio.getNif= async function(){
+    const query= await `select nif from comercios;`
+    const result = await sequelize.query(query, 
+        { 
+            model: Comercio, mapToModel: true,
+            nest: true,
+            raw: true,
+            type: sequelize.QueryTypes.SELECT 
+        })
+        console.log("RESULT",result)
+        return result;
+}
+
 
 module.exports = Comercio;

@@ -22,7 +22,10 @@ import Promociones from './components/promociones/Promociones';
 import UserProfile from './components/user/UserProfile';
 import Inscripciones from './components/mainPage/Inscripcion'
 import Modificaciones from './components/mainPage/Modificaciones'
+import EventosC from './components/mainPage/EventosC'
 import ModificacionesE from './components/mainPage/ModificacionesE'
+import Comercios from './components/mainPage/Comercios'
+
 //el token del mapbox
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_KEY
 
@@ -41,24 +44,29 @@ function App() {
                 <Route path='inscripciones' element={<Inscripciones/> }/>
                 <Route path='inscripciones/modificaciones' element={<Modificaciones tabla={'usuarios'} /> }/>
                 <Route path='eventos' element={<Eventos/>}/>
+                <Route path='/eventos/create' element={<EventosC/>}/>
                 <Route path='/eventos/modificaciones' element={<ModificacionesE/>}/>
+                <Route path='/comercios' element={<Comercios/>}/>
                 </>
 
+              }
+              {
+                user.rol === 4 && 
+                <Route path='/eventos/modificaciones' element={<ModificacionesE/>}/>
+
+              }
+              {
+                user.rol === 1 && 
+                <>
+                  <Route path='/user/eventos/:id' element={ <MockComponent/> }/>
+                  <Route path='/user/eventos' element={ <Eventos/> }/>
+                  <Route path='user/promociones' element={<Promociones/>}/>
+                </>
               }
               <Route path='/' element={ <MainPage/> }/>
               <Route path='/user' element={ <MainPage/> }/>
               <Route path='/user/profile' element={ <UserProfile/> }/>
-              <Route path='/user/eventos/:id' element={ <MockComponent/> }/>
-              <Route path='/user/eventos' element={ <Eventos/> }/>
-              <Route path='user/promociones' element={<Promociones/>}/>
-              <Route path='inscripciones' element={<Inscripciones/> }/>
-              <Route path='inscripciones/modificaciones' element={<Modificaciones tabla={'usuarios'} /> }/>
-              <Route path='/eventos/modificaciones' element={<ModificacionesE/>}/>
-              <Route path='eventos' element={<Eventos/>}/>
               
-
-
-
               <Route path="*" element={<NotFound />}></Route>
 
             </Routes>

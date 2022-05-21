@@ -25,7 +25,7 @@ exports.index=async ( req, res)=>{
     console.log("query",req.query)
     
     try{
-        if(req.query.active===true){
+        if(req.query.active==="true"){
             const eventos= await Evento.getEventosCurrent();
             console.log("EVENTOS NO CADUCADOS",eventos);
             return res.status(200).send(eventos)

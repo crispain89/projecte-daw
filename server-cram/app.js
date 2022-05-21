@@ -54,61 +54,6 @@ app.use('/api', express.json())
 
 //Verify authJWT
 
-
-
-
-/* const multer = require("multer");
-const cloudinary = require('./config/cloudinary')
-const streamifier = require('streamifier')
-const fileUpload = multer()
-
-app.post('/upload', fileUpload.single('image'), function (req, res, next) {
-  let streamUpload = (req) => {
-      return new Promise((resolve, reject) => {
-          let stream = cloudinary.uploader.upload_stream(
-            (error, result) => {
-              if (result) {
-                resolve(result);
-              } else {
-                reject(error);
-              }
-            }
-          );
-
-        streamifier.createReadStream(req.file.buffer).pipe(stream);
-      });
-  };
-
-  async function upload(req) {
-      let result = await streamUpload(req);
-      console.log(result);
-  }
-
-  upload(req);
-}); */
-
-
-
-/* const test = (req,res)=>{
-  console.log(req)
-}
-
-const midd = () =>{
-  return cloudinary.uploader.upload("photo",(error,result)=>{
-    if(error) console.log(error)
-    else return result
-  })
-
-} 
-
-app.post(
-  '/upload',
-  midd,
-  test
-) */
-
-
-
 // set port, listen for requests
 app.set("port",process.env.PORT || 4000);
 

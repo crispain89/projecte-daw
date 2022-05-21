@@ -2,7 +2,7 @@
 /* Controlador */
 const {Sequelize,sequelize} = require("../models/db");
 const {Comercio,Promocion} = require("../models");
-
+const { uploadFile } = require("./file");
 const Op= Sequelize.Op;
 exports.promos=async(req,res)=>{
     try{
@@ -34,19 +34,28 @@ exports.index=async ( req, res)=>{
         });
     }
 };
-exports.store = async( req, res)=>{
+exports.store = async( req, res,next)=>{
     try{
-        const comercio = Comercio.build(req.body);
+
+        let imagen= await uploadFile(req,res,next);
+        console.log('imagen',imagen)
+
+        const comercio = Comercio.build({...req.body, src:imagen.url});
         console.log(comercio);
-        comercio.save();
-        res.send(comercio);
+        await comercio.save();
+        return res.status(200).send(comercio);
     }catch (error) {
+        res.status(464).send({
+            message: 
+                error.message || 'Este Nif ya esta siendo utilizado.'
+        });
         console.log('error', error);
         res.status(500).send({
             message: 
                 error.message || "No hemos podido  crear el comercio , revisa los datos introducidos"
         });
     }
+    next();
 };
 exports.show=async (req, res)=>{
     try{

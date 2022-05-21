@@ -94,7 +94,7 @@ export function Login() {
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                     <Form.Check type="checkbox" onChange={()=>setRemember(!remember)} label="Recuerdame" />
                 </Form.Group>
-                <Button className="botones__login" variant="primary" type="submit">
+                <Button className="botones__login" onClick={handleSubmit} variant="primary" type="submit">
                     Login
                 </Button>
                 <Button className="botones__login" onClick={()=>HandleRedirect()} variant="secondary">

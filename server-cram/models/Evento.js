@@ -42,12 +42,12 @@ const Evento = sequelize.define("evento", {
         
     });
 Evento.getEventosCurrent=async function(req){
-    const query=` SELECT concat( nombre , " ", edicion), id
+    const query=` SELECT concat( nombre , " ", edicion), id, lugar, nombre, edicion,fecha_inicio
     FROM eventos
     WHERE fecha_inicio>=current_date()`
 
     const result = await sequelize.query(query,{
-        model: Usuario, mapToModel: true,
+        model: Evento, mapToModel: true,
         nest: true,
         raw: true,
         type: sequelize.QueryTypes.SELECT 
