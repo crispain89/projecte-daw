@@ -55,6 +55,6 @@ app.use('/api', express.json())
 //Verify authJWT
 
 // set port, listen for requests
-app.set("port",process.env.PORT || 4000);
+app.set("port",process.env.PORT || 8080);
 
 module.exports = app;

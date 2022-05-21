@@ -19,4 +19,7 @@ export default class PromocionesService extends ApiCrudService{
    //le pasare el id de comercio que lo tiene la promcion
    
    }
+    static getPromo(uid,id){
+        return httpC.get(`/usuarios/${uid}/promociones/${id}`)
+    }
 }

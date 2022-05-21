@@ -5,6 +5,7 @@ import Filters from './Filters'
 import { AuthContext } from '../context/AuthContext';
 //import Filters from '../eventos/Filters';
 import Promocion from './TarjetaPromociones';
+import { useNavigate } from 'react-router';
 //En esta pagina se mostraran todos los eventos de la aplicacion, por orden alfabetico o proximidad,
 //por defecto, la lista mostrará primero los eventos a los que estas inscrito y los diferenciará de los otros
 //con una etiqueta verde de "inscrito" 
@@ -20,24 +21,13 @@ export default function Promociones({className, ...rest}) {
   const [promocionesCaducadas, setPromocionesCaducadas] = useState([]);
   const [filteredPromociones, setFilteredPromociones] = useState([])
   const [selected, setSelected] = useState(0)
+  const navigate = useNavigate()
   //guardamos las promociones de un usuario
- 
-  /* functionDate(fechaPromo){
-    var date=new Date();
-    let year= date.getFullYear();
-    let month=date.getMonth();
-    let day= date.getDate();
-  
-    var dateParts = fechaPromo.split("-");
-    var datePromo= (dateParts[2]+"/"+dateParts[1]+"/"+dateParts[0]).toString();
-    var dateNow=[day,month,year].join('/');
-    if(datePromo<dateNow){
-      return false
-    }
-    else {
-      return true}
-    
-  } */
+
+
+  const handleShowPromo = (id) => {
+    navigate(`/user/promociones/${id}`)
+  }
 
   const renderPromociones = () => {
     //Renderizamos los eventos dependiendo del filtro de tipo: "inscrito" | "no inscrito" | "todos"
@@ -50,7 +40,7 @@ export default function Promociones({className, ...rest}) {
       case 1:
         //Caducadas
         return promocionesCaducadas.map((promocion)=>{
-          return <Promocion key={promocion.id} caducado={true} titulo={promocion.titulo} comercio={promocion.comercio_nombre} evento={promocion.evento_nombre} descripcion={promocion.descripcion} inicio={promocion.fecha_inicio} src={promocion.src} final={promocion.fecha_expiracion}/>
+          return <Promocion onClick={()=>handleShowPromo(promocion.id)} key={promocion.id} caducado={true} titulo={promocion.titulo} comercio={promocion.comercio_nombre} evento={promocion.evento_nombre} descripcion={promocion.descripcion} inicio={promocion.fecha_inicio} src={promocion.src} final={promocion.fecha_expiracion}/>
         })
       case 2:
         //Vigentes
@@ -58,7 +48,7 @@ export default function Promociones({className, ...rest}) {
         .filter(promo=>{
           return !promocionesCaducadas.find(p => p.id === promo.id)
         }).map((promocion)=>{
-          return <Promocion key={promocion.id} caducado={false} titulo={promocion.titulo} comercio={promocion.comercio_nombre} evento={promocion.evento_nombre} descripcion={promocion.descripcion} inicio={promocion.fecha_inicio} src={promocion.src} final={promocion.fecha_expiracion}/>
+          return <Promocion onClick={()=>handleShowPromo(promocion.id)} key={promocion.id} caducado={false} titulo={promocion.titulo} comercio={promocion.comercio_nombre} evento={promocion.evento_nombre} descripcion={promocion.descripcion} inicio={promocion.fecha_inicio} src={promocion.src} final={promocion.fecha_expiracion}/>
         })
       case 3:
       default:
@@ -68,7 +58,7 @@ export default function Promociones({className, ...rest}) {
           var date1 = Date.parse(promocion.fecha_expiracion)
           var date2 = Date.now()
           if (date1 < date2) caducado=true;
-          return <Promocion key={promocion.id} caducado={caducado} titulo={promocion.titulo} comercio={promocion.comercio_nombre} evento={promocion.evento_nombre} descripcion={promocion.descripcion} inicio={promocion.fecha_inicio} src={promocion.src} final={promocion.fecha_expiracion}/>
+          return <Promocion onClick={()=>handleShowPromo(promocion.id)} key={promocion.id} caducado={caducado} titulo={promocion.titulo} comercio={promocion.comercio_nombre} evento={promocion.evento_nombre} descripcion={promocion.descripcion} inicio={promocion.fecha_inicio} src={promocion.src} final={promocion.fecha_expiracion}/>
         })
     }
   }
@@ -84,7 +74,7 @@ export default function Promociones({className, ...rest}) {
         console.log("USERPROMOS",userPromociones.data)
         console.log("CADUCADAS",userPromocionesCaducadas.data)
         //le pasamos el id del comercio que tiene la promocion.
-        const comercio= await ComerciosService.show("comercios",promociones.comercio_id);
+        //const comercio= await ComerciosService.show("comercios",promociones.comercio_id);
         setPromocionesCaducadas(userPromocionesCaducadas.data)
         setPromociones(userPromociones.data)
         setFilteredPromociones(userPromociones.data)

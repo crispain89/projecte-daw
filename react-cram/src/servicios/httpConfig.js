@@ -1,6 +1,5 @@
 import axios from "axios";
-const url=process.env.REACT_APP_SERVER_ADDRESS
-
+let url = process.env.REACT_APP_SERVER_ADDRESS
 console.log("url", url)
 const httpC= axios.create({
     baseURL: url,

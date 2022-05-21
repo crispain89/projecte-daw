@@ -1,5 +1,5 @@
 const {Sequelize,sequelize} = require("../models/db");
-const {User} = require("../models");
+const {User, Promocion} = require("../models");
 
 const Op = Sequelize.Op;
 // Create and Save a new User
@@ -60,6 +60,23 @@ exports.promociones=async(req,res)=>{
 
   }
 }
+
+exports.getPromocion = async(req,res) => {
+  try{
+    let promo = await User.getPromo(req)
+    console.log("promo",promo)
+    if(promo){
+      return res.status(200).send(promo)
+    }
+  }catch(error){
+    res.status(500).send({
+      message:
+        error.message || "No hemos podido seleccionar la promocion"
+    });
+
+  }
+}
+
 exports.index = async (req, res) => {
   try {
 

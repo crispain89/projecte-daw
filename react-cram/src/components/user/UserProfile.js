@@ -55,17 +55,18 @@ export default function UserProfile(){
         )
         // Details of the uploaded file 
         console.log(selectedFile); 
-        console.log("formData",formData); 
         
         // Request made to the backend api 
         // Send formData object 
         try{
             let res = await UsuariosService.updateAvatar(formData,user.id)
+            console.log("res",res)
             if( res.status === 200 ){
                 setUser({...user,avatar_src:res.data.avatar_src})
             }
         }
         catch(e){
+            console.log(e)
             if (e.response.status === 500){
                 console.log("ERROR",e)
             }

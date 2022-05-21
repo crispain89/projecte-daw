@@ -1,9 +1,9 @@
 import { Button, Card ,Badges, Badge} from "react-bootstrap";
 
-export default function Promocion({ caducado,titulo,comercio, evento,descripcion, inicio, src,final}){
+export default function Promocion({ onClick, caducado,titulo,comercio, evento,descripcion, inicio, src,final}){
     
     return(
-        <Card>
+        <Card onClick={onClick}>
             <Card.Body>
                 <div className='card__evento'>
                     <Card.Img className='imagen__card' variant="top" src={src} />

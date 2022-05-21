@@ -30,5 +30,8 @@ export default class UsuariosService extends ApiCrudService{
     static getRolByUser(id){
         return httpC.get(`/roles/${id}`)
     }
+    static updateAvatar(data,id){
+        return httpC.put(`/file/${id}`,data)
+    }
     
 }

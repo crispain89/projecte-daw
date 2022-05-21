@@ -27,8 +27,9 @@ const { verifySignUp, authJwt } = require("../middlewares");
 const { selectByFk, createByFk, deleteByFk, updateByFk ,getIdByFk, uploadFile}= require("../controllers/helpers");
 
 
+
 // Emulate Laravel apiResource method
-router.apiResource = function(resource,controller) {
+router.apiResource = function(resource,controller,middleware=null) {
     let uriRUD, uriLC;
     let url = resource.split(".")
 //  /eventos?active=true
@@ -42,7 +43,7 @@ router.apiResource = function(resource,controller) {
     }
     const ErrorCtrl = require('../controllers/error')
     router.get(uriLC, controller.index || ErrorCtrl.error404)
-    router.post(uriLC, controller.store || ErrorCtrl.error404)
+    middleware ? router.post(uriLC, middleware, controller.store || ErrorCtrl.error404) : router.post(uriLC, controller.store || ErrorCtrl.error404)
     router.get(uriRUD, controller.show || ErrorCtrl.error404)
     router.put(uriRUD, controller.update || ErrorCtrl.error404)
     router.delete(uriRUD, controller.destroy || ErrorCtrl.error404)    
@@ -66,15 +67,19 @@ router.post('/reset',AuthCtrl.resetPassword)
 
 
 // CRUD products
+/* router.put('/eventos/:id',EventCtrl.update)
 router.put('/eventos/:id',EventCtrl.update)
 router.post('/comercios',fileUpload.single('image'),ComerCtrl.store)
 router.get('/comercios',ComerCtrl.index)
 router.post('/eventos',fileUpload.single('image'),EventCtrl.store)
 router.get('/eventos',EventCtrl.index)
-router.get('/eventos/:id',EventCtrl.show)
+router.get('/eventos/:id',EventCtrl.show) */
+
 router.apiResource('usuarios', UsuarioCtrl)
 router.apiResource('roles', RolCtrl)
-//router.apiResource('eventos',fileUpload.single('image'),EventCtrl)
+router.apiResource('eventos',EventCtrl,fileUpload.single('image'))
+router.get('/comercios',ComerCtrl.index)
+router.post('/comercios',fileUpload.single('image'),ComerCtrl.store)
 /* router.apiResource('comercios', ComerCtrl) */
 router.apiResource('comercios.promociones', PromoComerCtrl)
 router.apiResource('eventos.promociones', PromoEventCtrl)
@@ -86,6 +91,7 @@ router.get('/comercios/:id/eventos', ComerCtrl.promos)
 router.get('/usuarios/:id/eventos',UsuarioCtrl.inscripcion)
 router.delete('/usuarios/:id/eventos',UsuarioCtrl.deleteInscripciones)
 router.get('/usuarios/:id/promociones',UsuarioCtrl.promociones)
+router.get('/usuarios/:id/promociones/:pid',UsuarioCtrl.getPromocion)
 
 
 //Upload
