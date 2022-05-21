@@ -7,5 +7,6 @@ module.exports = {
   Promocion: require("./Promocion.js"),
   Extra: require("./extra.js"),
   Inscripcion: require("./Inscripciones.js"),
-  Categorias:require('./Categorias.js')
+  Categorias:require('./Categorias.js'),
+  Usu_comercio:require('./Usuario_Comercio.js')
 }

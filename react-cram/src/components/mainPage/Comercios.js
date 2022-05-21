@@ -57,14 +57,21 @@ useEffect(() => {
     getCategorias() 
     console.log(lat, long)
     console.log(listComercio)
-},[long,lat])
+    console.log('usuario',form)
+},[long,lat,form ])
 
 const handleSubmitAlone= async (e)=>{
     e.preventDefault();
+    
     try{
+        
         let res= await ApiCrudService.create('usuarios', form)
         setDatos(res.data.id);
-        await ApiCrudService.create('usuarios_comercios', {usuario_id:datos,comercio_id:comercio.id})
+
+        let comer=await ApiCrudService.create('comercios', comercio)
+        let ids={comercio_id:comer.data.id,usuario_id:res.data.id}
+        let userComer=await ApiCrudService.create('usuarios_comercios', ids)
+        console.log(userComer)
     }catch (e) {
         console.log(e)
     }
@@ -88,8 +95,8 @@ const handleSubmitAlone= async (e)=>{
         e.preventDefault();
         setLoading(true)
         try{
-            const elem = document.getElementById('form')
-            const formData=new FormData(elem);
+            let elem = document.getElementById('form')
+            let formData=new FormData(elem);
             console.log(formData.get('nif'))
             let repetido=listComercio.find((comercio)=>comercio.nif===formData.get('nif'))
             console.log(repetido)
@@ -163,7 +170,7 @@ const handleSubmitAlone= async (e)=>{
                     </Form>
                     : 
                     <div className="container__dos">
-					<Form onSubmit={handleSubmitAlone}>
+					<Form id="from_user" onSubmit={handleSubmitAlone}>
 						<h3>Dar de alta  un usuario</h3>
 						<Form.Group className="mb-3" controlId="formBasicEmail">
 							<Form.Label>Nombre</Form.Label>
@@ -171,7 +178,7 @@ const handleSubmitAlone= async (e)=>{
 							<Form.Label>Apellidos</Form.Label>
 							<Form.Control onChange={(e)=>{setForm({...form,apellidos:e.target.value})}} />
 							<Form.Label>Nif Comercio</Form.Label>
-							<Form.Control value={comercio.nif} type='text' maxLength="9" minLength="9" readonly />
+							<Form.Control onChange={(e)=>setForm({...form,dni:e.target.value})} type='text' maxLength="9" minLength="9"  />
 							<Form.Label >Telefono</Form.Label>
 							<Form.Control type='text' maxLength='9' onChange={(e)=>{setForm({...form,telefono:e.target.value})}} />
 							<Form.Label>Email</Form.Label>
