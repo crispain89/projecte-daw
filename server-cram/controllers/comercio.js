@@ -40,10 +40,10 @@ exports.store = async( req, res,next)=>{
         let imagen= await uploadFile(req,res,next);
         console.log('imagen',imagen)
 
-        const comercio = Comercio.build({...req.body, src:imagen.url});
+        const comercio = await Comercio.create({...req.body, src:imagen.url});
         console.log(comercio);
-        await comercio.save();
-        return res.status(200).send(comercio);
+  
+        res.status(200).send(comercio);
     }catch (error) {
         res.status(464).send({
             message: 

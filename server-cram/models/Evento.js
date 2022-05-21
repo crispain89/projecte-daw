@@ -4,7 +4,7 @@ const Evento = sequelize.define("evento", {
     
     id:{
         type:Sequelize.INTEGER,
-        autoincrement: true
+        autoIncrement: true
     },
     nombre:{
         type:Sequelize.STRING,

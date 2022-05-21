@@ -5,7 +5,7 @@ const Promocion = sequelize.define("promociones", {
     id:{
         type:Sequelize.INTEGER,
         primaryKey:true,
-        autoincrement: true
+        autoIncrement: true
     },
     token:{
         type:Sequelize.STRING,

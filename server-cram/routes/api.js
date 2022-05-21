@@ -81,11 +81,12 @@ router.apiResource('eventos.promociones', PromoEventCtrl)
 router.apiResource('comercios.eventos',EventComerCtrl)
 router.apiResource('inscripciones', InsCtrl)
 router.apiResource('categorias', CategoriasCtrl)
-router.apiResource('usuarios_comercios', UsuComerCtrl)
+router.apiResource('usuario_comercios', UsuComerCtrl)
 router.get('/comercios/:id/eventos', ComerCtrl.promos)
 router.get('/usuarios/:id/eventos',UsuarioCtrl.inscripcion)
 router.delete('/usuarios/:id/eventos',UsuarioCtrl.deleteInscripciones)
 router.get('/usuarios/:id/promociones',UsuarioCtrl.promociones)
+
 
 //Upload
 router.put('/file/:id',fileUpload.single('image'),UploadCtrl.updateUserAvatar)

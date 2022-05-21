@@ -3,7 +3,7 @@ const Inscripcion = sequelize.define("inscripciones", {
     id:{
         type:Sequelize.INTEGER,
         primaryKey:true,
-        autoincrement: true
+        autoIncrement: true
     },
     id_usuario:{
         type:Sequelize.INTEGER,

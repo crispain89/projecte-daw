@@ -3,7 +3,7 @@ const Usu_Comercio =sequelize.define('usuario_comercio',{
     id:{
         type:Sequelize.INTEGER,
         primaryKey:true,
-        autoincrement: true
+        autoIncrement: true
     },
     usuario_id:{
         type:Sequelize.INTEGER,

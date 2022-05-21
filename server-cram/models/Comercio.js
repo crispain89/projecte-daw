@@ -4,7 +4,10 @@ const Comercio = sequelize.define("comercio", {
     id:{
         type:Sequelize.INTEGER,
         primaryKey:true,
-        autoincrement: true
+        autoIncrement: true,
+        field:'id',
+        allowNull:false
+
     },
     nombre:{
         type:Sequelize.STRING,
