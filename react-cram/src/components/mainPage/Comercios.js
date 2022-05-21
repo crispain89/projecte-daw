@@ -17,6 +17,8 @@ import { Link } from 'react-router-dom';
 export default function Comercios() {
   
     const [form, setForm] =useState([]);
+   
+
     const [long, setLong]=useState();
     const [lat, setLat]=useState();
     const [loading, setLoading]=useState(false);
@@ -29,20 +31,24 @@ export default function Comercios() {
     const [datos, setDatos] = useState([]);
 
 
-useEffect(() => {
-    async function getCategorias (){
-        try {
-            setLoading(true)
-            let cat=await ApiCrudService.index('categorias');
-            setCategorias(cat.data)
-
-        } catch (e) {
-            
-            console.log(e)
-        } finally {
-            setLoading(false)
+    useEffect(()=>{
+        async function getCategorias (){
+            try {
+                setLoading(true)
+                let cat=await ApiCrudService.index('categorias');
+                setCategorias(cat.data)
+    
+            } catch (e) {
+                
+                console.log(e)
+            } finally {
+                setLoading(false)
+            }
         }
-    }
+        getCategorias() 
+    },[])
+
+useEffect(() => {
     async function getComercio(){
         try{
             setLoading(true)
@@ -54,11 +60,8 @@ useEffect(() => {
 
     }
     getComercio()
-    getCategorias() 
-    console.log(lat, long)
-    console.log(listComercio)
-    console.log('usuario',form)
-},[long,lat,form ])
+    
+},[form, comercio, datos])
 
 const handleSubmitAlone= async (e)=>{
     e.preventDefault();
@@ -66,11 +69,12 @@ const handleSubmitAlone= async (e)=>{
     try{
         
         let res= await ApiCrudService.create('usuarios', form)
-        setDatos(res.data.id);
+        setDatos({...datos,usuario_id:res.data.id});
+        
 
-        let comer=await ApiCrudService.create('comercios', comercio)
-        let ids={comercio_id:comer.data.id,usuario_id:res.data.id}
-        let userComer=await ApiCrudService.create('usuarios_comercios', ids)
+        //tengo que pasarle el id del comercio y el id del usuario
+    
+        let userComer=await ApiCrudService.create('usuario_comercios', {comercio_id:comercio.id,usuario_id:res.data.id} )
         console.log(userComer)
     }catch (e) {
         console.log(e)
@@ -108,8 +112,12 @@ const handleSubmitAlone= async (e)=>{
             else{
                 
                 let res = await ApiCrudService.create('comercios', formData)
+                console.log('ID del putsdfsdfsdfsdfsdfsdfsdfo comercio',res)
+                console.log('dataaaaaaaaa',res.data)
                 if(res.status===200){
                     setComercio(res.data)
+                   
+                    console.log('ID del puto comercio',res.data.id)
                 }
             }
 
@@ -122,6 +130,7 @@ const handleSubmitAlone= async (e)=>{
 
             setLoading(false) 
             setComplet(true)
+            console.log('DATOS',datos)
         }
     }
 	return (
