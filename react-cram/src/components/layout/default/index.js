@@ -61,6 +61,16 @@ export default function Layout({ children, sidebar = false }) {
               <img className='rounded-circle' src='https://res.cloudinary.com/dhdbik42m/image/upload/v1653223372/gxxwczzlh4bnfunaglnb-removebg-preview_rqogin.png'></img>
               Cram Sports
             </div>
+            {
+              user.rol === 1 && 
+              <div style={{display:"flex",gap:"8px",flexDirection:"column", textAlign:"center"}}>
+                <h5>Mis gestiones:</h5>
+                <div style={{display:"flex",gap:"8px",flexWrap:"wrap",justifyContent:"center"}}>
+                  <Link to="/user/promociones" className='btn btn-primary'>Promociones</Link>
+                  <Link to="/user/eventos" className='btn btn-primary'>Eventos</Link>
+                </div>
+              </div>
+            }
             {user.rol === 2 && 
               <div style={{display:"flex",gap:"8px",flexDirection:"column", textAlign:"center"}}>
                 <h5> Gestionar Datos: </h5>
