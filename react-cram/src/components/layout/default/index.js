@@ -55,23 +55,34 @@ export default function Layout({ children, sidebar = false }) {
         <meta content="" name="description" />
       </Helmet>
       <div className="container__principal">
-        <Header>
-          <div className='logo'>
-            <img src='https://camo.githubusercontent.com/48d099290b4cb2d7937bcd96e8497cf1845b54a810a6432c70cf944b60b40c77/68747470733a2f2f7261776769742e636f6d2f676f72616e67616a69632f72656163742d69636f6e732f6d61737465722f72656163742d69636f6e732e737667'></img>
-          </div>
-          {user.rol === 2 && 
-            <div style={{display:"flex",gap:"8px",flexDirection:"column", textAlign:"center"}}>
-              <h5> Gestionar Datos: </h5>
-              <div style={{display:"flex",gap:"8px"}}>
-                <Link to="/inscripciones" className='btn btn-primary'>Usuarios</Link>
-                <Link to="/promociones/modificaciones" className='btn btn-primary'>Promociones</Link>
-                <Link to="/eventos/create" className='btn btn-primary'>Eventos</Link>
-                <Link to="/comercios" className='btn btn-primary'>Comercios</Link>
-              </div>
+        <Header className="default__header">
+          <div style={{display:"flex",flexDirection:"row",width:"100%",alignItems:"center",justifyContent:"space-around"}}>
+            <div className='logo rounded-circle'>
+              <img className='rounded-circle' src='https://res.cloudinary.com/dhdbik42m/image/upload/v1653223372/gxxwczzlh4bnfunaglnb-removebg-preview_rqogin.png'></img>
+              Cram Sports
             </div>
-          }
-          <GrLogout onClick={logoutSession} size={"40px"} ></GrLogout>
+            {user.rol === 2 && 
+              <div style={{display:"flex",gap:"8px",flexDirection:"column", textAlign:"center"}}>
+                <h5> Gestionar Datos: </h5>
+                <div style={{display:"flex",gap:"8px",flexWrap:"wrap",justifyContent:"center"}}>
+                  <Link to="/inscripciones" className='btn btn-primary'>Usuarios</Link>
+                  <Link to="/promociones/modificaciones" className='btn btn-primary'>Promociones</Link>
+                  <Link to="/eventos/create" className='btn btn-primary'>Eventos</Link>
+                  <Link to="/comercios" className='btn btn-primary'>Comercios</Link>
+                </div>
+              </div>
+            }
+            <GrLogout onClick={logoutSession} size={"40px"} ></GrLogout>
+          </div>
+          <nav className='navbar__mobile'>
+              <div style={{display:"flex",gap:"8px", justifyContent:"center"}}>
+                <Link to="/user" >User Page</Link>
+                <Link to="/logout" onClick={()=>logoutSession()} >Logout</Link>
+                <Link to="/user/profile" >Profile</Link>
+              </div>
+          </nav>
         </Header>
+        {/* Navegacion mobile */}
         {/* Menu de la Izquierda */}
         <Sidebar />
         {/* Contenido donde va aparecer la infromacion de los servicio */}

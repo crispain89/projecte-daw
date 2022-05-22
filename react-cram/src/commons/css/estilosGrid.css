@@ -78,15 +78,7 @@ html{
 .container__cruds{
     display: flex;
     justify-content: space-around;
-    width:1500px;
 
-}
-.container__uno{
-
-    width:600px;
-}
-.container__dos{
-    width:600px;
 }
 .container__dos-modificaciones {
     /* width: 600px; */
@@ -139,8 +131,7 @@ img{
 }
 
 .logo{
-    width: 125px;
-    height: 125px;
+    width: 90px;
 }
 
 .avatar{
@@ -183,6 +174,7 @@ img{
 }
 header{
     grid-area: header;
+    justify-content: center;
     display: flex;
     background-color: #0274d86c;
     justify-content: space-between;
@@ -293,6 +285,7 @@ section{
     /*overflow: hidden;*/
     grid-area: contenido;
     height: 100%;
+    padding: 16px;
 }
 .container__login{
     grid-area:contenido;
@@ -372,4 +365,41 @@ footer h1{
     top: 5%;
     left: 40%;
     
+}
+
+.navbar__mobile{
+    grid-area: navegacion;
+    display: none;
+    background-color: #83b7e3;
+    width: 100%;
+
+}
+
+@media (max-width:425px){
+    .container__cruds{
+        flex-direction: column;
+    }
+    .mobile__column{
+        flex-direction: column;
+        align-items: center;
+    }
+    .default__header{
+        gap: 8px;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+    }
+    .navbar__mobile{
+        display: block;
+    }
+    aside{
+        display: none;
+    }
+    .container__principal{
+        grid-template-areas:"header header header"
+        "contenido contenido contenido"
+        "footer footer footer";
+        grid-template-rows: 150px 1fr 150px;
+        grid-template-columns: 1fr;
+    }
 }

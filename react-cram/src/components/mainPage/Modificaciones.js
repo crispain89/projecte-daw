@@ -153,7 +153,7 @@ export default function Modificaciones({tabla}) {
         <MenusAuxiliar >
 				<Link className='btn btn-warning' to={'/inscripciones'} title={"Modicar usuario"} >Dar de alta usuario</Link>
 		</MenusAuxiliar>
-    <div className="container__dos-modificaciones">
+    <div className="flex-wrap container__dos-modificaciones">
         
         <Form  onSubmit={handleSubmit}>
             <h3>Introduce  los datos del usuario</h3>

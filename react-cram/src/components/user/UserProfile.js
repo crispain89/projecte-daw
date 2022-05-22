@@ -118,7 +118,7 @@ export default function UserProfile(){
                         <button onClick={handleFileUpload} className='btn mt-2 btn-primary'>Cambiar avatar</button>
                     </Form.Group>
                 </fieldset>
-                <fieldset className='customLegend'>
+                <fieldset className='flex-wrap customLegend mobile__column'>
                     <legend>Datos</legend>
                     <Col>
                         <Form.Group as={Col} className="mb-3" controlId="formPlaintextPassword">

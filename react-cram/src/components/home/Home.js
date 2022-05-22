@@ -20,6 +20,7 @@ export default function Home() {
           offset={0} 
           speed={0.5}
           style={{
+            textAlign:"center",
             display:"flex",
             justifyContent:"center",
             alignItems:"center",

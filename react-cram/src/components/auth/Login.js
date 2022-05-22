@@ -67,7 +67,7 @@ export function Login() {
     }
 
   return (
-      <div className="container w-50 mt-5 bg-light rounded p-3">
+      <div style={{maxWidth:"700px"}} className="container w-75 mt-5 bg-light rounded p-3">
         <div className="row justify-content-center">
             <Form onSubmit={handleSubmit}>
                 <h3 className="componente__titulo" >Login</h3>
