@@ -79,6 +79,8 @@ router.apiResource('usuarios', UsuarioCtrl)
 router.apiResource('roles', RolCtrl)
 router.apiResource('eventos',EventCtrl,fileUpload.single('image'))
 router.get('/comercios',ComerCtrl.index)
+router.get('/comercios/:nif',ComerCtrl.search)
+
 router.post('/comercios',fileUpload.single('image'),ComerCtrl.store)
 /* router.apiResource('comercios', ComerCtrl) */
 router.apiResource('comercios.promociones', PromoComerCtrl)
@@ -86,12 +88,14 @@ router.apiResource('eventos.promociones', PromoEventCtrl)
 router.apiResource('comercios.eventos',EventComerCtrl)
 router.apiResource('inscripciones', InsCtrl)
 router.apiResource('categorias', CategoriasCtrl)
-router.apiResource('usuario_comercios', UsuComerCtrl)
+router.apiResource('usuario_comercios',UsuComerCtrl )
 router.get('/comercios/:id/eventos', ComerCtrl.promos)
 router.get('/usuarios/:id/eventos',UsuarioCtrl.inscripcion)
 router.delete('/usuarios/:id/eventos',UsuarioCtrl.deleteInscripciones)
 router.get('/usuarios/:id/promociones',UsuarioCtrl.promociones)
 router.get('/usuarios/:id/promociones/:pid',UsuarioCtrl.getPromocion)
+router.get('/usuarios/:dni/comercios/:id', UsuarioCtrl.getPromoComerAndUser)
+
 
 
 //Upload

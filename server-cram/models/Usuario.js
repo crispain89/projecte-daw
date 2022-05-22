@@ -194,6 +194,32 @@ Usuario.deleteInscripcionesByUser= async function(req){
     })
     console.log("RESULT",result)
   return result;
+  }
+  Usuario.getPromoComer=async function(dni, id){
+    console.log('DNI', dni)
+    console.log('ID ', id)
 
+    const query= `SELECT u.nombre,u.email,u.telefono, u.apellidos, u.dni, c.nombre, e.nombre, e.edicion, p.titulo
+    FROM (( usuarios as u
+    INNER JOIN inscripciones as i ON i.id_usuario= u.id
+    INNER JOIN eventos as e ON e.id=i.id_evento
+    INNER JOIN promociones as p ON p.evento_id=e.id
+  INNER JOIN comercios as c ON c.id=${id}))
+    WHERE u.dni='${dni}' and p.fecha_expiracion< curdate() ;`
+   try{ 
+    const result = await sequelize.query(query, 
+        { 
+            model: Usuario, mapToModel: true,
+            nest: true,
+            raw: true,
+            type: sequelize.QueryTypes.SELECT 
+        })
+        console.log("RESULT",result)
+     return result;
+   }catch(e){
+       console.log(e)
+   }
 }
+
+
 module.exports=Usuario

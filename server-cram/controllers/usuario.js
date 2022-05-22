@@ -4,6 +4,21 @@ const {User, Promocion, Usu_comercio} = require("../models");
 const Op = Sequelize.Op;
 // Create and Save a new User
 // Retrieve all Usuarios from the database.
+exports.getPromoComerAndUser=async (req,res)=>{
+  console.log("REQ", req.params.dni)
+  try{
+      
+      const usu_promo_comer=await  User.getPromoComer(req.params.dni, req.params.id)
+      console.log(usu_promo_comer);
+      res.status(200).send(usu_promo_comer)
+  }catch(e){
+    res.status(500).send(
+      {
+        message: 
+          e.message || "no hemos encontrado nada con estos parametros."})
+  }
+}
+
 exports.inscripcion=async (req,res)=>{
   try{
     models= await User.getInscripciones(req);

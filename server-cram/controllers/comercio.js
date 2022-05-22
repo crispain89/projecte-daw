@@ -21,6 +21,21 @@ exports.promos=async(req,res)=>{
     }
     
 }
+exports.search=async(req,res)=>{
+    try{
+        const comercio = await Comercio.searchComercio(req.params.nif)
+        console.log(comercio)
+        res.status(200).send(comercio)
+
+    }catch(error){
+        res.status(500).send({
+            message: 
+                error.message || "no hemos encontrar este NIF"
+        })
+        console.log(error)
+    }
+
+}
 exports.index=async ( req, res)=>{
     try{
         const comercios = await Comercio.findAll();

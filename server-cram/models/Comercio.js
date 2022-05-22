@@ -47,7 +47,8 @@ const Comercio = sequelize.define("comercio", {
     }          
     },{
         timestamps: false,
-    });
+    }
+);
 
     //Comercio.hasMany(Promocion, {foreignKey: 'id'})
 
@@ -69,6 +70,18 @@ Comercio.getEventos = async function (id) {
 }
 Comercio.getNif= async function(){
     const query= await `select nif from comercios;`
+    const result = await sequelize.query(query, 
+        { 
+            model: Comercio, mapToModel: true,
+            nest: true,
+            raw: true,
+            type: sequelize.QueryTypes.SELECT 
+        })
+        console.log("RESULT",result)
+        return result;
+}
+Comercio.searchComercio= async function(nif){
+    const query= `select * from comercios where nif=${nif};`
     const result = await sequelize.query(query, 
         { 
             model: Comercio, mapToModel: true,
