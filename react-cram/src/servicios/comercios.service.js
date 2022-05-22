@@ -11,5 +11,9 @@ export default class ComerciosService extends ApiCrudService{
         return httpC.get(`/comercios?nif=${nif}`)
 
     }
+    static searchPromoAndUser(dni, id){
+        return httpC.get(`/usuarios/${dni}/comercios/${id}`)
+
+    }
     
 }
