@@ -7,6 +7,9 @@ export default class ComerciosService extends ApiCrudService{
     constructor(){
         super()
     }
-      
+    static serachComercio(nif){
+        return httpC.get(`/comercios?nif=${nif}`)
+
+    }
     
 }

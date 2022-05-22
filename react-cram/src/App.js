@@ -26,6 +26,9 @@ import EventosC from './components/mainPage/EventosC'
 import ModificacionesE from './components/mainPage/ModificacionesE'
 import Comercios from './components/mainPage/Comercios'
 import Promo from './components/promociones/Promo';
+import ModificacionesCo from './components/mainPage/ModificacionesCo'
+import ValidarPromo from './components/mainPage/ValidarPromo'
+
 
 //el token del mapbox
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_KEY
@@ -39,6 +42,7 @@ function App() {
           isAuthenticated ?
           <Layout>
             <Routes>
+              {/* adminitrador */}
               {
                 user.rol === 2 && 
                 <>
@@ -47,15 +51,27 @@ function App() {
                 <Route path='eventos' element={<Eventos/>}/>
                 <Route path='/eventos/create' element={<EventosC/>}/>
                 <Route path='/eventos/modificaciones' element={<ModificacionesE/>}/>
-                <Route path='/comercios' element={<Comercios/>}/>
+                <Route path='/comercio' element={<Comercios/>}/>
+                <Route path='/comercio/modificaciones' element={<ModificacionesCo/>}/>
+                <Route path='/comercio/validar' element={<ValidarPromo/>}/>
+
                 </>
 
               }
+              {/* comercial */}
               {
                 user.rol === 4 && 
+                <>     
                 <Route path='/eventos/modificaciones' element={<ModificacionesE/>}/>
+                <Route path='/comercio' element={<Comercios/>}/>
+                <Route path='/comercio/modificaciones' element={<ModificacionesCo/>}/>
+                <Route path='/comercio/validar' element={<ValidarPromo/>}/>
+
+                </>
+
 
               }
+              {/* participantes */}
               {
                 user.rol === 1 && 
                 <>

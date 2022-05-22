@@ -67,8 +67,6 @@ export default function CSVReader() {
 				return await ApiCrudService.create("inscripciones", { id_usuario: part.data.id, id_evento: idEvento })
 
 			}))
-			let coun = eventos.length
-		
 			alert("Se han inscrito los usuarios correctamente en la carrera .")
 
 		} catch (e) {

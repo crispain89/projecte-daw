@@ -18,16 +18,12 @@ import UsuariosService from '../../servicios/usuarios.service';
 export default function Comercios() {
   
     const [form, setForm] =useState([]);
-   
-
     const [long, setLong]=useState();
     const [lat, setLat]=useState();
     const [loading, setLoading]=useState(false);
     const [comercio, setComercio]=useState([]);
     const [categorias, setCategorias]=useState([]);
-    const [owner, setOwner]=useState(false);
     const [listComercio, setListComercio]=useState([])
-    const [nif, setNif]=useState([]);
     const [complet, setComplet]=useState(false)
     const [datos, setDatos] = useState([]);
 
@@ -62,9 +58,12 @@ const handleSubmitAlone= async (e)=>{
             alert("Se ha creado el usuario correctamente")
         }
         //tengo que pasarle el id del comercio y el id del usuario
-    
+        setLoading(false)
         let userComer=await ApiCrudService.create('usuario_comercios', {comercio_id:comercio.id,usuario_id:res.data.id} )
-        console.log("USERCOMER",userComer)
+        console.log(userComer)
+        window.alert('Ya se ha creado el el comercio y se ha vinculado al usuario.')
+        setComercio({});
+        
     }catch (e) {
         alert("Ha habido un error al crear el usuario")
 
@@ -88,7 +87,7 @@ const handleSubmitAlone= async (e)=>{
    
     const handleSubmit = async(e)=>{
         e.preventDefault();
-        setLoading(true)
+        setLoading(false)
         try{
             let elem = document.getElementById('form')
             let formData=new FormData(elem);
@@ -107,6 +106,7 @@ const handleSubmitAlone= async (e)=>{
                 console.log('dataaaaaaaaa',res.data)
                 if(res.status===200){
                     setComercio(res.data)
+                    setDatos({...datos, comercio_id:res.data.id})
                    
                     console.log('ID del puto comercio',res.data.id)
                 }
@@ -119,8 +119,8 @@ const handleSubmitAlone= async (e)=>{
 
         }finally{
 
-            setLoading(false) 
             setComplet(true)
+            setLoading(false) 
             console.log('DATOS',datos)
         }
     }
@@ -128,7 +128,9 @@ const handleSubmitAlone= async (e)=>{
 		<>
 			<MenusAuxiliar >
 				<Link className='btn btn-warning' to={'/comercio/modificaciones'} title={"Modicar usuario"} > Buscar Comercio</Link>
-			</MenusAuxiliar>
+				<Link className='btn btn-warning' to={'/comercio/validar'} title={"Modicar usuario"} > validar promocion</Link>
+
+            </MenusAuxiliar>
            
 			    <div className="container__cruds">    
                 { !complet ?
@@ -145,7 +147,7 @@ const handleSubmitAlone= async (e)=>{
                             <Form.Control name='latitud' value={lat} readOnly/>
                             <Form.Label >Longitud</Form.Label>
                             <Form.Control name='longitud' value={long} readOnly/>
-                            <Form.Label>Nif</Form.Label>
+                            <Form.Label>Dni</Form.Label>
                             <Form.Control name='nif' minLength='9' maxLength='9' type='text' required/>
                             {/* hacer un select */}
                             <Form.Label >Escoge una categoria</Form.Label>
