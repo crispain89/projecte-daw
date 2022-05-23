@@ -1,9 +1,9 @@
 import { Button, Card ,Badges, Badge} from "react-bootstrap";
 
-export default function Evento({inscrito,nombre,edicion,descripcion,inicio,final,lugar,src}){
+export default function Evento({onClick,inscrito,nombre,edicion,descripcion,inicio,final,lugar,src}){
     
     return(
-        <Card>
+        <Card onClick={onClick}>
             
             <Card.Body>
                 <div className='card__evento'>

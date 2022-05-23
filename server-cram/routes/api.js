@@ -78,6 +78,8 @@ router.get('/eventos/:id',EventCtrl.show) */
 router.apiResource('usuarios', UsuarioCtrl)
 router.apiResource('roles', RolCtrl)
 router.apiResource('eventos',EventCtrl,fileUpload.single('image'))
+router.get('/eventos/:id/comercios',EventCtrl.getComercios)
+router.get('/eventos/:id/promociones',EventCtrl.getPromociones)
 router.get('/comercios',ComerCtrl.index)
 router.get('/comercios/:nif',ComerCtrl.search)
 

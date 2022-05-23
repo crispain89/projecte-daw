@@ -56,5 +56,38 @@ Evento.getEventosCurrent=async function(req){
     console.log("RESULT",result)
     return result;
 }
+Evento.getComerciosByEvento=async function(req){
+    const {id} = req.params
+    const query=` SELECT c.nombre, c.id, c.src, c.poblacion   FROM (( eventos as e   INNER JOIN promociones as p ON p.evento_id= e.id   INNER JOIN comercios as c ON c.id=p.comercio_id   ))   WHERE e.id=${id} ;`
+
+    const result = await sequelize.query(query,{
+        model: Evento, mapToModel: true,
+        nest: true,
+        raw: true,
+        type: sequelize.QueryTypes.SELECT 
+
+    })
+    console.log("RESULT",result)
+    return result;
+}
+
+Evento.getPromocionesByEvento=async function(req){
+    const {id} = req.params
+    const query=`SELECT p.titulo, p.descripcion, p.src, p.id
+    FROM (( cram.eventos as e   
+    INNER JOIN cram.promociones as p ON p.evento_id= e.id ))  
+    WHERE e.id=${id} ;`
+
+    const result = await sequelize.query(query,{
+        model: Evento, mapToModel: true,
+        nest: true,
+        raw: true,
+        type: sequelize.QueryTypes.SELECT 
+
+    })
+    console.log("RESULT",result)
+    return result;
+}
+
 module.exports = Evento;
    

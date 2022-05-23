@@ -375,6 +375,14 @@ footer h1{
 
 }
 
+.button__row-left{
+    margin: 0 auto;
+}
+
+.show__qr{
+    display: none;
+}
+
 @media (max-width:425px){
     .container__cruds{
         flex-direction: column;
@@ -402,4 +410,20 @@ footer h1{
         grid-template-rows: 150px 1fr 150px;
         grid-template-columns: 1fr;
     }
+    .qr__promo{
+        display: none;
+    }
+    .show__qr{
+        display: block;
+    }
+}
+
+@media (max-width:1024px){
+    .laptop__column{
+        flex-direction: column;
+    }
+    .button__row-left{
+        margin: 0 auto 0 0;
+    }
+
 }

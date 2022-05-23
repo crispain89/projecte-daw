@@ -1,5 +1,6 @@
 import React, { useState,useEffect, useCallback, useContext } from 'react'
 import { Button, ButtonGroup, ButtonToolbar, Collapse } from 'react-bootstrap'
+import { useNavigate } from 'react-router';
 import EventosService from '../../servicios/eventos.service';
 import { AuthContext } from '../context/AuthContext';
 import Filters from './Filters';
@@ -17,6 +18,12 @@ export default function Eventos({className, ...rest}) {
   const [filteredEventos, setFilteredEventos] = useState([])
   const [userEventos, setUserEventos] = useState([])
   const [selected,setSelected] = useState(0)
+  const navigate = useNavigate()
+
+
+  const handleShowEvent = (id) => {
+    navigate(`/user/eventos/${id}`)
+  }
 
 
   const renderEventos = () => {
@@ -28,7 +35,7 @@ export default function Eventos({className, ...rest}) {
       case 1:
         //Inscritos
         return userEventos.map((evento)=>{ 
-          return<Evento inscrito={true} key={evento.id} nombre={evento.nombre} edicion={evento.edicion} descripcion={evento.descripcion}inicio={evento.fecha_inicio} final={evento.fecha_finalizacion} lugar={evento.lugar} src={evento.src}/>
+          return<Evento onClick={()=>handleShowEvent(evento.id)} inscrito={true} key={evento.id} nombre={evento.nombre} edicion={evento.edicion} descripcion={evento.descripcion}inicio={evento.fecha_inicio} final={evento.fecha_finalizacion} lugar={evento.lugar} src={evento.src}/>
         })
       case 2:
         //No inscritos
@@ -37,21 +44,21 @@ export default function Eventos({className, ...rest}) {
             return !userEventos.find(e => e.id_evento === evento.id)
           })
           .map((evento)=>{ 
-            return<Evento inscrito={false} key={evento.id} nombre={evento.nombre} edicion={evento.edicion} descripcion={evento.descripcion}inicio={evento.fecha_inicio} final={evento.fecha_finalizacion} lugar={evento.lugar} src={evento.src}/>
+            return<Evento onClick={()=>handleShowEvent(evento.id)} inscrito={false} key={evento.id} nombre={evento.nombre} edicion={evento.edicion} descripcion={evento.descripcion}inicio={evento.fecha_inicio} final={evento.fecha_finalizacion} lugar={evento.lugar} src={evento.src}/>
           })
       case 3:
         return filteredEventos.map((evento)=>{ 
           if ( userEventos.find(ev=>ev.id_evento === evento.id) ){
-            return<Evento inscrito={true} key={evento.id} nombre={evento.nombre} edicion={evento.edicion} descripcion={evento.descripcion}inicio={evento.fecha_inicio} final={evento.fecha_finalizacion} lugar={evento.lugar} src={evento.src}/>
+            return<Evento onClick={()=>handleShowEvent(evento.id)} inscrito={true} key={evento.id} nombre={evento.nombre} edicion={evento.edicion} descripcion={evento.descripcion}inicio={evento.fecha_inicio} final={evento.fecha_finalizacion} lugar={evento.lugar} src={evento.src}/>
           }
-          return<Evento key={evento.id} nombre={evento.nombre} edicion={evento.edicion} descripcion={evento.descripcion}inicio={evento.fecha_inicio} final={evento.fecha_finalizacion} lugar={evento.lugar} src={evento.src}/>
+          return<Evento onClick={()=>handleShowEvent(evento.id)} key={evento.id} nombre={evento.nombre} edicion={evento.edicion} descripcion={evento.descripcion}inicio={evento.fecha_inicio} final={evento.fecha_finalizacion} lugar={evento.lugar} src={evento.src}/>
         })
       default:
         return filteredEventos.map((evento)=>{ 
           if ( userEventos.find(ev=>ev.id_evento === evento.id) ){
-            return<Evento inscrito={true} key={evento.id} nombre={evento.nombre} edicion={evento.edicion} descripcion={evento.descripcion}inicio={evento.fecha_inicio} final={evento.fecha_finalizacion} lugar={evento.lugar} src={evento.src}/>
+            return<Evento onClick={()=>handleShowEvent(evento.id)} inscrito={true} key={evento.id} nombre={evento.nombre} edicion={evento.edicion} descripcion={evento.descripcion}inicio={evento.fecha_inicio} final={evento.fecha_finalizacion} lugar={evento.lugar} src={evento.src}/>
           }
-          return<Evento key={evento.id} nombre={evento.nombre} edicion={evento.edicion} descripcion={evento.descripcion}inicio={evento.fecha_inicio} final={evento.fecha_finalizacion} lugar={evento.lugar} src={evento.src}/>
+          return<Evento onClick={()=>handleShowEvent(evento.id)} key={evento.id} nombre={evento.nombre} edicion={evento.edicion} descripcion={evento.descripcion}inicio={evento.fecha_inicio} final={evento.fecha_finalizacion} lugar={evento.lugar} src={evento.src}/>
         })
     }
   }

@@ -21,6 +21,37 @@ exports.getEventoActive= async (req, res)=>{
 
     }
 }
+exports.getComercios= async (req, res)=>{
+
+    try{
+        const comercios= await Evento.getComerciosByEvento(req);
+        console.log("COMERCIOS DE LOS EVENTOS",comercios);
+        res.status(200).send(comercios)
+
+    }catch(e){
+        res.status(500).send({
+            message:
+                e.message || "No hemos podido listar los eventos"
+        });
+
+    }
+}
+
+exports.getPromociones= async (req, res)=>{
+
+    try{
+        const promociones= await Evento.getPromocionesByEvento(req);
+        console.log("PROMOCIONES DE LOS EVENTOS",promociones);
+        res.status(200).send(promociones)
+
+    }catch(e){
+        res.status(500).send({
+            message:
+                e.message || "No hemos podido listar los eventos"
+        });
+
+    }
+}
 exports.index=async ( req, res)=>{
     console.log("query",req.query)
     

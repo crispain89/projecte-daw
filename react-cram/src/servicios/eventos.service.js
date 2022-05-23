@@ -20,4 +20,10 @@ export default class EventosService extends ApiCrudService{
     static updatePhoto(data,id){
         return httpC.put(`/file/${id}`,data)
     }
+    static getComercios(id){
+        return httpC.get(`/eventos/${id}/comercios`)
+    }
+    static getPromociones(id){
+        return httpC.get(`/eventos/${id}/promociones`)
+    }
 }
