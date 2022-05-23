@@ -29,6 +29,8 @@ import Promo from './components/promociones/Promo';
 import ModificacionesCo from './components/mainPage/ModificacionesCo'
 import ValidarPromo from './components/mainPage/ValidarPromo'
 import Event from './components/eventos/Event';
+import Promocion from './components/mainPage/Promociones'
+
 
 //el token del mapbox
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_KEY
@@ -61,10 +63,11 @@ function App() {
               {/* comercial */}
               {
                 user.rol === 4 && 
-                <>     
+                <>   
+                <Route path='/promociones' element={<Promociones/>}/>
                 <Route path='/comercio/modificaciones' element={<ModificacionesCo/>}/>
                 <Route path='/comercio/validar' element={<ValidarPromo/>}/>
-                <Route path='/user/eventos' element={<ValidarPromo/>}/>
+                <Route path='/user/eventos' element={<Eventos/> }/>
 
                 </>
 

@@ -1,25 +1,42 @@
-import React,{useState, useEffect} from 'react'
+import React,{useState, useEffect, useContext, AuthContext} from 'react'
 import {Form, Button, Table} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import MenusAuxiliar from './MenusAuxiliar'
 import EventosService from '../../servicios/eventos.service'
 import ComerciosService from '../../servicios/comercios.service'
+import ApiCrudService from '../../servicios/crud.service'
+import Promociones from '../../servicios/promociones.service'
+import PromocionesService from '../../servicios/promociones.service'
+
 
 
 
 export default function ValidarPromo() {
-const [user, setUser]= useState([]);
-const [promoUser, setPromoUser]=useState([]);
-const [loading, setLoading]= useState(false);
+
+/* const { user, loading, setLoading } = useContext(AuthContext) */
+const [loadin, setLoading]= useState(false)
+const [users, setUsers]= useState([]);
+const [promoUser, setPromoUser]=useState({});
+const [promosUsed, setPromosUsed]=useState([]);
 const [encontrado, setEncontrado]= useState(false);
 
+useEffect(() => {
+    console.log('ENCONTRADO', encontrado)
+    //AQUI SALE
+    console.log(promoUser)
+  
+},[promoUser, users,encontrado])
+
 const handleSubmit=async(e) => {
+
     e.preventDefault();
     setLoading(true);
     try{
-        let promos= await ComerciosService.searchPromoAndUser(user.dni, 52);
-        console.log(promos.data)
+        let promos= await ComerciosService.searchPromoAndUser(users.dni, 52);
         setPromoUser(promos.data)
+        setUsers({...users, id:promoUser[0].id})
+        console.log('INFORMACION DEL USUARIO', users)
+
 
     }catch(e){
         console.log(e)
@@ -33,9 +50,27 @@ const handleSubmit=async(e) => {
 const handleValid=async(e,promo) => {
     e.preventDefault();
     console.log(e.target.value)
+    console.log('informacion de la promo',promo.id,promo.id_promocion)
     //enviar el id_usuario y el
     // id_promo a la APi para hacer insercción a la tabla usuario-promocion
     try {
+
+    let res = await PromocionesService.existThisPromo(promo.id, promo.id_promocion)
+    console.log("RESPUSTA DE LA CONSULTA",res)
+    if(res.data===''){
+        let preg=window.confirm('¿¿estas  seguro que quires validar esta promocion??')
+        if(preg===true){
+            let insert= await ApiCrudService.create('user_promo/promociones', {id_usuario:promo.id,id_promocion:promo.id_promocion})
+            if(insert.status===200){
+                setEncontrado(false);
+            }
+        }
+        console.log('no esxiste')
+    }else{
+        console.log('existe')
+        window.alert('Esta promocion ya la han usado anteniormente.')
+    }
+
 
 
     }catch(e){
@@ -43,16 +78,15 @@ const handleValid=async(e,promo) => {
     }
 
 }
-
+handleValid()
 
   return (
     <>
         <MenusAuxiliar >
    
-            <Link className='btn btn-warning' to={'/comercio/modificaciones'} title={"Modicar comercio"} >Buscar Comercio</Link>
+            <Link className='btn btn-warning' to={'/comercio/modificaciones'} title={"Buscar comercio"} >Buscar Comercio</Link>
 			<Link className='btn btn-warning' to={'/comercio'} title={"Dar de alta comercio"} >Alta Comercio</Link>
-             
-            <Link className='btn btn-warning' to={'/comercio/validar'} title={"Modicar comercio"} >Validar Promoción</Link>
+            <Link className='btn btn-warning' to={'/comercio/validar'} title={"Validar Promocion del comercio"} onClick={()=>setEncontrado(false)}>Validar Promoción</Link>
             
         </MenusAuxiliar>
         {!encontrado ?
@@ -61,11 +95,11 @@ const handleValid=async(e,promo) => {
                 <h3> Introduce los datos para validar la promoción</h3>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Introduce el numero DNI del cliente</Form.Label>
-                    <Form.Control onChange={(e)=> setUser({...user, dni:e.target.value})} placeholder="000000000R" minLength='9' maxLength='9' type="text" required />
+                    <Form.Control onChange={(e)=> setUsers({...users, dni:e.target.value})} placeholder="000000000R" minLength='9' maxLength='9' type="text" required />
                     <Form.Label >Telefono</Form.Label>
-                    <Form.Control minLength='9' maxLength='9' type="text" onChange={(e)=> setUser({...user, telefono:e.target.value})} />
+                    <Form.Control minLength='9' maxLength='9' type="text" onChange={(e)=> setUsers({...users, telefono:e.target.value})} />
                     <Form.Label>Email</Form.Label>
-                    <Form.Control type='email' onChange={(e)=> setUser({...user, email:e.target.value})} />
+                    <Form.Control type='email' onChange={(e)=> setUsers({...users, email:e.target.value})} />
                 </Form.Group>
                 <Button type="submit" >Buscar promociones</Button>
             </Form>

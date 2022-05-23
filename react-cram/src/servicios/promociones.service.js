@@ -22,4 +22,12 @@ export default class PromocionesService extends ApiCrudService{
     static getPromo(uid,id){
         return httpC.get(`/usuarios/${uid}/promociones/${id}`)
     }
+    static getPromosUsadas(id_usuario){
+      
+        return httpC.get(`user_promo/${id_usuario}/promociones`)
+    }
+    static existThisPromo(id_usuario, id_promocion){
+        console.log(id_usuario, id_promocion)
+        return httpC.get(`user_promo/${id_usuario}/promociones/${id_promocion}`)
+    }
 }

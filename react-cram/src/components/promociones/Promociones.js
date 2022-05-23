@@ -1,6 +1,6 @@
 import React, { useState,useEffect, useCallback, useContext } from 'react'
 import ComerciosService from '../../servicios/comercios.service.js';
-import PromocionesService from '../../servicios/promociones.service.js.js';
+import PromocionesService from '../../servicios/promociones.service.js';
 import Filters from './Filters'
 import { AuthContext } from '../context/AuthContext';
 //import Filters from '../eventos/Filters';

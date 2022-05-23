@@ -33,3 +33,11 @@ INNER JOIN comercios as c ON c.id=p.comercio_id))
 SELECT e.nombre, e.fecha_inicio,i.id_usuario
     FROM inscripciones as i, eventos as e
     WHERE i.id_usuario=24 and e.id=i.id_evento;
+
+    SELECT u.nombre,u.email,u.telefono, u.apellidos, u.dni, c.nombre, e.nombre, e.edicion, p.titulo
+  FROM (( usuarios as u
+  INNER JOIN inscripciones as i ON i.id_usuario= u.id
+  INNER JOIN eventos as e ON e.id=i.id_evento
+  INNER JOIN promociones as p ON p.evento_id=e.id
+INNER JOIN comercios as c ON c.id=52))
+  WHERE u.dni="12345654A" and p.fecha_expiracion< curdate()
