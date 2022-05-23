@@ -193,6 +193,10 @@ header{
 .card__evento{
     display: flex;
     flex-direction: row;
+    gap: 32px;
+}
+.card__body{
+    flex: 1;
 }
 .card__body li{
     list-style: none;
@@ -415,6 +419,12 @@ footer h1{
     }
     .show__qr{
         display: block;
+    }
+}
+
+@media (max-width:768px){
+    .card__evento{
+        flex-direction: column;
     }
 }
 
