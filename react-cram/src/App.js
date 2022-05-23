@@ -25,7 +25,7 @@ import Modificaciones from './components/mainPage/Modificaciones'
 import EventosC from './components/mainPage/EventosC'
 import ModificacionesE from './components/mainPage/ModificacionesE'
 import Comercios from './components/mainPage/Comercios'
-import Promo from './components/promociones/Promocion';
+import Promo from './components/promociones/Promo';
 
 //el token del mapbox
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_KEY

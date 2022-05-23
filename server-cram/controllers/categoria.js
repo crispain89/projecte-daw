@@ -8,7 +8,6 @@ exports.index=async ( req, res)=>{
     console.log("query",req.query) 
     try{   
         const categorias = await Categorias.findAll();
-        console.log("categoria", categorias)
         res.send(categorias);
 
     }catch(error){
@@ -52,7 +51,6 @@ exports.store = async (req, res) => {
       const categoria = await Categoria.update(req.body,{
         where : {id : id}
       });
-      console.log("categoria",categoria)
       res.send("El categoria se ha actualizado correctamente");
     } catch (error) {
       res.status(404).send({

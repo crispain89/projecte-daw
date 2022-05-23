@@ -24,7 +24,6 @@ exports.promos=async(req,res)=>{
 exports.index=async ( req, res)=>{
     try{
         const comercios = await Comercio.findAll();
-        console.log("comercios", comercios)
         res.send(comercios);
 
     }catch(error){
@@ -77,7 +76,6 @@ exports.update = async (req, res)=>{
         const comercio = await Comercio.update(req.body,{where : {id:id}
         });
         console.log("id",id)
-        console.log("comercio", comercio)
         res.status(200).send("el comercio se ha actualizado correctamente")
 
     }catch(error){

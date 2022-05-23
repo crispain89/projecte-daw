@@ -1,5 +1,5 @@
 const {Sequelize,sequelize} = require("../models/db");
-const {User, Promocion} = require("../models");
+const {User, Promocion, Usu_comercio} = require("../models");
 
 const Op = Sequelize.Op;
 // Create and Save a new User
@@ -95,6 +95,11 @@ exports.index = async (req, res) => {
 };
 exports.store = async (req, res) => {
   try {
+    if(req.query.comercial==="true"){
+      const usuario=await User.create({...req.body,rol_id:4})
+      console.log("USUario",usuario)
+      return res.status(200).send(usuario)
+    }
     const usuario = await User.build(req.body);
     /* probar en poner MockData.JSON */
     const usu= await usuario.save()

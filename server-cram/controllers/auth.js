@@ -1,5 +1,5 @@
 const {Sequelize,sequelize} = require("../models/db");
-const {User,Token, Rol} = require("../models");
+const {User,Token, Rol, Usu_comercio} = require("../models");
 const config = require("../config/auth");
 const smtpTransport = require("../config/mail")
 const jwt = require("jsonwebtoken");
@@ -117,6 +117,11 @@ exports.signin = async (req, res) => {
       expiresIn: 86400, // 24 hours
     });
     console.log("TOKEN",token)
+
+    let comercio_usu = await Usu_comercio.findOne({where:{usuario_id:usuario.id}})
+    console.log("USUARIO",usuario)
+    console.log("COMERCIO USU",comercio_usu)
+
     let usuarioData = {
       id: usuario.id,
       nombre: usuario.nombre,
@@ -124,7 +129,8 @@ exports.signin = async (req, res) => {
       rol: usuario.rol_id ?? 1,
       token:token,
       token_activado: usuario.token_activado ?? null,
-      avatar_src:usuario.avatar_src
+      avatar_src:usuario.avatar_src,
+      comercio_id:comercio_usu?.comercio_id ?? null
     }
     req.session.user = usuarioData;
     /*let authorities = [];
@@ -143,6 +149,7 @@ exports.signin = async (req, res) => {
         localidad: usuario.localidad ?? null,
         fecha_nacimiento: usuario.fecha_nacimiento ?? null,
         codigo_postal:usuario.codigo_postal ?? null,
+        comercio_id:comercio_usu?.comercio_id ?? null,
         dni: usuario.dni ?? null,
         telefono: usuario.telefono ?? null,
         avatar_src: usuario.avatar_src ?? null,

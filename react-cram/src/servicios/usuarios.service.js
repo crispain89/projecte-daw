@@ -33,5 +33,8 @@ export default class UsuariosService extends ApiCrudService{
     static updateAvatar(data,id){
         return httpC.put(`/file/${id}`,data)
     }
+    static createComercial(data){
+        return httpC.post(`/usuarios?comercial=true`,data)
+    }
     
 }

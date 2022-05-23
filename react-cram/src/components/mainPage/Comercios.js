@@ -8,6 +8,7 @@ import EventosService from '../../servicios/eventos.service'
 import ComerciosService from '../../servicios/comercios.service';
 import MenusAuxiliar from './MenusAuxiliar'
 import { Link } from 'react-router-dom';
+import UsuariosService from '../../servicios/usuarios.service';
 
 
 
@@ -32,51 +33,41 @@ export default function Comercios() {
 
 
     useEffect(()=>{
-        async function getCategorias (){
+        async function getData (){
             try {
                 setLoading(true)
                 let cat=await ApiCrudService.index('categorias');
                 setCategorias(cat.data)
+                let comerNif=await ComerciosService.index('comercios');
+                setListComercio(comerNif.data)
     
             } catch (e) {
-                
                 console.log(e)
             } finally {
                 setLoading(false)
             }
         }
-        getCategorias() 
+        getData() 
     },[])
 
-useEffect(() => {
-    async function getComercio(){
-        try{
-            setLoading(true)
-            let comerNif=await ComerciosService.index('comercios');
-            setListComercio(comerNif.data)
-        }catch (e) {
-            console.log(e)
-        }
-
-    }
-    getComercio()
-    
-},[form, comercio, datos])
 
 const handleSubmitAlone= async (e)=>{
     e.preventDefault();
     
     try{
         
-        let res= await ApiCrudService.create('usuarios', form)
-        setDatos({...datos,usuario_id:res.data.id});
-        
-
+        let res= await UsuariosService.createComercial(form)
+        if (res.status === 200) {
+            setDatos({...datos,usuario_id:res.data.id});
+            alert("Se ha creado el usuario correctamente")
+        }
         //tengo que pasarle el id del comercio y el id del usuario
     
         let userComer=await ApiCrudService.create('usuario_comercios', {comercio_id:comercio.id,usuario_id:res.data.id} )
-        console.log(userComer)
+        console.log("USERCOMER",userComer)
     }catch (e) {
+        alert("Ha habido un error al crear el usuario")
+
         console.log(e)
     }
 }
