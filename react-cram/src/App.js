@@ -62,10 +62,9 @@ function App() {
               {
                 user.rol === 4 && 
                 <>     
-                <Route path='/eventos/modificaciones' element={<ModificacionesE/>}/>
-                <Route path='/comercio' element={<Comercios/>}/>
                 <Route path='/comercio/modificaciones' element={<ModificacionesCo/>}/>
                 <Route path='/comercio/validar' element={<ValidarPromo/>}/>
+                <Route path='/user/eventos' element={<ValidarPromo/>}/>
 
                 </>
 

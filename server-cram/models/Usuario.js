@@ -199,7 +199,7 @@ Usuario.deleteInscripcionesByUser= async function(req){
     console.log('DNI', dni)
     console.log('ID ', id)
 
-    const query= `SELECT u.nombre,u.email,u.telefono, u.apellidos, u.dni, c.nombre, e.nombre, e.edicion, p.titulo
+    const query= `SELECT u.id as id_usuario, p.id as is_promocion,u.nombre,u.email,u.telefono, u.apellidos, u.dni, c.nombre, e.nombre, e.edicion, p.titulo
     FROM (( usuarios as u
     INNER JOIN inscripciones as i ON i.id_usuario= u.id
     INNER JOIN eventos as e ON e.id=i.id_evento

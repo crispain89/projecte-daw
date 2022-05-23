@@ -78,7 +78,17 @@ export default function Layout({ children, sidebar = false }) {
                   <Link to="/inscripciones" className='btn btn-primary'>Usuarios</Link>
                   <Link to="/promociones/modificaciones" className='btn btn-primary'>Promociones</Link>
                   <Link to="/eventos/create" className='btn btn-primary'>Eventos</Link>
-                  <Link to="/comercios" className='btn btn-primary'>Comercios</Link>
+                  <Link to="/comercio" className='btn btn-primary'>Comercios</Link>
+                </div>
+              </div>
+            }
+            {user.rol === 4 && 
+              <div style={{display:"flex",gap:"8px",flexDirection:"column", textAlign:"center"}}>
+                <h5> Gestionar Datos: </h5>
+                <div style={{display:"flex",gap:"8px",flexWrap:"wrap",justifyContent:"center"}}>
+                  <Link to="/promociones/create" className='btn btn-primary'>Crear nueva promocion</Link>
+                  <Link to="/promociones/modificaciones" className='btn btn-primary'>Promociones</Link>
+                  <Link to="/eventos" className='btn btn-primary'>Eventos</Link>
                 </div>
               </div>
             }

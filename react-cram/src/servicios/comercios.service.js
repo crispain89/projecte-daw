@@ -15,5 +15,7 @@ export default class ComerciosService extends ApiCrudService{
         return httpC.get(`/usuarios/${dni}/comercios/${id}`)
 
     }
+
+    
     
 }
