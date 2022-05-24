@@ -61,7 +61,14 @@ Desplegamos aplicacion de react:
 
 Desplegamos api de node:
 
-- hacemos git clone del repositorio en /var/www/html
-- entramos a la carpeta server-cram
-- ejecutamos el comando npm install && npm start
+
+- Nos aseguramos que el puerto que necesitemos para nuestra app de node esta abierto con el comando: 'iptables -L'
+- Si no lo encontramos: 'iptables -I INPUT 1 -i eth0 -p tcp --dport 4000 -j ACCEPT'
+- Instalamos node si no esta instalado (ir al anexo para el script de instalacion)
+- Clonamos el repositorio de github en la carpeta /var/www/html/projecte-daw
+- Accedemos a server-cram desde ahi
+- Nos aseguramos que el index.js del node esta escuchando al puerto que acabamos de abrir
+- Nos aseguramos que el script de inicio npm start apunta al fichero index.js
+- Ejecutamos 'npm start' en la raiz
+- Abrimos esta url en el navegador y esperamos la respuesta: http://65.108.245.5:4000
 - opcionalmente podemos ejecutar el comando pm2 start index.js para tener el servidor en segundo plano y activo 24/7
