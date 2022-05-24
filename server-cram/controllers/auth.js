@@ -41,7 +41,7 @@ async function sendVerificationMail(req,res,usuario,token,type="account"){
       from: 'cram.testing@gmail.com', 
       to: usuario.email, 
       subject: 'Password reset link',
-      text: 'Hello '+ usuario.nombre +',\n\n' + 'Please reset your password by clicking the link: \nhttp:\/\/' + "localhost:3000" +  '\/forgot' + '\/' + 'reset\/' + usuario.id + '\/' + token.token + '\n\nThank You!\n' 
+      text: 'Hello '+ usuario.nombre +',\n\n' + 'Please reset your password by clicking the link: \nhttp:\/\/' + "65.108.245.5" +  '\/forgot' + '\/' + 'reset\/' + usuario.id + '\/' + token.token + '\n\nThank You!\n' 
     };
     smtpTransport.sendMail(mailOptions, function (err) {
       if (err) { 
