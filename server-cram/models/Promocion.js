@@ -7,9 +7,13 @@ const Promocion = sequelize.define("promociones", {
         primaryKey:true,
         autoIncrement: true
     },
+    titulo:{
+        type:Sequelize.STRING,
+        allowNull:true,
+    },
     token:{
         type:Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     descripcion:{
         type:Sequelize.STRING,

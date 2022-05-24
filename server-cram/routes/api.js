@@ -18,6 +18,7 @@ const InsCtrl=require('../controllers/inscripciones.js')
 const CategoriasCtrl=require('../controllers/categoria.js')
 const UsuComerCtrl = require('../controllers/usuario_comercio.js')
 const UsuPromoCtrl = require('../controllers/userPromo.js')
+const PromoCtrl = require('../controllers/promo.js')
 /* const InscripUserCtrl= require('../controllers/inscripciones_usuarios.js') */
 
 //Middlewares
@@ -91,6 +92,7 @@ router.apiResource('comercios.promociones', PromoComerCtrl)
 router.apiResource('eventos.promociones', PromoEventCtrl)
 router.apiResource('comercios.eventos',EventComerCtrl)
 router.apiResource('inscripciones', InsCtrl)
+router.apiResource('promociones', PromoCtrl, fileUpload.single('image'))
 router.apiResource('categorias', CategoriasCtrl)
 router.apiResource('usuario_comercios',UsuComerCtrl )
 router.get('/user_promo/:id/promociones',UsuPromoCtrl.getPromoUsedByUser)

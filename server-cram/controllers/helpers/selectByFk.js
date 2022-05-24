@@ -11,12 +11,9 @@ selectByFk = async (req, res, model, fk) => {
     let models;
     models = await model.findAll({where:{[fk]:id}});
     console.log("models:", models)
-    res.send(models);
+    return models
   }catch(error){
-    res.status(500).send({
-        message: 
-            error.message || "No hemos podido listar los models"
-    });
+    throw new Error(error.message)
   }
 }
 

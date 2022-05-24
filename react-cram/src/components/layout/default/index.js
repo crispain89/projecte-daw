@@ -86,9 +86,10 @@ export default function Layout({ children, sidebar = false }) {
               <div style={{display:"flex",gap:"8px",flexDirection:"column", textAlign:"center"}}>
                 <h5> Gestionar Datos: </h5>
                 <div style={{display:"flex",gap:"8px",flexWrap:"wrap",justifyContent:"center"}}>
+                  <Link to="/comercio/promociones" className='btn btn-primary'>Promociones</Link>
                   <Link to="/promociones/create" className='btn btn-primary'>Crear nueva promocion</Link>
-                  <Link to="/promociones/modificaciones" className='btn btn-primary'>Promociones</Link>
-                  <Link to="/eventos" className='btn btn-primary'>Eventos</Link>
+                  <Link to="/comercio/validar" className='btn btn-primary'>Validar promociones</Link>
+                  <Link to="/user/eventos" className='btn btn-primary'>Eventos</Link>
                 </div>
               </div>
             }

@@ -7,7 +7,15 @@ const { selectByFk, createByFk, deleteByFk, updateByFk ,getIdByFk}= require("./h
 const Op= Sequelize.Op;
 
 exports.index=async( req, res)=>{
-    selectByFk(req,res,Promocion,"comercio_id")
+    try{
+        const promos = await selectByFk(req,res,Promocion,"comercio_id")
+        console.log("PROMOS",promos)
+        res.status(200).send(promos)
+        
+    }catch(e){
+        res.status(500).send({message:e})
+    }
+
 };
 
 exports.store = ( req, res)=>{

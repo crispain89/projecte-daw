@@ -30,6 +30,7 @@ import ModificacionesCo from './components/mainPage/ModificacionesCo'
 import ValidarPromo from './components/mainPage/ValidarPromo'
 import Event from './components/eventos/Event';
 import Promocion from './components/mainPage/Promociones'
+import PromocionesC from './components/promociones/CreatePromo';
 
 
 //el token del mapbox
@@ -50,7 +51,6 @@ function App() {
                 <>
                 <Route path='inscripciones' element={<Inscripciones/> }/>
                 <Route path='inscripciones/modificaciones' element={<Modificaciones tabla={'usuarios'} /> }/>
-                <Route path='eventos' element={<Eventos/>}/>
                 <Route path='/eventos/create' element={<EventosC/>}/>
                 <Route path='/eventos/modificaciones' element={<ModificacionesE/>}/>
                 <Route path='/comercio' element={<Comercios/>}/>
@@ -64,10 +64,12 @@ function App() {
               {
                 user.rol === 4 && 
                 <>   
-                <Route path='/promociones' element={<Promociones/>}/>
+                <Route path='/comercio/promociones' element={<Promociones/>}/>
+                <Route path='/promociones/create' element={<PromocionesC/>}/>
                 <Route path='/comercio/modificaciones' element={<ModificacionesCo/>}/>
                 <Route path='/comercio/validar' element={<ValidarPromo/>}/>
-                <Route path='/user/eventos' element={<Eventos/> }/>
+                <Route path='user/eventos' element={<Eventos/> }/>
+                <Route path='user/eventos/:id' element={ <Event/> }/>
 
                 </>
 

@@ -1,4 +1,4 @@
-import React,{useState, useEffect, useContext, AuthContext} from 'react'
+import React,{useState, useEffect, useContext} from 'react'
 import {Form, Button, Table} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import MenusAuxiliar from './MenusAuxiliar'
@@ -7,14 +7,14 @@ import ComerciosService from '../../servicios/comercios.service'
 import ApiCrudService from '../../servicios/crud.service'
 import Promociones from '../../servicios/promociones.service'
 import PromocionesService from '../../servicios/promociones.service'
+import { AuthContext } from '../context/AuthContext'
 
 
 
 
 export default function ValidarPromo() {
 
-/* const { user, loading, setLoading } = useContext(AuthContext) */
-const [loadin, setLoading]= useState(false)
+const { user, loading, setLoading } = useContext(AuthContext)
 const [users, setUsers]= useState([]);
 const [promoUser, setPromoUser]=useState({});
 const [promosUsed, setPromosUsed]=useState([]);
@@ -32,7 +32,8 @@ const handleSubmit=async(e) => {
     e.preventDefault();
     setLoading(true);
     try{
-        let promos= await ComerciosService.searchPromoAndUser(users.dni, 52);
+        let promos= await ComerciosService.searchPromoAndUser(users.dni, user.comercio_id);
+        console.log("PROMOS",promos)
         setPromoUser(promos.data)
         setUsers({...users, id:promoUser[0].id})
         console.log('INFORMACION DEL USUARIO', users)
@@ -69,23 +70,26 @@ const handleValid=async(e,promo) => {
     }else{
         console.log('existe')
         window.alert('Esta promocion ya la han usado anteniormente.')
+        setEncontrado(false)
     }
 
 
 
     }catch(e){
-
+        console.log(e)
     }
 
 }
-handleValid()
 
   return (
     <>
         <MenusAuxiliar >
-   
-            <Link className='btn btn-warning' to={'/comercio/modificaciones'} title={"Buscar comercio"} >Buscar Comercio</Link>
-			<Link className='btn btn-warning' to={'/comercio'} title={"Dar de alta comercio"} >Alta Comercio</Link>
+            {user.rol===2 && 
+                <>
+                    <Link className='btn btn-warning' to={'/comercio/modificaciones'} title={"Buscar comercio"} >Buscar Comercio</Link>
+                    <Link className='btn btn-warning' to={'/comercio'} title={"Dar de alta comercio"} >Alta Comercio</Link>
+                </>
+            }
             <Link className='btn btn-warning' to={'/comercio/validar'} title={"Validar Promocion del comercio"} onClick={()=>setEncontrado(false)}>Validar Promoción</Link>
             
         </MenusAuxiliar>
