@@ -88,17 +88,10 @@ export default function MainPage() {
         </div>
         <div className="card__wrapper col-lg-4 col-md-12">
           <div className='card__box'>
-            {user.rol === 2 ?
-              <>
-                <Tarjeta path={"/usuarios"} src={"https://res.cloudinary.com/dhdbik42m/image/upload/v1652900893/202-2022198_icono-administrador-de-usuario-iconos-de-administrador-png_xbf00e.jpg"} alt={"newspaper"} title={"Usuarios"} subtitle={" Gestionar usuarios"} />
-                <Link className="card__link" to={"/home"}>Ver todos los usuarios</Link>
-              </>
-            :
               <>
                 <Tarjeta path={"/noticias"} src={"https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Newspaper_Cover.svg/2048px-Newspaper_Cover.svg.png"} alt={"newspaper"} title={"Noticias"} subtitle={" Noticias de los eventos"} />
                 <Link className="card__link" to={"/home"}>Ver noticias locales</Link>
               </>
-            }
           </div>
         </div>
 

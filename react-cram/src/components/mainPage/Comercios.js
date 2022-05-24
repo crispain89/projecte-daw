@@ -128,8 +128,6 @@ const handleSubmitAlone= async (e)=>{
 		<>
 			<MenusAuxiliar >
 				<Link className='btn btn-warning' to={'/comercio/modificaciones'} title={"Modicar usuario"} > Buscar Comercio</Link>
-                <Link className='btn btn-warning' to={'/comercio/validar'} title={"Validar Promocion del comercio"}>Validar Promoción</Link>
-                <Link className='btn btn-warning' to={'/comercio/createPromocion'} title={'crear una promocion para este comercio'}>CrearPromocion</Link>
             </MenusAuxiliar>
            
 			    <div className="container__cruds">    

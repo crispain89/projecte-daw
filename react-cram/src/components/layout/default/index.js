@@ -76,7 +76,6 @@ export default function Layout({ children, sidebar = false }) {
                 <h5> Gestionar Datos: </h5>
                 <div style={{display:"flex",gap:"8px",flexWrap:"wrap",justifyContent:"center"}}>
                   <Link to="/inscripciones" className='btn btn-primary'>Usuarios</Link>
-                  <Link to="/promociones/modificaciones" className='btn btn-primary'>Promociones</Link>
                   <Link to="/eventos/create" className='btn btn-primary'>Eventos</Link>
                   <Link to="/comercio" className='btn btn-primary'>Comercios</Link>
                 </div>

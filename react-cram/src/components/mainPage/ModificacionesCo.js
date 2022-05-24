@@ -97,7 +97,6 @@ export default function ModificacionesCo() {
     		<MenusAuxiliar >
 				<Link className='btn btn-warning' to={'/comercio'} title={"busvar comercio"} > Buscar Comercio</Link>
                 <Link className='btn btn-warning' to={'/comercio'} title={"Dar de alta comercio"} >Alta Comercio</Link>
-                <Link className='btn btn-warning' to={'/comercio/validar'} title={"Validar Promocion del comercio"}>Validar Promoción</Link>
 			</MenusAuxiliar>
 			    <div className="container__cruds">    
                     <Form id='form' onSubmit={handleSubmit}>

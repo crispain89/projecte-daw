@@ -35,6 +35,13 @@ html{
     border-radius: 16px;
 }
 
+.create__evento{
+    width: 60%;
+    display: flex;
+    margin: 0 auto;
+    flex-direction: column;
+}
+
 .container__principal{
     background-color: #81bdf1c5;
 
@@ -388,6 +395,9 @@ footer h1{
 }
 
 @media (max-width:425px){
+    .create__evento{
+        width: 90%;
+    }
     .container__cruds{
         flex-direction: column;
     }

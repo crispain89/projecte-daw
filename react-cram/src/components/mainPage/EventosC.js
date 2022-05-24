@@ -76,7 +76,7 @@ export default function EventosC() {
         <MenusAuxiliar>
             <Link className='btn btn-warning' to={'/eventos/modificaciones'} title={"Modicar Evento"} > Buscar Evento</Link>
         </MenusAuxiliar>
-        <div>
+        <div className='create__evento'>
             
             <h3>Dar de alta un evento</h3>
             <fieldset className='customLegend'>
