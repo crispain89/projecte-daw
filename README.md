@@ -1,70 +1,67 @@
-# Getting Started with Create React App
+# Instalacion Aplicacion Cram Sports
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este repositorio cuenta con dos carpetas principales: 
 
-## Available Scripts
+- react-cram: contiene el frontend hecho con reactjs (npx create-react-app)
+- server-cram: contiene el backend hecho con expressjs y con una base de datos MYSQL
 
-In the project directory, you can run:
+## Requisitios previos para la instalacion del proyecto
 
-### `npm start`
+Nodejs >=16.4.2
+Npm >=8.5
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Para instalar node de una forma rapida y con la version adecuada seguimos estos pasos:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+-Instalar nvm: 'wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash'
+-Recargar bashrc: 'source ~./bashrc'
+-Instalar la version de node que queramos: nvm install 18
 
-### `npm test`
+## Pasos a seguir para poner la aplicacion en marcha (en localhost)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Desde la raiz del proyecto 'projecte-daw/':
 
-### `npm run build`
+- cd server-cram
+- nano .env *Pegamos el contenido del .env de la api que se encuentra en el anexo de la documentación*
+- npm install && npm start
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Desde la raiz del proyecto 'projecte-daw/':
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- cd react-cram
+- nano .env *Pegamos el contenido del .env del frontend que se encuentra en el anexo de la documentación*
+- npm install && npm start
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Estos comandos iniciaran dos servidores localhost uno para frontend y otro para backend con los puertos 3000 y 8080  respectivamente
 
-### `npm run eject`
+Una vez hecho todo esto, solo tenemos que ir al navegador con la ruta http://localhost:3000 para el fontend y http://localhost:8080 para el backend
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Pasos a seguir para desplegar la aplicacion (en servidor externo)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Requisitos previos para el despliegue
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Apache2
+vsftpd
+filezilla (en cliente)
+pm2(opcional)
 
-## Learn More
+Configuramos servidor apache:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- creamos nuevo archivo de configuracion nombre.conf en /etc/apache2/sites-available
+- configuramos el virtualHost para que el DocumentRoot escuche a /var/www/html/'carpeta'
+- a2ensite nombre.conf  (para habilitar el virtualhost propio)
+- a2dissite 000-default.conf (para desactivar el virtualhost por defecto)
+- service apache2 restart
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Desplegamos aplicacion de react:
 
-### Code Splitting
+- en otra maquina, ejecutamos el comando npm run build que nos creara una carpeta build
+- pasamos la carpeta build al servidor a traves de filezilla
+- service apache2 restart
+- abrimos el navegador con la ruta http://65.108.245.5/
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Desplegamos api de node:
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- hacemos git clone del repositorio en /var/www/html
+- entramos a la carpeta server-cram
+- ejecutamos el comando npm install && npm start
+- opcionalmente podemos ejecutar el comando pm2 start index.js para tener el servidor en segundo plano y activo 24/7
